@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;500;600&amp;family=Be+Vietnam+Pro:wght@400;500&amp;family=Space+Grotesk:wght@500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "background": "#fcf9f8",
+                        "surface-container-low": "#f6f3f2",
+                        "secondary-fixed": "#ffdbce",
+                        "outline-variant": "#d4c2c2",
+                        "on-primary-fixed-variant": "#613d3e",
+                        "secondary-fixed-dim": "#ffb59a",
+                        "on-tertiary-fixed-variant": "#5c4127",
+                        "on-secondary-container": "#783c24",
+                        "on-secondary-fixed-variant": "#71361e",
+                        "on-primary-fixed": "#2f1314",
+                        "surface-container-high": "#eae7e7",
+                        "primary-fixed": "#ffdad9",
+                        "on-background": "#1c1b1b",
+                        "on-surface": "#1c1b1b",
+                        "on-primary-container": "#fffbff",
+                        "tertiary-fixed-dim": "#e7bf9d",
+                        "surface-variant": "#e5e2e1",
+                        "secondary-container": "#feaa8a",
+                        "surface-bright": "#fcf9f8",
+                        "on-surface-variant": "#504444",
+                        "surface-tint": "#7b5455",
+                        "tertiary-container": "#8f6e51",
+                        "error-container": "#ffdad6",
+                        "surface-container": "#f0eded",
+                        "on-tertiary-fixed": "#2b1703",
+                        "tertiary": "#74563b",
+                        "surface": "#fcf9f8",
+                        "surface-container-highest": "#e5e2e1",
+                        "secondary": "#8e4d33",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed": "#380d00",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-container": "#fffbff",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "outline": "#827473",
+                        "tertiary-fixed": "#ffdcc0",
+                        "primary-container": "#936a6a",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#313030",
+                        "inverse-primary": "#ecbaba",
+                        "on-secondary": "#ffffff",
+                        "inverse-on-surface": "#f3f0ef",
+                        "error": "#ba1a1a",
+                        "primary": "#785252",
+                        "primary-fixed-dim": "#ecbaba",
+                        "surface-dim": "#dcd9d9"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "container-max": "1280px",
+                        "section-gap": "80px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "h3": ["Newsreader"],
+                        "body-md": ["Be Vietnam Pro"],
+                        "label-caps": ["Space Grotesk"],
+                        "h2": ["Newsreader"],
+                        "price-display": ["Space Grotesk"],
+                        "h1": ["Newsreader"],
+                        "body-lg": ["Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "h3": ["24px", { "lineHeight": "1.3", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "h2": ["32px", { "lineHeight": "1.2", "fontWeight": "600" }],
+                        "price-display": ["20px", { "lineHeight": "1", "fontWeight": "500" }],
+                        "h1": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .product-card-hover:hover img {
+            transform: scale(1.05);
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .aspect-3-4 {
+            aspect-ratio: 3/4;
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-background font-body-md">
+    <!-- TopNavBar -->
+<header class="sticky top-0 z-50 bg-[#F9F6F1] border-b border-stone-200">
+<nav class="flex justify-between items-center px-8 py-6 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-8">
+<a class="text-2xl font-['Newsreader'] font-bold italic text-stone-900" href="index.html">Archive Closet</a>
+<div class="hidden md:flex gap-6">
+<a class="text-[#A67B7B] border-b-2 border-[#E07A5F] pb-1 font-sans uppercase tracking-widest text-xs" href="shop.html">Women</a>
+<a class="text-stone-600 font-sans uppercase tracking-widest text-xs hover:text-[#A67B7B] transition-colors duration-300" href="outfits.html">Outfits</a>
+<a class="text-stone-600 font-sans uppercase tracking-widest text-xs hover:text-[#A67B7B] transition-colors duration-300" href="drops.html">New Drops</a>
+<a class="text-stone-600 font-sans uppercase tracking-widest text-xs hover:text-[#A67B7B] transition-colors duration-300" href="about.html">About</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<a class="p-2 transition-opacity active:opacity-70" href="https://wa.me/263718968489?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20a%20few%20pieces" target="_blank">
+<span class="material-symbols-outlined text-[#A67B7B]" data-icon="shopping_bag">shopping_bag</span>
+</a>
+<button aria-controls="mobile-menu" aria-expanded="false" class="md:hidden p-2" data-mobile-menu-toggle type="button">
+<span class="material-symbols-outlined text-[#A67B7B]" data-icon="menu">menu</span>
+</button>
+</div>
+</nav>
+<div class="hidden border-t border-stone-200 md:hidden px-8 py-4" id="mobile-menu">
+<div class="flex flex-col gap-4">
+<a class="text-stone-600 font-sans uppercase tracking-widest text-xs hover:text-[#A67B7B] transition-colors duration-300" href="shop.html">Women</a>
+<a class="text-stone-600 font-sans uppercase tracking-widest text-xs hover:text-[#A67B7B] transition-colors duration-300" href="outfits.html">Outfits</a>
+<a class="text-stone-600 font-sans uppercase tracking-widest text-xs hover:text-[#A67B7B] transition-colors duration-300" href="drops.html">New Drops</a>
+<a class="text-stone-600 font-sans uppercase tracking-widest text-xs hover:text-[#A67B7B] transition-colors duration-300" href="about.html">About</a>
+
+</div>
+</div>
+</header>
+    <main class="pt-24 pb-section-gap">
+        <!-- Hero Header -->
+        <section class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto mb-12">
+            <h1 class="font-h1 text-h1 text-primary mb-2">Vintage Women's</h1>
+            <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Hand-picked archival pieces from the
+                late 90s and early 2000s. Curated for the modern silhouette with a nod to raw urban aesthetics.</p>
+        </section>
+        <!-- Filter/Sort Bar -->
+        <section
+            class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto sticky top-[72px] z-40 bg-background/95 backdrop-blur-sm border-b border-outline-variant/30 py-4 mb-8">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+                <div class="flex flex-wrap items-center gap-3">
+                    <select id="filter-category" class="px-4 py-2 border border-outline-variant rounded-full text-label-caps font-label-caps hover:border-secondary transition-colors bg-transparent cursor-pointer">
+                        <option value="all">Category</option>
+                        <option value="corsets-tops">Corsets &amp; Tops</option>
+                        <option value="mini-skirts">Mini Skirts</option>
+                        <option value="cargo-utility">Cargo &amp; Utility</option>
+                        <option value="denim">Denim</option>
+                        <option value="dresses">Dresses</option>
+                        <option value="vintage-tees">Vintage Tees</option>
+                        <option value="jackets">Jackets</option>
+                        <option value="coats">Coats</option>
+                        <option value="blazers">Blazers</option>
+                    </select>
+                    <select id="filter-size" class="px-4 py-2 border border-outline-variant rounded-full text-label-caps font-label-caps hover:border-secondary transition-colors bg-transparent cursor-pointer">
+                        <option value="all">Size</option>
+                        <option value="XS">XS</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                        <option value="OS">OS (One Size)</option>
+                    </select>
+                    <select id="filter-era" class="px-4 py-2 border border-outline-variant rounded-full text-label-caps font-label-caps hover:border-secondary transition-colors bg-transparent cursor-pointer">
+                        <option value="all">Era</option>
+                        <option value="90s">90s Vintage</option>
+                        <option value="y2k">Y2K Era</option>
+                        <option value="00s">00s Designer</option>
+                    </select>
+                    <select id="filter-price" class="px-4 py-2 border border-outline-variant rounded-full text-label-caps font-label-caps hover:border-secondary transition-colors bg-transparent cursor-pointer">
+                        <option value="all">Price</option>
+                        <option value="under-10">Under $10</option>
+                        <option value="10-20">$10&ndash;$20</option>
+                        <option value="20-30">$20&ndash;$30</option>
+                        <option value="30-50">$30&ndash;$50</option>
+                        <option value="over-50">Over $50</option>
+                    </select>
+                </div>
+                <div class="flex items-center gap-6">
+                    <span id="item-count" class="item-count font-label-caps text-label-caps text-on-surface-variant">12 items</span>
+                    <div class="flex items-center gap-2">
+                        <span class="font-label-caps text-label-caps text-on-surface-variant">Sort by:</span>
+                        <select id="sort-select" class="bg-transparent border-none font-label-caps text-label-caps text-primary focus:ring-0 cursor-pointer">
+                            <option value="newest">Newest</option>
+                            <option value="price-asc">Price Low-High</option>
+                            <option value="price-desc">Price High-Low</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Product Grid -->
+        <section class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+            <div id="product-grid" class="grid grid-cols-2 md:grid-cols-4 gap-1 md:gap-2">
+  <div id="loading" class="col-span-4 text-center py-20 text-on-surface-variant font-body-md">Loading products...</div>
+</div>
+
+        </section>
+    </main>
+    <!-- Footer -->
+<footer class="bg-[#F9F6F1] border-t border-stone-200">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12 px-8 py-16 w-full max-w-7xl mx-auto text-center md:text-left">
+<div>
+<a class="text-xl font-['Newsreader'] font-bold italic text-stone-800" href="index.html">Archive Closet</a>
+<p class="mt-4 text-stone-500 text-sm font-['Newsreader'] max-w-xs mx-auto md:mx-0">Curating the finest archival streetwear and vintage gems for the modern baddie aesthetic.</p>
+</div>
+<div class="flex flex-col gap-4">
+<p class="font-['Space_Grotesk'] text-xs uppercase tracking-widest text-stone-900 mb-2">Help</p>
+<a class="text-stone-500 hover:text-[#E07A5F] transition-colors text-sm" href="contact.html">Contact</a>
+<a class="text-stone-500 hover:text-[#E07A5F] transition-colors text-sm" href="faq.html">FAQ</a>
+<a class="flex items-center justify-center md:justify-start gap-2 text-stone-500 hover:text-green-600 transition-colors text-sm" href="https://wa.me/263718968489" target="_blank">
+<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>
+<span>WhatsApp Support</span>
+</a>
+</div>
+<div class="flex flex-col gap-4">
+<p class="font-['Space_Grotesk'] text-xs uppercase tracking-widest text-stone-900 mb-2">Social</p>
+<div class="flex justify-center md:justify-start gap-6">
+<a class="text-stone-500 hover:text-[#E07A5F] transition-colors" href="https://www.instagram.com/archivecloset.zw?igsh=MXQ0dmo5ejBwZ3NwMg%3D%3D" target="_blank" title="Instagram">
+<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+</a>
+<a class="text-stone-500 hover:text-[#E07A5F] transition-colors" href="https://www.tiktok.com/@archivecloset.zw" target="_blank" title="TikTok">
+<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/></svg>
+</a>
+<a class="text-stone-500 hover:text-[#E07A5F] transition-colors" href="https://pin.it/4ZSlH79KU" title="Pinterest">
+<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 01.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+</a>
+</div>
+</div>
+</div>
+<div class="border-t border-stone-100 py-8 text-center">
+<p class="text-stone-400 text-xs font-['Space_Grotesk'] uppercase tracking-tighter">© Archive Closet. All rights reserved.</p>
+</div>
+</footer>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Mobile Menu toggle
+        const toggle = document.querySelector("[data-mobile-menu-toggle]");
+        const menu = document.getElementById("mobile-menu");
+        if (toggle && menu) {
+            toggle.addEventListener("click", function () {
+                const isHidden = menu.classList.contains("hidden");
+                menu.classList.toggle("hidden", !isHidden);
+                toggle.setAttribute("aria-expanded", String(isHidden));
+            });
+        }
+
+        const filterCategory = document.getElementById('filter-category');
+        const filterSize = document.getElementById('filter-size');
+        const filterEra = document.getElementById('filter-era');
+        const filterPrice = document.getElementById('filter-price');
+        const sortSelect = document.getElementById('sort-select');
+        const itemCount = document.getElementById('item-count');
+        const grid = document.querySelector('.grid');
+        const productWrappers = Array.from(document.querySelectorAll('a[style="display:contents"]'));
+
+        function parsePriceFilter(val, price) {
+            if (val === 'all') return true;
+            if (val === 'under-100') return price < 100;
+            if (val === '100-200') return price >= 100 && price <= 200;
+            if (val === 'over-200') return price > 200;
+            return true;
+        }
+
+        function updateGrid() {
+            const cat = filterCategory ? filterCategory.value : 'all';
+            const size = filterSize ? filterSize.value : 'all';
+            const era = filterEra ? filterEra.value : 'all';
+            const priceFilter = filterPrice ? filterPrice.value : 'all';
+            const sortVal = sortSelect ? sortSelect.value : 'newest';
+
+            let visibleCount = 0;
+            let visibleWrappers = [];
+
+            productWrappers.forEach(wrapper => {
+                const item = wrapper.querySelector('.masonry-item');
+                if (!item) return;
+                
+                const pCat = wrapper.getAttribute('data-category');
+                const pSize = wrapper.getAttribute('data-size');
+                const pEra = wrapper.getAttribute('data-era');
+                const pPrice = parseFloat(wrapper.getAttribute('data-price'));
+
+                const matchCat = cat === 'all' || cat === pCat;
+                const matchSize = size === 'all' || size === pSize;
+                const matchEra = era === 'all' || era === pEra;
+                const matchPrice = parsePriceFilter(priceFilter, pPrice);
+
+                if (matchCat && matchSize && matchEra && matchPrice) {
+                    item.style.display = 'flex';
+                    visibleCount++;
+                    visibleWrappers.push({ wrapper, price: pPrice });
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            if (itemCount) {
+                itemCount.textContent = visibleCount + (visibleCount === 1 ? ' item' : ' items');
+            }
+
+            // Sort logic
+            if (sortVal === 'newest') {
+                // To restore original order, we just append them all in DOM order based on initial order array
+                productWrappers.forEach(wrapper => grid.appendChild(wrapper));
+            } else {
+                visibleWrappers.sort((a, b) => {
+                    if (sortVal === 'price-asc') return a.price - b.price;
+                    if (sortVal === 'price-desc') return b.price - a.price;
+                    return 0;
+                });
+                
+                // Append visible sorted elements
+                visibleWrappers.forEach(obj => grid.appendChild(obj.wrapper));
+                // Append hidden elements afterwards to maintain them in DOM
+                productWrappers.forEach(wrapper => {
+                    if (wrapper.querySelector('.masonry-item').style.display === 'none') {
+                        grid.appendChild(wrapper);
+                    }
+                });
+            }
+        }
+
+        [filterCategory, filterSize, filterEra, filterPrice, sortSelect].forEach(el => {
+            if (el) el.addEventListener('change', updateGrid);
+        });
+        
+        // Initial setup to display correct count
+        updateGrid();
+    });
+</script>
+
+<script>
+const AIRTABLE_TOKEN = 'pataZsBfhel1enI6B.1cb8c9438910f68301f337acf353fed97006d86d829aa16be9cec56b2a330b1a';
+const AIRTABLE_BASE = 'appHABJu0gWFOkDUH';
+const AIRTABLE_TABLE = 'Products';
+
+async function fetchProducts() {
+  const url = `https://api.airtable.com/v0/${AIRTABLE_BASE}/${AIRTABLE_TABLE}`;
+  const res = await fetch(url, {
+    headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` }
+  });
+  const data = await res.json();
+  return data.records;
+}
+
+function getBadge(record) {
+  if (record.fields['Sold Out']) {
+    return `<div class="absolute inset-0 bg-background/60 backdrop-blur-[2px] flex items-center justify-center">
+      <span class="font-label-caps text-label-caps tracking-widest text-on-surface-variant border border-on-surface-variant px-4 py-2 uppercase">Sold Out</span>
+    </div>`;
+  }
+  return '';
+}
+
+function convertGDriveUrl(url) {
+    if (!url || typeof url !== 'string') return '';
+    url = url.trim();
+    if (!url.includes('drive.google.com')) return url;
+    const match1 = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+    if (match1) return `https://drive.google.com/uc?export=view&id=${match1[1]}`;
+    const match2 = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+    if (match2) return `https://drive.google.com/uc?export=view&id=${match2[1]}`;
+    return url;
+}
+
+function getImage(f) {
+    if (f['Images'] && f['Images'].length > 0) return f['Images'][0].url;
+    if (f['Image URL']) return convertGDriveUrl(f['Image URL']);
+    return 'https://placehold.co/400x533?text=No+Image';
+}
+
+function renderCard(record) {
+  const f = record.fields;
+  if (!f['Name'] || !f['Price']) return '';
+  const soldOut = f['Sold Out'];
+  const image = getImage(f);
+  const slug = f['Slug'] || '';
+  
+  return `
+    <div class="product-card-hover group cursor-pointer" 
+         data-category="${f['Category'] || ''}"
+         data-size="${f['Size'] || ''}"
+         data-era="${f['Era'] || ''}"
+         data-price="${f['Price'] || 0}"
+         onclick="window.location='product.html?slug=${slug}'">
+      <div class="relative overflow-hidden aspect-3-4 bg-surface-container rounded-lg mb-3">
+        <img alt="${f['Name']}" class="w-full h-full object-cover transition-transform duration-700" src="${image}"/>
+        ${getBadge(record)}
+      </div>
+      <div class="px-1 ${soldOut ? 'opacity-60' : ''}">
+        <h3 class="font-body-md text-body-md text-on-surface mb-1">${f['Name'] || ''}</h3>
+        <div class="flex justify-between items-baseline">
+          <span class="font-price-display text-price-display text-primary">$${f['Price'] || ''}</span>
+          <span class="font-label-caps text-[10px] text-on-surface-variant uppercase">Size ${f['Size'] || ''}</span>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+window.allProducts = [];
+
+function renderProductCards(records) {
+  const grid = document.getElementById('product-grid');
+  if (!grid) return;
+  if (records.length === 0) {
+    grid.innerHTML = '<div class="col-span-4 text-center py-20 text-on-surface-variant">No products found matching your filters.</div>';
+  } else {
+    grid.innerHTML = records.map(renderCard).join('');
+  }
+  const countEl = document.querySelector('.item-count');
+  if (countEl) countEl.textContent = `${records.length} items`;
+}
+
+function applyFilters() {
+  let filtered = [...window.allProducts];
+  
+  const categoryEl = document.getElementById('filter-category');
+  if (categoryEl && categoryEl.value !== 'all') {
+    const category = categoryEl.value;
+    filtered = filtered.filter(r => {
+      const cat = (r.fields['Category'] || '').toLowerCase();
+      const slugified = cat.replace(/ & /g, '-').replace(/\s+/g, '-');
+      return slugified === category || cat === category;
+    });
+  }
+
+  const sizeEl = document.getElementById('filter-size');
+  if (sizeEl && sizeEl.value !== 'all') {
+    filtered = filtered.filter(r => (r.fields['Size'] || '').toLowerCase() === sizeEl.value.toLowerCase());
+  }
+  
+  const eraEl = document.getElementById('filter-era');
+  if (eraEl && eraEl.value !== 'all') {
+    const era = eraEl.value;
+    const eraText = eraEl.options[eraEl.selectedIndex].text;
+    filtered = filtered.filter(r => {
+      const e = r.fields['Era'] || '';
+      return e.toLowerCase().includes(era.toLowerCase()) || e === eraText;
+    });
+  }
+  
+  const priceEl = document.getElementById('filter-price');
+  if (priceEl && priceEl.value !== 'all') {
+    const priceFilter = priceEl.value;
+    if (priceFilter === 'under-10') filtered = filtered.filter(r => r.fields['Price'] < 10);
+    if (priceFilter === '10-20') filtered = filtered.filter(r => r.fields['Price'] >= 10 && r.fields['Price'] <= 20);
+    if (priceFilter === '20-30') filtered = filtered.filter(r => r.fields['Price'] >= 20 && r.fields['Price'] <= 30);
+    if (priceFilter === '30-50') filtered = filtered.filter(r => r.fields['Price'] >= 30 && r.fields['Price'] <= 50);
+    if (priceFilter === 'over-50') filtered = filtered.filter(r => r.fields['Price'] > 50);
+  }
+
+  const sortEl = document.getElementById('sort-select');
+  if (sortEl) {
+    const sort = sortEl.value;
+    if (sort === 'price-asc') {
+      filtered.sort((a, b) => (a.fields['Price'] || 0) - (b.fields['Price'] || 0));
+    } else if (sort === 'price-desc') {
+      filtered.sort((a, b) => (b.fields['Price'] || 0) - (a.fields['Price'] || 0));
+    }
+  }
+  
+  renderProductCards(filtered);
+}
+
+async function init() {
+  const grid = document.getElementById('product-grid');
+  try {
+    const records = await fetchProducts();
+    window.allProducts = records.filter(r => r.fields['Name']);
+    renderProductCards(window.allProducts);
+    
+    document.querySelectorAll('#filter-category, #filter-size, #filter-era, #filter-price, #sort-select').forEach(sel => {
+      if(sel) sel.addEventListener('change', applyFilters);
+    });
+  } catch (err) {
+    if(grid) grid.innerHTML = '<div class="col-span-4 text-center py-20 text-error">Failed to load products. Please try again.</div>';
+    console.error(err);
+  }
+}
+
+init();
+</script>
+</body>
+
+</html>
+
+
