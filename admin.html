@@ -803,7 +803,7 @@
 
     <!-- ═══ SIDEBAR ═══ -->
     <aside class="sidebar" id="sidebar">
-        <div class="sidebar-logo"><span>◆</span> ARCHIVE CLOSET</div>
+        <div class="sidebar-logo"><a href="index.html" style="color:inherit;text-decoration:none;"><span>◆</span> ARCHIVE CLOSET</a></div>
         <div class="sidebar-divider"></div>
         <nav class="sidebar-nav">
             <div class="nav-item active" data-section="products">
@@ -836,6 +836,7 @@
             <div class="admin-row">
                 <div class="avatar">A</div> Admin
             </div>
+            <a href="index.html" style="display:block;margin-top:12px;font-size:12px;color:#9CA3AF;text-decoration:none;transition:color .2s;">← View Shop</a>
             <button class="signout" id="signOutBtn">Sign Out</button>
         </div>
     </aside>
@@ -1103,6 +1104,14 @@
         // DATA
         // ═══════════════════════════════════════════
 
+        // TODO: Replace with Supabase when migrating
+        // Current admin uses in-memory mock data
+        // For Airtable integration, add:
+        // const AIRTABLE_TOKEN = 'REPLACE_WITH_YOUR_FULL_AIRTABLE_TOKEN_HERE';
+        // const AIRTABLE_BASE = 'appHABJu0gWFOkDUH';
+        // const AIRTABLE_TABLE = 'Products';
+        // const AIRTABLE_OUTFITS_TABLE = 'Outfits';
+
         const ADMIN_PASSWORD = 'archivecloset2024';
 
         const categoryMap = {
@@ -1125,7 +1134,7 @@
 
         function convertGDriveUrl(url) {
             if (!url) return '';
-            const m = url.match(/\/d\/([^/]+)/);
+            const m = url.match(/\/d\/([a-zA-Z0-9_-]{25,})/) || url.match(/id=([a-zA-Z0-9_-]{25,})/);
             return m ? 'https://drive.google.com/thumbnail?id=' + m[1] + '&sz=w800' : url;
         }
 
@@ -1135,7 +1144,8 @@
 
         function uid() { return 'id_' + Math.random().toString(36).substr(2, 9); }
 
-        // Mock data
+        // MOCK DATA — Replace with Supabase fetch
+        // const { data: products } = await supabase.from('products').select('*');
         let products = [
             { id: uid(), name: 'Silk Blouse in Cream', slug: 'silk-blouse-cream', price: 45, size: 'M', gender: 'Womenswear', category: 'Tops', subcategory: 'Corsets & Tops', era: '90s', condition: 'Excellent', description: 'Rare 90s silk blouse in cream.', image: '', drop: true, featured: true, soldOut: false },
             { id: uid(), name: 'Cargo Pants Olive', slug: 'cargo-pants-olive', price: 55, size: 'L', gender: 'Menswear', category: 'Bottoms', subcategory: 'Cargo & Utility', era: '2000s', condition: 'Good', description: 'Y2K cargo pants.', image: '', drop: true, featured: false, soldOut: false },
@@ -1143,6 +1153,8 @@
             { id: uid(), name: 'Denim Mini Skirt', slug: 'denim-mini-skirt', price: 32, size: 'S', gender: 'Womenswear', category: 'Bottoms', subcategory: 'Mini Skirts', era: '90s', condition: 'Good', description: 'Classic denim mini.', image: '', drop: true, featured: true, soldOut: false },
         ];
 
+        // MOCK DATA — Replace with Supabase fetch
+        // const { data: outfits } = await supabase.from('outfits').select('*');
         let outfits = [
             { id: uid(), name: 'Night Out', slug: 'night-out', vibe: 'Going Out', date: '2024-12-20', description: 'Head-turning evening look.', image: '', items: [products[0].id, products[3].id] },
         ];
@@ -1207,6 +1219,15 @@
         // ═══════════════════════════════════════════
         // RENDER
         // ═══════════════════════════════════════════
+
+        // TODO: Fetch from Supabase instead of using mock data
+        // async function loadData() {
+        //   const { data: p } = await supabase.from('products').select('*');
+        //   const { data: o } = await supabase.from('outfits').select('*');
+        //   products = p || [];
+        //   outfits = o || [];
+        //   renderAll();
+        // }
 
         function renderAll() { renderStats(); renderProducts(); renderDrops(); renderOutfits(); renderSoldOut(); }
 
@@ -1355,6 +1376,8 @@
             openProductPanel();
         };
 
+        // TODO: Replace with Supabase insert/update
+        // const { data, error } = await supabase.from('products').insert([data]).select();
         document.getElementById('productSaveBtn').onclick = () => {
             const name = document.getElementById('pName').value.trim();
             if (!name) { alert('Product name is required'); return; }
@@ -1478,6 +1501,8 @@
             renderOutfitItems(o.items);
         };
 
+        // TODO: Replace with Supabase insert/update
+        // const { data, error } = await supabase.from('outfits').insert([data]).select();
         document.getElementById('outfitSaveBtn').onclick = () => {
             const name = document.getElementById('oName').value.trim();
             if (!name) { alert('Outfit name is required'); return; }
