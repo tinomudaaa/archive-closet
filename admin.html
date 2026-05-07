@@ -1,963 +1,1528 @@
 <!DOCTYPE html>
-<html class="light" lang="en">
+<html lang="en">
+
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Admin Dashboard - Archive Closet</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Be+Vietnam+Pro:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet"/>
-<script>
-    tailwind.config = {
-        darkMode: "class",
-        theme: {
-            extend: {
-                colors: {
-                    "outline-variant": "#d4c2c2", "surface-bright": "#fcf9f8", "surface-container": "#f0eded",
-                    "on-secondary-container": "#783c24", "on-secondary": "#ffffff", "surface-dim": "#dcd9d9",
-                    "primary": "#785252", "background": "#fcf9f8", "tertiary-fixed-dim": "#e7bf9d",
-                    "on-primary-fixed-variant": "#613d3e", "primary-fixed-dim": "#ecbaba", "surface-variant": "#e5e2e1",
-                    "on-surface": "#1c1b1b", "surface-container-lowest": "#ffffff", "on-tertiary-fixed": "#2b1703",
-                    "on-secondary-fixed": "#380d00", "on-background": "#1c1b1b", "error-container": "#ffdad6",
-                    "outline": "#827473", "inverse-on-surface": "#f3f0ef", "inverse-primary": "#ecbaba",
-                    "primary-fixed": "#ffdad9", "on-primary-container": "#fffbff", "on-error-container": "#93000a",
-                    "on-error": "#ffffff", "tertiary-container": "#8f6e51", "tertiary": "#74563b",
-                    "surface-tint": "#7b5455", "surface": "#fcf9f8", "secondary": "#8e4d33",
-                    "on-primary": "#ffffff", "on-primary-fixed": "#2f1314", "inverse-surface": "#313030",
-                    "error": "#ba1a1a", "surface-container-high": "#eae7e7", "on-secondary-fixed-variant": "#71361e",
-                    "secondary-fixed": "#ffdbce", "primary-container": "#936a6a", "tertiary-fixed": "#ffdcc0",
-                    "on-tertiary-fixed-variant": "#5c4127", "on-surface-variant": "#504444", "on-tertiary": "#ffffff",
-                    "surface-container-highest": "#e5e2e1", "secondary-container": "#feaa8a", "on-tertiary-container": "#fffbff",
-                    "surface-container-low": "#f6f3f2", "secondary-fixed-dim": "#ffb59a"
-                },
-                fontFamily: {
-                    "label-caps": ["Space Grotesk"], "body-lg": ["Be Vietnam Pro"], "body-md": ["Be Vietnam Pro"],
-                    "price-display": ["Space Grotesk"], "h3": ["Newsreader"], "h2": ["Newsreader"], "h1": ["Newsreader"]
-                }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archive Closet — Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #111827;
+            background: #fff;
+            display: flex;
+            min-height: 100vh
+        }
+
+        /* ── LOGIN ── */
+        .login-screen {
+            position: fixed;
+            inset: 0;
+            background: #F9FAFB;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999
+        }
+
+        .login-card {
+            background: #fff;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            padding: 48px 40px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center
+        }
+
+        .login-card .logo {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px
+        }
+
+        .login-card .subtitle {
+            font-size: 13px;
+            color: #6B7280;
+            margin-bottom: 32px
+        }
+
+        .login-card input {
+            width: 100%;
+            border: 1px solid #E5E7EB;
+            border-radius: 4px;
+            padding: 10px 14px;
+            font-size: 14px;
+            font-family: inherit;
+            margin-bottom: 16px;
+            outline: none
+        }
+
+        .login-card input:focus {
+            border-color: #111827
+        }
+
+        .login-card .login-btn {
+            width: 100%;
+            background: #1A1A1A;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-family: inherit
+        }
+
+        .login-card .login-btn:hover {
+            background: #333
+        }
+
+        .login-card .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6B7280;
+            text-decoration: none
+        }
+
+        .login-card .back-link:hover {
+            color: #111827
+        }
+
+        .login-error {
+            color: #EF4444;
+            font-size: 13px;
+            margin-bottom: 12px;
+            display: none
+        }
+
+        /* ── SIDEBAR ── */
+        .sidebar {
+            width: 240px;
+            background: #1A1A1A;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            z-index: 100
+        }
+
+        .sidebar-logo {
+            padding: 24px 20px 20px;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .sidebar-logo span {
+            color: #9CA3AF;
+            font-size: 20px
+        }
+
+        .sidebar-divider {
+            height: 1px;
+            background: #374151;
+            margin: 0 20px
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 12px 0
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            font-size: 14px;
+            color: #9CA3AF;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+            transition: all .15s
+        }
+
+        .nav-item:hover {
+            color: rgba(255, 255, 255, .8)
+        }
+
+        .nav-item.active {
+            color: #fff;
+            background: rgba(255, 255, 255, .1);
+            border-left-color: #fff
+        }
+
+        .nav-item svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0
+        }
+
+        .sidebar-bottom {
+            padding: 16px 20px;
+            border-top: 1px solid #374151
+        }
+
+        .sidebar-bottom .admin-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: #9CA3AF
+        }
+
+        .sidebar-bottom .admin-row .avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #374151;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: #fff
+        }
+
+        .sidebar-bottom .signout {
+            font-size: 12px;
+            color: #6B7280;
+            cursor: pointer;
+            margin-top: 8px;
+            background: none;
+            border: none;
+            font-family: inherit
+        }
+
+        .sidebar-bottom .signout:hover {
+            color: #fff
+        }
+
+        /* ── MOBILE SIDEBAR ── */
+        .mobile-hamburger {
+            display: none;
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            z-index: 200;
+            background: #1A1A1A;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-size: 20px
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .5);
+            z-index: 99
+        }
+
+        /* ── CONTENT ── */
+        .content {
+            margin-left: 240px;
+            flex: 1;
+            min-height: 100vh;
+            overflow-x: hidden
+        }
+
+        .content-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 28px 32px 0;
+            flex-wrap: wrap;
+            gap: 12px
+        }
+
+        .content-header h1 {
+            font-size: 24px;
+            font-weight: 600
+        }
+
+        .btn-primary {
+            background: #1A1A1A;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 9px 18px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-family: inherit;
+            white-space: nowrap
+        }
+
+        .btn-primary:hover {
+            background: #333
+        }
+
+        .btn-danger {
+            background: #fff;
+            color: #EF4444;
+            border: 1px solid #EF4444;
+            border-radius: 4px;
+            padding: 9px 18px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-family: inherit;
+            white-space: nowrap
+        }
+
+        .btn-danger:hover {
+            background: #FEF2F2
+        }
+
+        .btn-secondary {
+            background: #fff;
+            color: #111827;
+            border: 1px solid #E5E7EB;
+            border-radius: 4px;
+            padding: 9px 18px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-family: inherit;
+            white-space: nowrap
+        }
+
+        .btn-secondary:hover {
+            background: #F9FAFB
+        }
+
+        /* ── STATS ── */
+        .stats-row {
+            display: flex;
+            gap: 16px;
+            padding: 24px 32px
+        }
+
+        .stat-card {
+            background: #F9FAFB;
+            border: 1px solid #E5E7EB;
+            border-radius: 6px;
+            padding: 20px 24px;
+            flex: 1;
+            min-width: 0
+        }
+
+        .stat-card .stat-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #6B7280;
+            margin-bottom: 4px
+        }
+
+        .stat-card .stat-value {
+            font-size: 32px;
+            font-weight: 600;
+            color: #111827
+        }
+
+        /* ── TABLE ── */
+        .table-wrap {
+            padding: 0 32px 32px;
+            overflow-x: auto
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 700px
+        }
+
+        thead th {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #6B7280;
+            text-align: left;
+            padding: 10px 12px;
+            border-bottom: 1px solid #E5E7EB;
+            white-space: nowrap
+        }
+
+        tbody td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #F3F4F6;
+            vertical-align: middle;
+            font-size: 14px
+        }
+
+        tbody tr:hover {
+            background: #F9FAFB
+        }
+
+        .product-cell {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .product-thumb {
+            width: 40px;
+            height: 56px;
+            border-radius: 4px;
+            object-fit: cover;
+            background: #F3F4F6;
+            flex-shrink: 0
+        }
+
+        .product-name {
+            font-weight: 500;
+            white-space: nowrap
+        }
+
+        /* ── BADGES ── */
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 9999px;
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap
+        }
+
+        .badge-green {
+            background: #D1FAE5;
+            color: #065F46
+        }
+
+        .badge-red {
+            background: #FEE2E2;
+            color: #991B1B
+        }
+
+        .badge-orange {
+            background: #FEF3C7;
+            color: #92400E
+        }
+
+        .badge-gray {
+            background: #F3F4F6;
+            color: #6B7280
+        }
+
+        /* ── ICON BUTTONS ── */
+        .icon-btn {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: transparent;
+            border-radius: 4px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #6B7280
+        }
+
+        .icon-btn:hover {
+            background: #F3F4F6;
+            color: #111827
+        }
+
+        .icon-btn.danger:hover {
+            background: #FEE2E2;
+            color: #EF4444
+        }
+
+        .actions-cell {
+            white-space: nowrap
+        }
+
+        /* ── TOGGLE ── */
+        .toggle {
+            position: relative;
+            width: 40px;
+            height: 22px;
+            background: #E5E7EB;
+            border-radius: 11px;
+            cursor: pointer;
+            transition: background .2s;
+            border: none;
+            padding: 0;
+            flex-shrink: 0
+        }
+
+        .toggle.on {
+            background: #10B981
+        }
+
+        .toggle::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #fff;
+            transition: transform .2s;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .2)
+        }
+
+        .toggle.on::after {
+            transform: translateX(18px)
+        }
+
+        .row-sold-out {
+            opacity: .5
+        }
+
+        /* ── SLIDE-OUT PANEL ── */
+        .panel-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .4);
+            z-index: 500
+        }
+
+        .panel {
+            position: fixed;
+            top: 0;
+            right: -520px;
+            width: 480px;
+            max-width: 100%;
+            height: 100%;
+            background: #fff;
+            box-shadow: -4px 0 24px rgba(0, 0, 0, .12);
+            z-index: 501;
+            transition: right .3s ease;
+            display: flex;
+            flex-direction: column
+        }
+
+        .panel.open {
+            right: 0
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            border-bottom: 1px solid #E5E7EB
+        }
+
+        .panel-header h2 {
+            font-size: 16px;
+            font-weight: 600
+        }
+
+        .panel-close {
+            background: none;
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+            color: #6B7280;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px
+        }
+
+        .panel-close:hover {
+            background: #F3F4F6;
+            color: #111827
+        }
+
+        .panel-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px
+        }
+
+        .panel-footer {
+            padding: 16px 24px;
+            border-top: 1px solid #E5E7EB;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px
+        }
+
+        /* ── FORM ── */
+        .form-section {
+            margin-bottom: 24px
+        }
+
+        .form-section-title {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #6B7280;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #F3F4F6
+        }
+
+        .form-group {
+            margin-bottom: 14px
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 4px
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            border: 1px solid #E5E7EB;
+            border-radius: 4px;
+            padding: 8px 12px;
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+            background: #fff
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #111827
+        }
+
+        .form-group textarea {
+            min-height: 80px;
+            resize: vertical
+        }
+
+        .form-check {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            cursor: pointer
+        }
+
+        .form-check input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #1A1A1A;
+            cursor: pointer
+        }
+
+        .form-check span {
+            font-size: 14px
+        }
+
+        .img-preview {
+            width: 120px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid #E5E7EB;
+            margin-top: 8px;
+            display: none
+        }
+
+        .items-list {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #E5E7EB;
+            border-radius: 4px;
+            padding: 8px
+        }
+
+        .items-list .form-check {
+            margin-bottom: 6px
+        }
+
+        .items-search {
+            margin-bottom: 8px
+        }
+
+        /* ── CONFIRM DIALOG ── */
+        .confirm-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .5);
+            z-index: 600;
+            align-items: center;
+            justify-content: center
+        }
+
+        .confirm-overlay.show {
+            display: flex
+        }
+
+        .confirm-box {
+            background: #fff;
+            border-radius: 8px;
+            padding: 28px 32px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center
+        }
+
+        .confirm-box h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px
+        }
+
+        .confirm-box p {
+            font-size: 14px;
+            color: #6B7280;
+            margin-bottom: 20px
+        }
+
+        .confirm-box .btns {
+            display: flex;
+            gap: 10px;
+            justify-content: center
+        }
+
+        /* ── SECTION VISIBILITY ── */
+        .section {
+            display: none;
+            width: 100%
+        }
+
+        .section.active {
+            display: block
+        }
+
+        /* ── RESPONSIVE ── */
+        @media(max-width:768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform .3s;
+                width: 80%;
+                max-width: 300px
+            }
+
+            .sidebar.open {
+                transform: translateX(0)
+            }
+
+            .sidebar-overlay.show {
+                display: block
+            }
+
+            .mobile-hamburger {
+                display: flex;
+                align-items: center;
+                justify-content: center
+            }
+
+            .content {
+                margin-left: 0;
+                padding-top: 56px
+            }
+
+            .content-header {
+                padding: 20px 16px 0
+            }
+
+            .stats-row {
+                padding: 16px;
+                flex-direction: column
+            }
+
+            .table-wrap {
+                padding: 0 16px 16px
+            }
+
+            .panel {
+                width: 100%
+            }
+
+            .content-header {
+                flex-direction: column;
+                align-items: flex-start
             }
         }
-    }
-</script>
-<style>
-    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-    .login-card-shadow { box-shadow: 0px 4px 20px rgba(26, 26, 26, 0.05); }
-    .sidebar-shadow { box-shadow: 4px 0 20px rgba(26, 26, 26, 0.03); }
-    .card-shadow { box-shadow: 0px 4px 20px rgba(26, 26, 26, 0.05); }
-    .sold-out-muted { opacity: 0.5; filter: grayscale(0.4); }
-    .strikethrough-text { text-decoration: line-through; text-decoration-color: var(--secondary); }
-    .hide-scrollbar::-webkit-scrollbar { display: none; }
-    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-</style>
+    </style>
 </head>
-<body class="bg-background text-on-surface font-body-md min-h-screen">
 
-<div id="login-screen" class="min-h-screen flex flex-col relative selection:bg-secondary-fixed selection:text-on-secondary-fixed">
-    <header class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-sm">
-        <div class="flex justify-between items-center px-4 md:px-10 py-4 max-w-7xl mx-auto">
-            <h1 class="font-h2 text-h2 text-secondary tracking-tight">Archive Closet</h1>
-            <div class="flex items-center gap-4">
-                <span class="material-symbols-outlined text-on-surface-variant">lock</span>
-                <span class="font-label-caps text-on-surface-variant uppercase tracking-widest">Admin</span>
-            </div>
-        </div>
-    </header>
-    <main class="flex-grow flex items-center justify-center px-4 py-20 relative overflow-hidden">
-        <div class="absolute inset-0 z-0 pointer-events-none opacity-20">
-            <div class="absolute top-[10%] left-[5%] w-64 h-64 rounded-full bg-primary-fixed-dim blur-3xl"></div>
-            <div class="absolute bottom-[10%] right-[5%] w-96 h-96 rounded-full bg-secondary-fixed blur-3xl"></div>
-        </div>
-        <div class="relative z-10 w-full max-w-md login-card-shadow bg-surface-container-lowest rounded-xl p-8 md:p-12 border border-outline-variant/30 text-center">
-            <div class="mb-10">
-                <h2 class="font-h1 text-primary italic mb-2">Archive Closet</h2>
-                <p class="font-body-md text-on-surface-variant opacity-80 tracking-wide">Admin Access</p>
-            </div>
-            <div class="mb-10 flex justify-center">
-                <div class="relative w-24 h-24 rounded-full overflow-hidden border-2 border-surface-container-high ring-4 ring-background shadow-inner">
-                    <img class="w-full h-full object-cover grayscale contrast-125" src="https://lh3.googleusercontent.com/aida/ADBb0ujVkioBCHAEHKWCAgXFZykECkp-up3lu7GZfUcRqIdmcRQlwkgDIpymGbetPVzSj7w4hGgcbRQJMxa5AtPRNC8LBxwmTcK7ctGegQ7znqby6KqOTJiy9dBwEgwnXeOzQMoBwNf2VT_Al7RC3NB_raW-vPrVMI37dFh13FPmnrHm8-NW9HDs6oCoKFMmCydS-bW9UaBKRjAeCZqysj-wyXcgYnOISieBgxFvwqiI5LN3b2hvc6nD7p1eNt1ESk0BNwN9BCUk99P-KA"/>
-                </div>
-            </div>
-            <form id="login-form" class="space-y-6">
-                <div class="text-left">
-                    <label class="block font-label-caps text-on-surface-variant mb-2 ml-1" for="password">ADMIN PASSWORD</label>
-                    <div class="relative">
-                        <input class="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-3 text-on-surface focus:ring-2 focus:ring-secondary-container focus:border-secondary outline-none transition-all placeholder:opacity-50" id="password" type="password" placeholder="••••••••"/>
-                    </div>
-                    <p id="login-error" class="text-error font-body-md text-sm mt-2 hidden">Incorrect password</p>
-                </div>
-                <div class="pt-2">
-                    <button class="w-full bg-primary text-on-primary py-4 px-6 rounded-lg font-label-caps uppercase tracking-widest shadow-md hover:bg-secondary transition-all" type="submit">Enter Dashboard</button>
-                </div>
-            </form>
-            <div class="mt-8 pt-8 border-t border-outline-variant/30 flex flex-col gap-4">
-                <a class="inline-flex items-center justify-center gap-2 font-label-caps text-secondary hover:underline underline-offset-4 transition-all" href="index.html">
-                    <span class="material-symbols-outlined text-base">arrow_back</span> Return to Shop
-                </a>
-            </div>
-        </div>
-    </main>
-</div>
+<body>
 
-<div id="dashboard" class="hidden flex min-h-screen">
-    <aside class="fixed top-0 left-0 h-screen w-[240px] bg-surface-container-low sidebar-shadow z-40 flex flex-col border-r border-outline-variant/30">
-        <div class="p-8">
-            <h1 class="font-h2 text-h2 text-secondary tracking-tight">Archive Closet</h1>
-            <p class="font-label-caps text-on-surface-variant opacity-60 mt-1">ADMIN PORTAL</p>
+    <!-- ═══ LOGIN SCREEN ═══ -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-card">
+            <div class="logo">◆ ARCHIVE CLOSET</div>
+            <div class="subtitle">Admin Access</div>
+            <div class="login-error" id="loginError">Incorrect password</div>
+            <input type="password" id="loginPassword" placeholder="Enter admin password"
+                autocomplete="current-password">
+            <button class="login-btn" id="loginBtn">Enter Dashboard</button>
+            <a href="index.html" class="back-link">← Return to Shop</a>
         </div>
-        <nav class="flex-grow px-4 mt-8 flex flex-col gap-2" id="sidebar-nav">
-            <button data-target="section-products" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-surface-container-high text-secondary border-l-4 border-secondary transition-all">
-                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
-                <span class="font-body-md font-semibold">Products</span>
-            </button>
-            <button data-target="section-drops" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors group">
-                <span class="material-symbols-outlined text-[20px] group-hover:text-secondary">collections_bookmark</span>
-                <span class="font-body-md">Drops</span>
-            </button>
-            <button data-target="section-outfits" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors group">
-                <span class="material-symbols-outlined text-[20px] group-hover:text-secondary">styler</span>
-                <span class="font-body-md">Outfits</span>
-            </button>
-            <button data-target="section-soldout" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors group">
-                <span class="material-symbols-outlined text-[20px] group-hover:text-secondary">sell</span>
-                <span class="font-body-md">Sold Out</span>
-            </button>
+    </div>
+
+    <!-- ═══ MOBILE HAMBURGER ═══ -->
+    <button class="mobile-hamburger" id="hamburger">☰</button>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- ═══ SIDEBAR ═══ -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo"><span>◆</span> ARCHIVE CLOSET</div>
+        <div class="sidebar-divider"></div>
+        <nav class="sidebar-nav">
+            <div class="nav-item active" data-section="products">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                </svg>
+                Products
+            </div>
+            <div class="nav-item" data-section="drops">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z" />
+                </svg>
+                Drops
+            </div>
+            <div class="nav-item" data-section="outfits">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+                Outfits
+            </div>
+            <div class="nav-item" data-section="soldout">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                Sold Out
+            </div>
         </nav>
-        <div class="p-8 mt-auto">
-            <button id="logout-btn" class="w-full flex items-center gap-3 p-3 rounded-xl bg-surface-container border border-outline-variant/30 hover:bg-surface-container-high transition-colors text-left">
-                <div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container text-xs font-bold">AC</div>
-                <div class="flex flex-col flex-1">
-                    <span class="text-xs font-semibold">Admin</span>
-                    <span class="text-[10px] opacity-60">Sign Out</span>
-                </div>
-                <span class="material-symbols-outlined text-[16px] opacity-40">logout</span>
-            </button>
+        <div class="sidebar-bottom">
+            <div class="admin-row">
+                <div class="avatar">A</div> Admin
+            </div>
+            <button class="signout" id="signOutBtn">Sign Out</button>
         </div>
     </aside>
-    <main class="ml-[240px] flex-1 p-10 min-w-0">
 
-        <div id="section-products" class="section-content">
-            <header class="flex justify-between items-end gap-6 mb-12">
-                <div>
-                    <h2 class="font-h1 text-on-surface">Products</h2>
-                    <p class="font-body-md text-on-surface-variant mt-2 max-w-xl">Manage your archival collection.</p>
+    <!-- ═══ MAIN CONTENT ═══ -->
+    <main class="content" id="mainContent" style="display:none">
+
+        <!-- ── PRODUCTS SECTION ── -->
+        <div class="section active" id="sec-products">
+            <div class="content-header">
+                <h1>Products</h1>
+                <button class="btn-primary" id="addProductBtn">+ Add Product</button>
+            </div>
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-label">Total Items</div>
+                    <div class="stat-value" id="statTotal">0</div>
                 </div>
-                <button onclick="openProductForm()" class="bg-primary text-on-primary font-body-md font-semibold px-8 py-3 rounded-full flex items-center gap-2 hover:bg-primary-container transition-all shadow-lg">
-                    <span class="material-symbols-outlined text-[20px]">add</span> Add Product
-                </button>
-            </header>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-                <div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/20 card-shadow">
-                    <p class="font-label-caps text-on-surface-variant mb-2">TOTAL ITEMS</p>
-                    <h4 id="stat-total" class="font-h2 text-secondary">-</h4>
+                <div class="stat-card">
+                    <div class="stat-label">In Drop</div>
+                    <div class="stat-value" id="statDrop">0</div>
                 </div>
-                <div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/20 card-shadow">
-                    <p class="font-label-caps text-on-surface-variant mb-2">ACTIVE DROPS</p>
-                    <h4 id="stat-drops" class="font-h2 text-secondary">-</h4>
-                </div>
-                <div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/20 card-shadow">
-                    <p class="font-label-caps text-on-surface-variant mb-2">SOLD OUT</p>
-                    <h4 id="stat-soldout" class="font-h2 text-secondary">-</h4>
+                <div class="stat-card">
+                    <div class="stat-label">Sold Out</div>
+                    <div class="stat-value" id="statSold">0</div>
                 </div>
             </div>
-            <div class="bg-surface-container-lowest rounded-2xl overflow-hidden card-shadow border border-outline-variant/20">
-                <table class="w-full text-left border-collapse">
+            <div class="table-wrap">
+                <table>
                     <thead>
-                        <tr class="bg-surface-container-low/50 border-b border-outline-variant/30">
-                            <th class="px-6 py-5 font-label-caps text-on-surface-variant">PRODUCT NAME</th>
-                            <th class="px-6 py-5 font-label-caps text-on-surface-variant">PRICE</th>
-                            <th class="px-6 py-5 font-label-caps text-on-surface-variant">SIZE</th>
-                            <th class="px-6 py-5 font-label-caps text-on-surface-variant">CATEGORY</th>
-                            <th class="px-6 py-5 font-label-caps text-on-surface-variant text-center">DROP</th>
-                            <th class="px-6 py-5 font-label-caps text-on-surface-variant text-center">FEATURED</th>
-                            <th class="px-6 py-5 font-label-caps text-on-surface-variant text-center">STATUS</th>
-                            <th class="px-6 py-5 font-label-caps text-on-surface-variant text-right">ACTIONS</th>
+                        <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Size</th>
+                            <th>Category</th>
+                            <th>Drop</th>
+                            <th>Featured</th>
+                            <th>Status</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="products-tbody" class="divide-y divide-outline-variant/10">
-                        <tr><td colspan="8" class="text-center py-10">Loading...</td></tr>
-                    </tbody>
+                    <tbody id="productsBody"></tbody>
                 </table>
             </div>
         </div>
 
-        <div id="section-drops" class="section-content hidden">
-            <header class="flex justify-between items-end gap-6 mb-12">
-                <div>
-                    <h2 class="font-h1 text-on-surface">Drops</h2>
-                    <p class="font-body-md text-on-surface-variant mt-2 max-w-xl">Manage products currently in a Drop.</p>
-                </div>
-                <button onclick="clearEntireDrop()" class="border border-error text-error font-body-md font-semibold px-8 py-3 rounded-full hover:bg-error-container transition-all">
-                    Clear Entire Drop
-                </button>
-            </header>
-            <div class="bg-surface-container-lowest rounded-2xl overflow-hidden card-shadow border border-outline-variant/20">
-                <table class="w-full text-left border-collapse">
+        <!-- ── DROPS SECTION ── -->
+        <div class="section" id="sec-drops">
+            <div class="content-header">
+                <h1>Current Drop</h1>
+                <button class="btn-danger" id="clearDropBtn">Clear Entire Drop</button>
+            </div>
+            <div class="table-wrap">
+                <table>
                     <thead>
-                        <tr class="bg-surface-container-low/50 border-b border-outline-variant/30">
-                            <th class="px-6 py-5 font-label-caps text-on-surface-variant">PRODUCT NAME</th>
-                            <th class="px-6 py-5 font-label-caps text-on-surface-variant">SIZE</th>
-                            <th class="px-6 py-5 font-label-caps text-on-surface-variant">PRICE</th>
-                            <th class="px-6 py-5 font-label-caps text-on-surface-variant text-right">ACTIONS</th>
+                        <tr>
+                            <th>Product</th>
+                            <th>Size</th>
+                            <th>Price</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="drops-tbody" class="divide-y divide-outline-variant/10">
-                        <tr><td colspan="4" class="text-center py-10">Loading...</td></tr>
-                    </tbody>
+                    <tbody id="dropsBody"></tbody>
                 </table>
             </div>
         </div>
 
-        <div id="section-outfits" class="section-content hidden">
-            <header class="flex justify-between items-end gap-6 mb-12">
-                <div>
-                    <h2 class="font-h1 text-on-surface">Outfits</h2>
-                    <p class="font-body-md text-on-surface-variant mt-2 max-w-xl">Curate and manage styled looks.</p>
-                </div>
-                <button onclick="openOutfitForm()" class="bg-primary text-on-primary font-body-md font-semibold px-8 py-3 rounded-full flex items-center gap-2 hover:bg-primary-container transition-all shadow-lg">
-                    <span class="material-symbols-outlined text-[20px]">add</span> Add Outfit
-                </button>
-            </header>
-            <div class="bg-surface-container-lowest rounded-2xl overflow-hidden card-shadow border border-outline-variant/20">
-                <table class="w-full text-left border-collapse">
+        <!-- ── OUTFITS SECTION ── -->
+        <div class="section" id="sec-outfits">
+            <div class="content-header">
+                <h1>Outfits</h1>
+                <button class="btn-primary" id="addOutfitBtn">+ Add Outfit</button>
+            </div>
+            <div class="table-wrap">
+                <table>
                     <thead>
-                        <tr class="bg-surface-container-low/50 border-b border-outline-variant/30">
-                            <th class="px-6 py-5 font-label-caps text-on-surface-variant">OUTFIT NAME</th>
-                            <th class="px-6 py-5 font-label-caps text-on-surface-variant">VIBE</th>
-                            <th class="px-6 py-5 font-label-caps text-on-surface-variant">DROP DATE</th>
-                            <th class="px-6 py-5 font-label-caps text-on-surface-variant">ITEMS</th>
-                            <th class="px-6 py-5 font-label-caps text-on-surface-variant text-right">ACTIONS</th>
+                        <tr>
+                            <th>Outfit Name</th>
+                            <th>Vibe</th>
+                            <th>Drop Date</th>
+                            <th>Items</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="outfits-tbody" class="divide-y divide-outline-variant/10">
-                        <tr><td colspan="5" class="text-center py-10">Loading...</td></tr>
-                    </tbody>
+                    <tbody id="outfitsBody"></tbody>
                 </table>
             </div>
         </div>
 
-        <div id="section-soldout" class="section-content hidden">
-            <header class="flex justify-between items-end gap-6 mb-12">
-                <div>
-                    <h2 class="font-h1 text-on-surface">Sold Out Management</h2>
-                    <p class="font-body-md text-on-surface-variant mt-2 max-w-xl">Update availability instantly.</p>
-                </div>
-            </header>
-            <div class="bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(26,26,26,0.05)] border border-outline-variant overflow-hidden">
-                <table class="w-full text-left border-collapse">
+        <!-- ── SOLD OUT SECTION ── -->
+        <div class="section" id="sec-soldout">
+            <div class="content-header">
+                <h1>Sold Out Management</h1>
+            </div>
+            <div class="table-wrap">
+                <table>
                     <thead>
-                        <tr class="bg-surface-container-low border-b border-outline-variant">
-                            <th class="px-6 py-4 font-label-caps text-on-surface-variant uppercase">Product</th>
-                            <th class="px-6 py-4 font-label-caps text-on-surface-variant uppercase">Size</th>
-                            <th class="px-6 py-4 font-label-caps text-on-surface-variant uppercase">Price</th>
-                            <th class="px-6 py-4 font-label-caps text-on-surface-variant uppercase text-right">Status</th>
+                        <tr>
+                            <th>Product</th>
+                            <th>Size</th>
+                            <th>Price</th>
+                            <th>Sold Out</th>
                         </tr>
                     </thead>
-                    <tbody id="soldout-tbody" class="divide-y divide-outline-variant">
-                        <tr><td colspan="4" class="text-center py-10">Loading...</td></tr>
-                    </tbody>
+                    <tbody id="soldoutBody"></tbody>
                 </table>
             </div>
         </div>
-
     </main>
-</div>
 
-<!-- Modal Backdrop -->
-<div id="modal-backdrop" class="fixed inset-0 bg-black/40 backdrop-blur-[2px] z-50 hidden">
-    <!-- Product Form Panel -->
-    <div id="product-panel" class="absolute right-0 top-0 h-full w-full max-w-[480px] bg-background shadow-2xl flex flex-col translate-x-full transition-transform duration-300">
-        <div class="p-8 border-b border-outline-variant flex justify-between items-center">
-            <h2 id="product-panel-title" class="font-h2 text-on-surface">Add New Product</h2>
-            <button onclick="closePanel()" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container">
-                <span class="material-symbols-outlined">close</span>
-            </button>
+    <!-- ═══ PRODUCT PANEL ═══ -->
+    <div class="panel-overlay" id="productPanelOverlay"></div>
+    <div class="panel" id="productPanel">
+        <div class="panel-header">
+            <h2 id="productPanelTitle">Add New Product</h2><button class="panel-close" id="productPanelClose">×</button>
         </div>
-        <div class="flex-1 overflow-y-auto p-8 hide-scrollbar">
-            <form id="product-form" class="space-y-8">
-                <input type="hidden" id="prod-id">
-                <div class="space-y-4">
-                    <p class="font-label-caps text-secondary">PRODUCT DETAILS</p>
-                    <div class="space-y-1.5">
-                        <label class="font-body-md text-[14px] text-on-surface-variant">Product Name</label>
-                        <input id="prod-name" required class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-3 focus:border-secondary focus:ring-0" type="text"/>
-                    </div>
-                    <div class="space-y-1.5">
-                        <label class="font-body-md text-[14px] text-on-surface-variant">URL Slug</label>
-                        <input id="prod-slug" required class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-3 focus:border-secondary focus:ring-0 text-on-surface-variant" type="text"/>
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="space-y-1.5">
-                            <label class="font-body-md text-[14px] text-on-surface-variant">Price ($)</label>
-                            <input id="prod-price" required class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-3 focus:border-secondary focus:ring-0" type="number"/>
-                        </div>
-                        <div class="space-y-1.5">
-                            <label class="font-body-md text-[14px] text-on-surface-variant">Era</label>
-                            <input id="prod-era" class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-3 focus:border-secondary focus:ring-0" type="text"/>
-                        </div>
-                    </div>
+        <div class="panel-body">
+            <div class="form-section">
+                <div class="form-section-title">Product Details</div>
+                <div class="form-group"><label>Product Name</label><input type="text" id="pName"
+                        placeholder="e.g. Silk Blouse in Cream"></div>
+                <div class="form-group"><label>URL Slug</label><input type="text" id="pSlug"
+                        placeholder="auto-generated"></div>
+            </div>
+            <div class="form-section">
+                <div class="form-section-title">Pricing &amp; Size</div>
+                <div class="form-group"><label>Price ($)</label><input type="number" id="pPrice" min="0" step="1"></div>
+                <div class="form-group"><label>Size</label>
+                    <select id="pSize">
+                        <option value="">Select</option>
+                        <option>XS</option>
+                        <option>S</option>
+                        <option>M</option>
+                        <option>L</option>
+                        <option>XL</option>
+                        <option>OS</option>
+                    </select>
                 </div>
-                <div class="space-y-4">
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="space-y-1.5">
-                            <label class="font-body-md text-[14px] text-on-surface-variant">Category</label>
-                            <select id="prod-category" class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-3 focus:border-secondary focus:ring-0 appearance-none">
-                                <option value="corsets-tops">corsets-tops</option>
-                                <option value="mini-skirts">mini-skirts</option>
-                                <option value="cargo-utility">cargo-utility</option>
-                                <option value="denim">denim</option>
-                                <option value="dresses">dresses</option>
-                                <option value="vintage-tees">vintage-tees</option>
-                                <option value="jackets">jackets</option>
-                            </select>
-                        </div>
-                        <div class="space-y-1.5">
-                            <label class="font-body-md text-[14px] text-on-surface-variant">Condition</label>
-                            <select id="prod-condition" class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-3 focus:border-secondary focus:ring-0 appearance-none">
-                                <option value="Excellent">Excellent</option>
-                                <option value="Good">Good</option>
-                                <option value="Fair">Fair</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="space-y-1.5">
-                        <label class="font-body-md text-[14px] text-on-surface-variant">Size</label>
-                        <select id="prod-size" class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-3 focus:border-secondary focus:ring-0 appearance-none">
-                            <option value="XS">XS</option><option value="S">S</option><option value="M">M</option>
-                            <option value="L">L</option><option value="XL">XL</option><option value="OS">OS</option>
-                        </select>
-                    </div>
+            </div>
+            <div class="form-section">
+                <div class="form-section-title">Categorization</div>
+                <div class="form-group"><label>Gender</label>
+                    <select id="pGender">
+                        <option value="">Select</option>
+                        <option>Womenswear</option>
+                        <option>Menswear</option>
+                        <option>Crochet</option>
+                        <option>Unisex</option>
+                    </select>
                 </div>
-                <div class="space-y-4">
-                    <div class="space-y-1.5">
-                        <label class="font-body-md text-[14px] text-on-surface-variant">Description</label>
-                        <textarea id="prod-desc" class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-3 focus:border-secondary focus:ring-0 resize-none" rows="4"></textarea>
-                    </div>
-                    <div class="space-y-1.5">
-                        <label class="font-body-md text-[14px] text-on-surface-variant">Product Image URL</label>
-                        <input id="prod-image-url" type="url" placeholder="Paste Google Drive or any image link" 
-                            class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-3 focus:border-secondary focus:ring-0 transition-all font-body-md"/>
-                        <div id="prod-image-preview" class="hidden mt-2 rounded-lg overflow-hidden aspect-[3/4] max-w-[120px]">
-                            <img id="prod-image-preview-img" class="w-full h-full object-cover" src=""/>
-                        </div>
-                        <p class="text-[12px] text-on-surface-variant">Tip: Upload to Google Drive → Share → Copy link → Paste here</p>
-                    </div>
+                <div class="form-group"><label>Category</label><select id="pCategory">
+                        <option value="">Select gender first</option>
+                    </select></div>
+                <div class="form-group"><label>Subcategory</label><select id="pSubcategory">
+                        <option value="">Select category first</option>
+                    </select></div>
+                <div class="form-group"><label>Era</label>
+                    <select id="pEra">
+                        <option value="">Select</option>
+                        <option>70s</option>
+                        <option>80s</option>
+                        <option>90s</option>
+                        <option>2000s</option>
+                        <option>2010s</option>
+                        <option>Modern</option>
+                    </select>
                 </div>
-                <div class="space-y-4 pt-4 border-t border-outline-variant/30">
-                    <label class="flex items-center justify-between cursor-pointer">
-                        <div>
-                            <p class="font-body-md font-medium text-on-surface">Available in New Drop</p>
-                            <p class="text-[12px] text-on-surface-variant">Will appear in the 'New' section</p>
-                        </div>
-                        <input type="checkbox" id="prod-drop" class="sr-only peer">
-                        <div class="relative w-11 h-6 bg-surface-container-highest rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"></div>
-                    </label>
-                    <label class="flex items-center justify-between cursor-pointer">
-                        <div>
-                            <p class="font-body-md font-medium text-on-surface">Featured Item</p>
-                            <p class="text-[12px] text-on-surface-variant">Showcase on homepage hero</p>
-                        </div>
-                        <input type="checkbox" id="prod-featured" class="sr-only peer">
-                        <div class="relative w-11 h-6 bg-surface-container-highest rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"></div>
-                    </label>
-                    <label class="flex items-center justify-between cursor-pointer">
-                        <div>
-                            <p class="font-body-md font-medium text-on-surface">Mark as Sold Out</p>
-                            <p class="text-[12px] text-on-surface-variant">Disable purchase button</p>
-                        </div>
-                        <input type="checkbox" id="prod-soldout" class="sr-only peer">
-                        <div class="relative w-11 h-6 bg-surface-container-highest rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"></div>
-                    </label>
+                <div class="form-group"><label>Condition</label>
+                    <select id="pCondition">
+                        <option value="">Select</option>
+                        <option>Excellent</option>
+                        <option>Good</option>
+                        <option>Fair</option>
+                    </select>
                 </div>
-            </form>
+            </div>
+            <div class="form-section">
+                <div class="form-section-title">Media</div>
+                <div class="form-group"><label>Product Image URL</label><input type="url" id="pImage"
+                        placeholder="Paste Google Drive or image link"></div>
+                <img class="img-preview" id="pImagePreview" alt="Preview">
+            </div>
+            <div class="form-section">
+                <div class="form-section-title">Description</div>
+                <div class="form-group"><textarea id="pDescription" placeholder="Short product description"></textarea>
+                </div>
+            </div>
+            <div class="form-section">
+                <div class="form-section-title">Settings</div>
+                <label class="form-check"><input type="checkbox" id="pDrop"><span>Available in New Drop</span></label>
+                <label class="form-check"><input type="checkbox" id="pFeatured"><span>Featured Item</span></label>
+                <label class="form-check"><input type="checkbox" id="pSoldOut"><span>Mark as Sold Out</span></label>
+            </div>
         </div>
-        <div class="p-8 border-t border-outline-variant flex gap-4 bg-surface-container-lowest">
-            <button onclick="closePanel()" class="flex-1 px-6 py-4 rounded-lg font-label-caps border border-outline hover:bg-surface-container">CANCEL</button>
-            <button onclick="saveProduct()" class="flex-[2] px-6 py-4 rounded-lg font-label-caps bg-secondary text-on-secondary shadow-lg hover:-translate-y-0.5 transition-all">SAVE PRODUCT</button>
+        <div class="panel-footer">
+            <button class="btn-secondary" id="productCancelBtn">Cancel</button>
+            <button class="btn-primary" id="productSaveBtn">Save Product</button>
         </div>
     </div>
 
-    <!-- Outfit Form Panel -->
-    <div id="outfit-panel" class="absolute right-0 top-0 h-full w-full max-w-[480px] bg-background shadow-2xl flex flex-col translate-x-full transition-transform duration-300">
-        <div class="p-8 border-b border-outline-variant flex justify-between items-center">
-            <h2 id="outfit-panel-title" class="font-h2 text-on-surface">Add New Outfit</h2>
-            <button onclick="closePanel()" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container">
-                <span class="material-symbols-outlined">close</span>
-            </button>
+    <!-- ═══ OUTFIT PANEL ═══ -->
+    <div class="panel-overlay" id="outfitPanelOverlay"></div>
+    <div class="panel" id="outfitPanel">
+        <div class="panel-header">
+            <h2 id="outfitPanelTitle">Add New Outfit</h2><button class="panel-close" id="outfitPanelClose">×</button>
         </div>
-        <div class="flex-1 overflow-y-auto p-8 hide-scrollbar">
-            <form id="outfit-form" class="space-y-8">
-                <input type="hidden" id="outf-id">
-                <div class="space-y-4">
-                    <p class="font-label-caps text-secondary">OUTFIT DETAILS</p>
-                    <div class="space-y-1.5">
-                        <label class="font-body-md text-[14px] text-on-surface-variant">Outfit Name</label>
-                        <input id="outf-name" required class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-3 focus:border-secondary focus:ring-0" type="text"/>
-                    </div>
-                    <div class="space-y-1.5">
-                        <label class="font-body-md text-[14px] text-on-surface-variant">URL Slug</label>
-                        <input id="outf-slug" required class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-3 focus:border-secondary focus:ring-0 text-on-surface-variant" type="text"/>
-                    </div>
-                    <div class="space-y-1.5">
-                        <label class="font-body-md text-[14px] text-on-surface-variant">Vibe</label>
-                        <select id="outf-vibe" class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-3 focus:border-secondary focus:ring-0 appearance-none">
-                            <option value="Baddie">Baddie</option>
-                            <option value="Soft Girl">Soft Girl</option>
-                            <option value="Street">Street</option>
-                            <option value="Going Out">Going Out</option>
-                        </select>
-                    </div>
-                    <div class="space-y-1.5">
-                        <label class="font-body-md text-[14px] text-on-surface-variant">Description</label>
-                        <textarea id="outf-desc" class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-3 focus:border-secondary focus:ring-0 resize-none" rows="4"></textarea>
-                    </div>
-                    <div class="space-y-1.5">
-                        <label class="font-body-md text-[14px] text-on-surface-variant">Cover Image URL</label>
-                        <input id="outf-image-url" type="url" placeholder="Paste ImgBB direct link or Google Drive link"
-                            class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-3 focus:border-secondary focus:ring-0 transition-all font-body-md"/>
-                        <div id="outf-image-preview" class="hidden mt-2 rounded-lg overflow-hidden aspect-[3/4] max-w-[120px]">
-                            <img id="outf-image-preview-img" class="w-full h-full object-cover" src=""/>
-                        </div>
-                        <p class="text-[12px] text-on-surface-variant">Upload to ImgBB → copy Direct link → paste here</p>
-                    </div>
-                    <div class="space-y-1.5">
-                        <label class="font-body-md text-[14px] text-on-surface-variant">Drop Date</label>
-                        <input id="outf-date" type="date" class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-3 focus:border-secondary focus:ring-0"/>
-                    </div>
-                    <div class="space-y-1.5">
-                        <label class="font-body-md text-[14px] text-on-surface-variant">Items</label>
-                        <select id="outfit-items-select" multiple 
-                            class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-3 focus:border-secondary focus:ring-0 transition-all font-body-md min-h-[120px]">
-                        </select>
-                        <p class="text-[12px] text-on-surface-variant">Hold Ctrl (Windows) or Cmd (Mac) to select multiple items</p>
-                    </div>
+        <div class="panel-body">
+            <div class="form-section">
+                <div class="form-section-title">Outfit Details</div>
+                <div class="form-group"><label>Outfit Name</label><input type="text" id="oName"
+                        placeholder="e.g. Night Out"></div>
+                <div class="form-group"><label>URL Slug</label><input type="text" id="oSlug"
+                        placeholder="auto-generated"></div>
+                <div class="form-group"><label>Vibe</label>
+                    <select id="oVibe">
+                        <option value="">Select</option>
+                        <option>Baddie</option>
+                        <option>Soft</option>
+                        <option>Street</option>
+                        <option>Going Out</option>
+                        <option>Casual</option>
+                    </select>
                 </div>
-            </form>
+            </div>
+            <div class="form-section">
+                <div class="form-section-title">Description</div>
+                <div class="form-group"><textarea id="oDescription" placeholder="Short outfit description"></textarea>
+                </div>
+            </div>
+            <div class="form-section">
+                <div class="form-section-title">Cover Image</div>
+                <div class="form-group"><input type="url" id="oImage" placeholder="Paste image URL"></div>
+                <img class="img-preview" id="oImagePreview" alt="Preview">
+            </div>
+            <div class="form-section">
+                <div class="form-section-title">Drop Date</div>
+                <div class="form-group"><input type="date" id="oDate"></div>
+            </div>
+            <div class="form-section">
+                <div class="form-section-title">Items (Select Products)</div>
+                <input type="text" class="items-search" id="oItemsSearch" placeholder="Search products...">
+                <div class="items-list" id="oItemsList"></div>
+            </div>
         </div>
-        <div class="p-8 border-t border-outline-variant flex gap-4 bg-surface-container-lowest">
-            <button onclick="closePanel()" class="flex-1 px-6 py-4 rounded-lg font-label-caps border border-outline hover:bg-surface-container">CANCEL</button>
-            <button onclick="saveOutfit()" class="flex-[2] px-6 py-4 rounded-lg font-label-caps bg-secondary text-on-secondary shadow-lg hover:-translate-y-0.5 transition-all">SAVE OUTFIT</button>
+        <div class="panel-footer">
+            <button class="btn-secondary" id="outfitCancelBtn">Cancel</button>
+            <button class="btn-primary" id="outfitSaveBtn">Save Outfit</button>
         </div>
     </div>
-</div>
 
-<div id="toast" class="fixed bottom-6 right-6 z-[60] hidden px-6 py-4 rounded-lg shadow-lg font-label-caps text-label-caps uppercase tracking-widest text-sm transition-all text-white"></div>
+    <!-- ═══ CONFIRM DIALOG ═══ -->
+    <div class="confirm-overlay" id="confirmDialog">
+        <div class="confirm-box">
+            <h3 id="confirmTitle">Are you sure?</h3>
+            <p id="confirmMsg">This action cannot be undone.</p>
+            <div class="btns">
+                <button class="btn-secondary" id="confirmCancel">Cancel</button>
+                <button class="btn-danger" id="confirmOk">Delete</button>
+            </div>
+        </div>
+    </div>
 
-<script>
-    const ADMIN_PASSWORD = 'archivecloset2024';
-    const AIRTABLE_TOKEN = 'pataZsBfhel1enI6B.1cb8c9438910f68301f337acf353fed97006d86d829aa16be9cec56b2a330b1a';
-    const AIRTABLE_BASE = 'appHABJu0gWFOkDUH';
+    <script>
+        // ═══════════════════════════════════════════
+        // DATA
+        // ═══════════════════════════════════════════
 
-    const loginScreen = document.getElementById('login-screen');
-    const dashboard = document.getElementById('dashboard');
-    const loginForm = document.getElementById('login-form');
-    const loginError = document.getElementById('login-error');
-    
-    // Auth Logic
-    loginForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const pwd = document.getElementById('password').value;
-        if (pwd === ADMIN_PASSWORD) {
-            loginScreen.classList.add('hidden');
-            dashboard.classList.remove('hidden');
-            dashboard.classList.add('flex');
-            window.productsData = [];
-            window.outfitsData = [];
-            loadData();
-        } else {
-            loginError.classList.remove('hidden');
+        const ADMIN_PASSWORD = 'archivecloset2024';
+
+        const categoryMap = {
+            Menswear: ['Tops', 'Bottoms', 'Outerwear', 'Footwear', 'Tailoring'],
+            Womenswear: ['Tops', 'Bottoms', 'Dresses', 'Outerwear', 'Sets'],
+            Crochet: ['Tops', 'Dresses', 'Accessories'],
+            Unisex: ['Tops', 'Bottoms', 'Dresses', 'Outerwear', 'Sets', 'Footwear', 'Tailoring', 'Accessories']
+        };
+
+        const subcategoryMap = {
+            Tops: ['Vintage Tees', 'Streetwear', 'Corsets & Tops', 'Crochet Tops'],
+            Bottoms: ['Cargo & Utility', 'Denim', 'Mini Skirts', 'Vintage Sport'],
+            Outerwear: ['Jackets', 'Coats', 'Blazers'],
+            Dresses: [],
+            Sets: [],
+            Footwear: [],
+            Tailoring: [],
+            Accessories: []
+        };
+
+        function convertGDriveUrl(url) {
+            if (!url) return '';
+            const m = url.match(/\/d\/([^/]+)/);
+            return m ? 'https://drive.google.com/thumbnail?id=' + m[1] + '&sz=w800' : url;
         }
-    });
 
-    document.getElementById('logout-btn').addEventListener('click', () => {
-        dashboard.classList.add('hidden');
-        dashboard.classList.remove('flex');
-        loginScreen.classList.remove('hidden');
-        document.getElementById('password').value = '';
-    });
+        function slugify(str) {
+            return str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+        }
 
-    // Sidebar Nav Logic
-    const navBtns = document.querySelectorAll('.nav-btn');
-    const sections = document.querySelectorAll('.section-content');
+        function uid() { return 'id_' + Math.random().toString(36).substr(2, 9); }
 
-    navBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            // Reset all nav
-            navBtns.forEach(b => {
-                b.className = "nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors group";
-                b.querySelector('span:first-child').style.fontVariationSettings = "'FILL' 0";
-                b.querySelector('span:last-child').classList.remove('font-semibold');
-            });
-            // Set active
-            btn.className = "nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-surface-container-high text-secondary border-l-4 border-secondary transition-all";
-            btn.querySelector('span:first-child').style.fontVariationSettings = "'FILL' 1";
-            btn.querySelector('span:last-child').classList.add('font-semibold');
-            
-            // Show section
-            const target = btn.getAttribute('data-target');
-            sections.forEach(sec => sec.classList.add('hidden'));
-            document.getElementById(target).classList.remove('hidden');
+        // Mock data
+        let products = [
+            { id: uid(), name: 'Silk Blouse in Cream', slug: 'silk-blouse-cream', price: 45, size: 'M', gender: 'Womenswear', category: 'Tops', subcategory: 'Corsets & Tops', era: '90s', condition: 'Excellent', description: 'Rare 90s silk blouse in cream.', image: '', drop: true, featured: true, soldOut: false },
+            { id: uid(), name: 'Cargo Pants Olive', slug: 'cargo-pants-olive', price: 55, size: 'L', gender: 'Menswear', category: 'Bottoms', subcategory: 'Cargo & Utility', era: '2000s', condition: 'Good', description: 'Y2K cargo pants.', image: '', drop: true, featured: false, soldOut: false },
+            { id: uid(), name: 'Crochet Halter Top', slug: 'crochet-halter-top', price: 38, size: 'S', gender: 'Crochet', category: 'Tops', subcategory: 'Crochet Tops', era: 'Modern', condition: 'Excellent', description: 'Handmade crochet halter.', image: '', drop: false, featured: false, soldOut: true },
+            { id: uid(), name: 'Denim Mini Skirt', slug: 'denim-mini-skirt', price: 32, size: 'S', gender: 'Womenswear', category: 'Bottoms', subcategory: 'Mini Skirts', era: '90s', condition: 'Good', description: 'Classic denim mini.', image: '', drop: true, featured: true, soldOut: false },
+        ];
+
+        let outfits = [
+            { id: uid(), name: 'Night Out', slug: 'night-out', vibe: 'Going Out', date: '2024-12-20', description: 'Head-turning evening look.', image: '', items: [products[0].id, products[3].id] },
+        ];
+
+        let editingProductId = null;
+        let editingOutfitId = null;
+        let confirmCallback = null;
+
+        // ═══════════════════════════════════════════
+        // LOGIN
+        // ═══════════════════════════════════════════
+
+        const loginScreen = document.getElementById('loginScreen');
+        const mainContent = document.getElementById('mainContent');
+
+        if (sessionStorage.getItem('ac_admin') === '1') { loginScreen.style.display = 'none'; mainContent.style.display = 'block'; renderAll(); }
+
+        document.getElementById('loginBtn').onclick = () => {
+            const pw = document.getElementById('loginPassword').value;
+            if (pw === ADMIN_PASSWORD) {
+                sessionStorage.setItem('ac_admin', '1');
+                loginScreen.style.display = 'none';
+                mainContent.style.display = 'block';
+                renderAll();
+            } else {
+                const err = document.getElementById('loginError');
+                err.style.display = 'block';
+                setTimeout(() => err.style.display = 'none', 2000);
+            }
+        };
+
+        document.getElementById('loginPassword').onkeydown = (e) => { if (e.key === 'Enter') document.getElementById('loginBtn').click(); };
+
+        document.getElementById('signOutBtn').onclick = () => {
+            sessionStorage.removeItem('ac_admin');
+            location.reload();
+        };
+
+        // ═══════════════════════════════════════════
+        // SIDEBAR NAV
+        // ═══════════════════════════════════════════
+
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.onclick = () => {
+                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+                document.getElementById('sec-' + item.dataset.section).classList.add('active');
+                closeMobileSidebar();
+            };
         });
-    });
 
-    // Auto-slug generation
-    document.getElementById('prod-name').addEventListener('input', e => {
-        document.getElementById('prod-slug').value = e.target.value.toLowerCase().replace(/\s+/g, '-');
-    });
-    document.getElementById('outf-name').addEventListener('input', e => {
-        document.getElementById('outf-slug').value = e.target.value.toLowerCase().replace(/\s+/g, '-');
-    });
+        // Mobile sidebar
+        const hamburger = document.getElementById('hamburger');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
 
-    // Modals
-    const modalBackdrop = document.getElementById('modal-backdrop');
-    const productPanel = document.getElementById('product-panel');
-    const outfitPanel = document.getElementById('outfit-panel');
+        hamburger.onclick = () => { sidebar.classList.add('open'); sidebarOverlay.classList.add('show'); };
+        function closeMobileSidebar() { sidebar.classList.remove('open'); sidebarOverlay.classList.remove('show'); }
+        sidebarOverlay.onclick = closeMobileSidebar;
 
-    function closePanel() {
-        productPanel.classList.add('translate-x-full');
-        outfitPanel.classList.add('translate-x-full');
-        setTimeout(() => modalBackdrop.classList.add('hidden'), 300);
-    }
+        // ═══════════════════════════════════════════
+        // RENDER
+        // ═══════════════════════════════════════════
 
-    function convertGDriveUrl(url) {
-        if (!url || typeof url !== 'string') return '';
-        url = url.trim();
-        // Only process actual Google Drive URLs
-        if (!url.includes('drive.google.com')) return url;
-        // Handle /file/d/ID/view format
-        const match1 = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
-        if (match1) return `https://drive.google.com/uc?export=view&id=${match1[1]}`;
-        // Handle open?id=ID or ?id=ID format
-        const match2 = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-        if (match2) return `https://drive.google.com/uc?export=view&id=${match2[1]}`;
-        // If it's a drive URL but we can't parse it, return as-is rather than corrupt it
-        return url;
-    }
+        function renderAll() { renderStats(); renderProducts(); renderDrops(); renderOutfits(); renderSoldOut(); }
 
-    document.getElementById('prod-image-url').addEventListener('input', function() {
-        const url = convertGDriveUrl(this.value);
-        const preview = document.getElementById('prod-image-preview');
-        const img = document.getElementById('prod-image-preview-img');
-        if (url) {
-            img.src = url;
-            preview.classList.remove('hidden');
-        } else {
-            preview.classList.add('hidden');
-        }
-    });
-
-    document.getElementById('outf-image-url').addEventListener('input', function() {
-        const url = convertGDriveUrl(this.value);
-        const preview = document.getElementById('outf-image-preview');
-        const img = document.getElementById('outf-image-preview-img');
-        if (url) { img.src = url; preview.classList.remove('hidden'); }
-        else { preview.classList.add('hidden'); }
-    });
-
-    function openProductForm(id = null) {
-        modalBackdrop.classList.remove('hidden');
-        setTimeout(() => productPanel.classList.remove('translate-x-full'), 10);
-        
-        const form = document.getElementById('product-form');
-        form.reset();
-        document.getElementById('prod-id').value = '';
-        document.getElementById('product-panel-title').textContent = 'Add New Product';
-
-        if (id) {
-            const r = window.productsData.find(x => x.id === id);
-            if(r) {
-                document.getElementById('prod-id').value = id;
-                document.getElementById('product-panel-title').textContent = 'Edit Product';
-                const f = r.fields;
-                document.getElementById('prod-name').value = f['Name'] || '';
-                document.getElementById('prod-slug').value = f['Slug'] || '';
-                document.getElementById('prod-price').value = f['Price'] || '';
-                document.getElementById('prod-era').value = f['Era'] || '';
-                document.getElementById('prod-category').value = f['Category'] || 'corsets-tops';
-                document.getElementById('prod-condition').value = f['Condition'] || 'Good';
-                document.getElementById('prod-size').value = f['Size'] || 'M';
-                document.getElementById('prod-desc').value = f['Description'] || '';
-                const imageUrl = f['Image URL'] || '';
-                document.getElementById('prod-image-url').value = imageUrl;
-                const preview = document.getElementById('prod-image-preview');
-                const img = document.getElementById('prod-image-preview-img');
-                if (imageUrl) {
-                    img.src = convertGDriveUrl(imageUrl);
-                    preview.classList.remove('hidden');
-                } else {
-                    preview.classList.add('hidden');
-                }
-                document.getElementById('prod-drop').checked = f['Drop'] || false;
-                document.getElementById('prod-featured').checked = f['Featured'] || false;
-                document.getElementById('prod-soldout').checked = f['Sold Out'] || false;
-            }
-        }
-    }
-
-    function openOutfitForm(id = null) {
-        modalBackdrop.classList.remove('hidden');
-        setTimeout(() => outfitPanel.classList.remove('translate-x-full'), 10);
-        
-        const form = document.getElementById('outfit-form');
-        form.reset();
-        document.getElementById('outf-id').value = '';
-        document.getElementById('outfit-panel-title').textContent = 'Add New Outfit';
-        document.getElementById('outf-image-preview').classList.add('hidden');
-        document.getElementById('outf-image-preview-img').src = '';
-
-        if (id) {
-            const r = window.outfitsData.find(x => x.id === id);
-            if(r) {
-                document.getElementById('outf-id').value = id;
-                document.getElementById('outfit-panel-title').textContent = 'Edit Outfit';
-                const f = r.fields;
-                document.getElementById('outf-name').value = f['Name'] || '';
-                document.getElementById('outf-slug').value = f['Slug'] || '';
-                document.getElementById('outf-vibe').value = f['Vibe'] || 'Baddie';
-                document.getElementById('outf-desc').value = f['Description'] || '';
-                document.getElementById('outf-date').value = f['Drop Date'] || '';
-                
-                const coverUrl = f['Cover Image URL'] || '';
-                document.getElementById('outf-image-url').value = coverUrl;
-                const preview = document.getElementById('outf-image-preview');
-                const img = document.getElementById('outf-image-preview-img');
-                if (coverUrl) { img.src = convertGDriveUrl(coverUrl); preview.classList.remove('hidden'); }
-                else { preview.classList.add('hidden'); }
-
-                const existingItems = f['Items'] ? f['Items'].split(',').map(i => i.trim()) : [];
-                populateItemsDropdown(existingItems);
-            }
-        } else {
-            populateItemsDropdown();
-        }
-    }
-
-    async function populateItemsDropdown(selectedItems = []) {
-        const select = document.getElementById('outfit-items-select');
-        if (!select) return;
-        select.innerHTML = '<option disabled>Loading products...</option>';
-        try {
-            const res = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE}/Products`, {
-                headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` }
-            });
-            const data = await res.json();
-            select.innerHTML = '';
-            data.records.forEach(record => {
-                if (!record.fields['Name']) return;
-                const option = document.createElement('option');
-                option.value = record.fields['Name'];
-                option.textContent = `${record.fields['Name']} — Size ${record.fields['Size'] || 'N/A'}`;
-                if (selectedItems.includes(record.fields['Name'])) {
-                    option.selected = true;
-                }
-                select.appendChild(option);
-            });
-        } catch(err) {
-            select.innerHTML = '<option disabled>Failed to load products</option>';
-        }
-    }
-
-    // Toast
-    function showToast(msg, isError = false) {
-        const toast = document.getElementById('toast');
-        toast.textContent = msg;
-        toast.className = `fixed bottom-6 right-6 z-[60] px-6 py-4 rounded-lg shadow-lg font-label-caps uppercase tracking-widest text-sm transition-all text-white ${isError ? 'bg-error' : 'bg-secondary'}`;
-        toast.classList.remove('hidden');
-        setTimeout(() => toast.classList.add('hidden'), 3000);
-    }
-
-    // Data Load
-    window.productsData = [];
-    window.outfitsData = [];
-
-    async function fetchAPI(table, method = 'GET', body = null, recordId = '') {
-        const url = `https://api.airtable.com/v0/${AIRTABLE_BASE}/${table}${recordId ? '/' + recordId : ''}`;
-        const options = {
-            method,
-            headers: { 
-                Authorization: `Bearer ${AIRTABLE_TOKEN}`,
-                'Content-Type': 'application/json'
-            }
-        };
-        if (body) {
-            options.body = JSON.stringify(body);
-        }
-        const res = await fetch(url, options);
-        if (!res.ok) {
-            const err = await res.json();
-            console.error('Airtable error:', err);
-            throw new Error(err.error?.message || 'API Error');
-        }
-        return res.json();
-    }
-
-    async function loadData() {
-        try {
-            const prodRes = await fetchAPI('Products');
-            window.productsData = prodRes.records.filter(r => r.fields['Name'] && r.fields['Price']);
-            renderProducts();
-            renderDrops();
-            renderSoldOut();
-            updateStats();
-
-            const outfRes = await fetchAPI('Outfits');
-            window.outfitsData = outfRes.records.filter(r => r.fields['Name']);
-            renderOutfits();
-        } catch (e) {
-            showToast("Failed to load data", true);
-        }
-    }
-
-    function updateStats() {
-        document.getElementById('stat-total').textContent = window.productsData.length;
-        document.getElementById('stat-drops').textContent = window.productsData.filter(r => r.fields['Drop']).length;
-        document.getElementById('stat-soldout').textContent = window.productsData.filter(r => r.fields['Sold Out']).length;
-    }
-
-    function getImage(f) {
-        if (f['Images'] && f['Images'].length > 0) return f['Images'][0].url;
-        if (f['Image URL']) return convertGDriveUrl(f['Image URL']);
-        return 'https://placehold.co/400x533?text=No+Image';
-    }
-
-    function renderProducts() {
-        const tbody = document.getElementById('products-tbody');
-        if(!window.productsData.length) { tbody.innerHTML = '<tr><td colspan="8" class="text-center py-10">No records found</td></tr>'; return; }
-        tbody.innerHTML = window.productsData.map(r => {
-            const f = r.fields;
-            const cat = f['Category'] ? f['Category'].replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) : '-';
-            return `
-                <tr class="hover:bg-surface-container-low transition-colors group">
-                    <td class="px-6 py-4">
-                        <div class="flex items-center gap-4">
-                            <img class="w-12 h-16 object-cover rounded-md shadow-sm border border-outline-variant/20" src="${getImage(f)}"/>
-                            <div><p class="font-body-md font-semibold">${f['Name']}</p></div>
-                        </div>
-                    </td>
-                    <td class="px-6 py-4 font-price-display text-secondary">$${f['Price']}</td>
-                    <td class="px-6 py-4 text-on-surface-variant">${f['Size'] || '-'}</td>
-                    <td class="px-6 py-4"><span class="text-xs px-2 py-1 bg-surface-container rounded-full text-on-surface-variant whitespace-nowrap">${cat}</span></td>
-                    <td class="px-6 py-4 text-center">${f['Drop'] ? '<span class="px-3 py-1 rounded-full bg-green-100 text-green-800 text-[11px] font-bold">YES</span>' : '-'}</td>
-                    <td class="px-6 py-4 text-center">${f['Featured'] ? '<span class="px-3 py-1 rounded-full bg-green-100 text-green-800 text-[11px] font-bold">YES</span>' : '-'}</td>
-                    <td class="px-6 py-4 text-center">${f['Sold Out'] ? '<span class="px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed-variant text-[11px] font-bold font-label-caps whitespace-nowrap">SOLD OUT</span>' : '<span class="px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant text-[11px] font-bold font-label-caps whitespace-nowrap">IN STOCK</span>'}</td>
-                    <td class="px-6 py-4 text-right">
-                        <div class="flex items-center justify-end gap-2 opacity-40 group-hover:opacity-100 transition-opacity">
-                            <button onclick="openProductForm('${r.id}')" class="p-2 hover:text-secondary"><span class="material-symbols-outlined text-[18px]">edit</span></button>
-                            <button onclick="deleteProduct('${r.id}', '${f['Name']}')" class="p-2 hover:text-error"><span class="material-symbols-outlined text-[18px]">delete</span></button>
-                        </div>
-                    </td>
-                </tr>
-            `;
-        }).join('');
-    }
-
-    function renderDrops() {
-        const drops = window.productsData.filter(r => r.fields['Drop']);
-        const tbody = document.getElementById('drops-tbody');
-        if(!drops.length) { tbody.innerHTML = '<tr><td colspan="4" class="text-center py-10">No records found</td></tr>'; return; }
-        tbody.innerHTML = drops.map(r => {
-            const f = r.fields;
-            return `
-                <tr class="hover:bg-surface-container-low transition-colors group">
-                    <td class="px-6 py-4">
-                        <div class="flex items-center gap-4">
-                            <img class="w-12 h-16 object-cover rounded-md shadow-sm border border-outline-variant/20" src="${getImage(f)}"/>
-                            <p class="font-body-md font-semibold">${f['Name']}</p>
-                        </div>
-                    </td>
-                    <td class="px-6 py-4 text-on-surface-variant">${f['Size'] || '-'}</td>
-                    <td class="px-6 py-4 font-price-display text-secondary">$${f['Price']}</td>
-                    <td class="px-6 py-4 text-right">
-                        <button onclick="removeFromDrop('${r.id}')" class="text-sm font-label-caps border border-outline-variant hover:bg-surface-container px-3 py-1 rounded">Remove</button>
-                    </td>
-                </tr>
-            `;
-        }).join('');
-    }
-
-    function renderOutfits() {
-        const tbody = document.getElementById('outfits-tbody');
-        if(!window.outfitsData.length) { tbody.innerHTML = '<tr><td colspan="5" class="text-center py-10">No records found</td></tr>'; return; }
-        tbody.innerHTML = window.outfitsData.map(r => {
-            const f = r.fields;
-            return `
-                <tr class="hover:bg-surface-container-low transition-colors group">
-                    <td class="px-6 py-4">
-                        <p class="font-body-md font-semibold">${f['Name']}</p>
-                    </td>
-                    <td class="px-6 py-4"><span class="text-xs px-2 py-1 bg-surface-container rounded-full text-on-surface-variant">${f['Vibe'] || '-'}</span></td>
-                    <td class="px-6 py-4 text-on-surface-variant">${f['Drop Date'] || '-'}</td>
-                    <td class="px-6 py-4 text-on-surface-variant text-sm truncate max-w-[200px]">${f['Items'] || '-'}</td>
-                    <td class="px-6 py-4 text-right">
-                        <div class="flex items-center justify-end gap-2 opacity-40 group-hover:opacity-100 transition-opacity">
-                            <button onclick="openOutfitForm('${r.id}')" class="p-2 hover:text-secondary"><span class="material-symbols-outlined text-[18px]">edit</span></button>
-                            <button onclick="deleteOutfit('${r.id}', '${f['Name']}')" class="p-2 hover:text-error"><span class="material-symbols-outlined text-[18px]">delete</span></button>
-                        </div>
-                    </td>
-                </tr>
-            `;
-        }).join('');
-    }
-
-    function renderSoldOut() {
-        const tbody = document.getElementById('soldout-tbody');
-        if(!window.productsData.length) { tbody.innerHTML = '<tr><td colspan="4" class="text-center py-10">No records found</td></tr>'; return; }
-        tbody.innerHTML = window.productsData.map(r => {
-            const f = r.fields;
-            const isSoldOut = f['Sold Out'];
-            return `
-                <tr class="hover:bg-surface-bright transition-colors group ${isSoldOut ? 'opacity-50' : ''}">
-                    <td class="px-6 py-5">
-                        <div class="flex items-center gap-4">
-                            <img class="w-16 h-16 object-cover rounded-lg border border-outline-variant" src="${getImage(f)}"/>
-                            <div>
-                                <span class="product-name font-h3 block text-on-surface ${isSoldOut ? 'line-through' : ''}">${f['Name']}</span>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="px-6 py-5 font-body-md">${f['Size'] || '-'}</td>
-                    <td class="px-6 py-5 font-price-display">$${f['Price']}</td>
-                    <td class="px-6 py-5 text-right">
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input onchange="toggleSoldOut('${r.id}', this)" type="checkbox" class="sr-only peer" ${!isSoldOut ? 'checked' : ''}/>
-                            <div class="relative w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"></div>
-                            <span class="ml-3 font-label-caps whitespace-nowrap">${!isSoldOut ? 'IN STOCK' : 'SOLD OUT'}</span>
-                        </label>
-                    </td>
-                </tr>
-            `;
-        }).join('');
-    }
-
-    // CRUD Ops
-    async function saveProduct() {
-        const id = document.getElementById('prod-id').value.trim();
-        const name = document.getElementById('prod-name').value.trim();
-        const price = document.getElementById('prod-price').value.trim();
-
-        if (!name || !price) {
-            showToast('Name and price are required', true);
-            return;
+        function renderStats() {
+            document.getElementById('statTotal').textContent = products.length;
+            document.getElementById('statDrop').textContent = products.filter(p => p.drop).length;
+            document.getElementById('statSold').textContent = products.filter(p => p.soldOut).length;
         }
 
-        const fields = {
-            Name: name,
-            Slug: document.getElementById('prod-slug').value.trim(),
-            Price: parseFloat(price),
-            Era: document.getElementById('prod-era').value.trim(),
-            Category: document.getElementById('prod-category').value,
-            Condition: document.getElementById('prod-condition').value,
-            Size: document.getElementById('prod-size').value,
-            Description: document.getElementById('prod-desc').value.trim(),
-            'Image URL': convertGDriveUrl(document.getElementById('prod-image-url').value.trim()),
-            Drop: document.getElementById('prod-drop').checked,
-            Featured: document.getElementById('prod-featured').checked,
-            'Sold Out': document.getElementById('prod-soldout').checked
+        function categoryDisplay(p) {
+            return [p.gender, p.category, p.subcategory].filter(Boolean).join(' → ');
+        }
+
+        function renderProducts() {
+            const tbody = document.getElementById('productsBody');
+            tbody.innerHTML = products.map(p => `
+    <tr>
+      <td><div class="product-cell">${p.image ? '<img class="product-thumb" src="' + convertGDriveUrl(p.image) + '" alt="">' : '<div class="product-thumb"></div>'}<span class="product-name">${p.name}</span></div></td>
+      <td>$${p.price}</td>
+      <td>${p.size}</td>
+      <td style="font-size:13px;color:#6B7280">${categoryDisplay(p)}</td>
+      <td>${p.drop ? '<span class="badge badge-green">Yes</span>' : '<span class="badge badge-gray">No</span>'}</td>
+      <td>${p.featured ? '<span class="badge badge-green">Yes</span>' : '<span class="badge badge-gray">No</span>'}</td>
+      <td><span class="badge ${p.soldOut ? 'badge-orange' : 'badge-green'}">${p.soldOut ? 'Sold Out' : 'In Stock'}</span></td>
+      <td class="actions-cell">
+        <button class="icon-btn" onclick="editProduct('${p.id}')" title="Edit">✎</button>
+        <button class="icon-btn danger" onclick="deleteProduct('${p.id}')" title="Delete">✕</button>
+      </td>
+    </tr>
+  `).join('');
+        }
+
+        function renderDrops() {
+            const dropProducts = products.filter(p => p.drop);
+            document.getElementById('dropsBody').innerHTML = dropProducts.length ? dropProducts.map(p => `
+    <tr>
+      <td><div class="product-cell">${p.image ? '<img class="product-thumb" src="' + convertGDriveUrl(p.image) + '" alt="">' : '<div class="product-thumb"></div>'}<span class="product-name">${p.name}</span></div></td>
+      <td>${p.size}</td>
+      <td>$${p.price}</td>
+      <td><button class="btn-secondary" style="font-size:11px;padding:5px 12px" onclick="removeDrop('${p.id}')">Remove</button></td>
+    </tr>
+  `).join('') : '<tr><td colspan="4" style="text-align:center;padding:40px;color:#6B7280">No products in current drop</td></tr>';
+        }
+
+        function renderOutfits() {
+            document.getElementById('outfitsBody').innerHTML = outfits.length ? outfits.map(o => `
+    <tr>
+      <td style="font-weight:500">${o.name}</td>
+      <td><span class="badge badge-gray">${o.vibe || '—'}</span></td>
+      <td>${o.date || '—'}</td>
+      <td style="font-size:13px;color:#6B7280">${o.items.map(id => { const p = products.find(x => x.id === id); return p ? p.name : ''; }).filter(Boolean).join(', ') || '—'}</td>
+      <td class="actions-cell">
+        <button class="icon-btn" onclick="editOutfit('${o.id}')" title="Edit">✎</button>
+        <button class="icon-btn danger" onclick="deleteOutfit('${o.id}')" title="Delete">✕</button>
+      </td>
+    </tr>
+  `).join('') : '<tr><td colspan="5" style="text-align:center;padding:40px;color:#6B7280">No outfits yet</td></tr>';
+        }
+
+        function renderSoldOut() {
+            document.getElementById('soldoutBody').innerHTML = products.map(p => `
+    <tr class="${p.soldOut ? 'row-sold-out' : ''}">
+      <td><div class="product-cell">${p.image ? '<img class="product-thumb" src="' + convertGDriveUrl(p.image) + '" alt="">' : '<div class="product-thumb"></div>'}<span class="product-name">${p.name}</span></div></td>
+      <td>${p.size}</td>
+      <td>$${p.price}</td>
+      <td><button class="toggle ${p.soldOut ? 'on' : ''}" onclick="toggleSoldOut('${p.id}')"></button></td>
+    </tr>
+  `).join('');
+        }
+
+        // ═══════════════════════════════════════════
+        // PRODUCT PANEL
+        // ═══════════════════════════════════════════
+
+        const productPanel = document.getElementById('productPanel');
+        const productPanelOverlay = document.getElementById('productPanelOverlay');
+
+        function openProductPanel() { productPanel.classList.add('open'); productPanelOverlay.style.display = 'block'; }
+        function closeProductPanel() { productPanel.classList.remove('open'); productPanelOverlay.style.display = 'none'; resetProductForm(); }
+
+        document.getElementById('addProductBtn').onclick = () => { editingProductId = null; document.getElementById('productPanelTitle').textContent = 'Add New Product'; openProductPanel(); };
+        document.getElementById('productPanelClose').onclick = closeProductPanel;
+        document.getElementById('productCancelBtn').onclick = closeProductPanel;
+        productPanelOverlay.onclick = closeProductPanel;
+
+        // Cascading dropdowns
+        document.getElementById('pGender').onchange = () => {
+            const g = document.getElementById('pGender').value;
+            const catSel = document.getElementById('pCategory');
+            const cats = categoryMap[g] || [];
+            catSel.innerHTML = '<option value="">Select</option>' + cats.map(c => '<option>' + c + '</option>').join('');
+            document.getElementById('pSubcategory').innerHTML = '<option value="">Select category first</option>';
         };
 
-        try {
-            if (id) {
-                await fetchAPI('Products', 'PATCH', { fields }, id);
-                showToast('Product updated!');
+        document.getElementById('pCategory').onchange = () => {
+            const c = document.getElementById('pCategory').value;
+            const subs = subcategoryMap[c] || [];
+            const subSel = document.getElementById('pSubcategory');
+            subSel.innerHTML = subs.length ? '<option value="">Select</option>' + subs.map(s => '<option>' + s + '</option>').join('') : '<option value="">None available</option>';
+        };
+
+        // Auto-slug
+        document.getElementById('pName').oninput = () => {
+            if (!editingProductId) document.getElementById('pSlug').value = slugify(document.getElementById('pName').value);
+        };
+
+        // Image preview
+        document.getElementById('pImage').oninput = () => {
+            const url = convertGDriveUrl(document.getElementById('pImage').value);
+            const prev = document.getElementById('pImagePreview');
+            if (url) { prev.src = url; prev.style.display = 'block'; } else { prev.style.display = 'none'; }
+        };
+
+        function resetProductForm() {
+            ['pName', 'pSlug', 'pPrice', 'pImage', 'pDescription'].forEach(id => document.getElementById(id).value = '');
+            ['pSize', 'pGender', 'pEra', 'pCondition'].forEach(id => document.getElementById(id).selectedIndex = 0);
+            document.getElementById('pCategory').innerHTML = '<option value="">Select gender first</option>';
+            document.getElementById('pSubcategory').innerHTML = '<option value="">Select category first</option>';
+            ['pDrop', 'pFeatured', 'pSoldOut'].forEach(id => document.getElementById(id).checked = false);
+            document.getElementById('pImagePreview').style.display = 'none';
+            editingProductId = null;
+        }
+
+        window.editProduct = function (id) {
+            const p = products.find(x => x.id === id);
+            if (!p) return;
+            editingProductId = id;
+            document.getElementById('productPanelTitle').textContent = 'Edit Product';
+            document.getElementById('pName').value = p.name;
+            document.getElementById('pSlug').value = p.slug;
+            document.getElementById('pPrice').value = p.price;
+            document.getElementById('pSize').value = p.size;
+            document.getElementById('pGender').value = p.gender;
+            document.getElementById('pGender').onchange();
+            document.getElementById('pCategory').value = p.category;
+            document.getElementById('pCategory').onchange();
+            if (p.subcategory) document.getElementById('pSubcategory').value = p.subcategory;
+            document.getElementById('pEra').value = p.era || '';
+            document.getElementById('pCondition').value = p.condition || '';
+            document.getElementById('pImage').value = p.image || '';
+            document.getElementById('pImage').oninput();
+            document.getElementById('pDescription').value = p.description || '';
+            document.getElementById('pDrop').checked = p.drop;
+            document.getElementById('pFeatured').checked = p.featured;
+            document.getElementById('pSoldOut').checked = p.soldOut;
+            openProductPanel();
+        };
+
+        document.getElementById('productSaveBtn').onclick = () => {
+            const name = document.getElementById('pName').value.trim();
+            if (!name) { alert('Product name is required'); return; }
+            const data = {
+                name,
+                slug: document.getElementById('pSlug').value.trim() || slugify(name),
+                price: parseInt(document.getElementById('pPrice').value) || 0,
+                size: document.getElementById('pSize').value,
+                gender: document.getElementById('pGender').value,
+                category: document.getElementById('pCategory').value,
+                subcategory: document.getElementById('pSubcategory').value,
+                era: document.getElementById('pEra').value,
+                condition: document.getElementById('pCondition').value,
+                image: document.getElementById('pImage').value.trim(),
+                description: document.getElementById('pDescription').value.trim(),
+                drop: document.getElementById('pDrop').checked,
+                featured: document.getElementById('pFeatured').checked,
+                soldOut: document.getElementById('pSoldOut').checked,
+            };
+            if (editingProductId) {
+                const idx = products.findIndex(p => p.id === editingProductId);
+                if (idx > -1) products[idx] = { ...products[idx], ...data };
             } else {
-                await fetchAPI('Products', 'POST', { fields });
-                showToast('Product added!');
+                products.push({ id: uid(), ...data });
             }
-            closePanel();
-            await loadData();
-        } catch(e) {
-            console.error(e);
-            showToast('Error saving product: ' + e.message, true);
-        }
-    }
-
-    async function deleteProduct(id, name) {
-        if(!confirm(`Delete ${name}? This cannot be undone.`)) return;
-        try {
-            await fetchAPI('Products', 'DELETE', null, id);
-            showToast("Product deleted");
-            loadData();
-        } catch(e) { showToast("Error deleting", true); }
-    }
-
-    async function removeFromDrop(id) {
-        try {
-            await fetchAPI('Products', 'PATCH', { fields: { Drop: false } }, id);
-            showToast("Removed from drop");
-            loadData();
-        } catch(e) { showToast("Error", true); }
-    }
-
-    async function clearEntireDrop() {
-        const drops = window.productsData.filter(r => r.fields['Drop']);
-        if(!drops.length) return showToast("Drop is already empty", true);
-        if(!confirm("Clear all items from drop?")) return;
-        
-        try {
-            for(const r of drops) {
-                await fetchAPI('Products', 'PATCH', { fields: { Drop: false } }, r.id);
-            }
-            showToast("Drop cleared");
-            loadData();
-        } catch(e) { showToast("Error", true); }
-    }
-
-    async function saveOutfit() {
-        const id = document.getElementById('outf-id').value;
-        const body = {
-            fields: {
-                Name: document.getElementById('outf-name').value,
-                Slug: document.getElementById('outf-slug').value,
-                Vibe: document.getElementById('outf-vibe').value,
-                Description: document.getElementById('outf-desc').value,
-                'Drop Date': document.getElementById('outf-date').value,
-                'Cover Image URL': convertGDriveUrl(document.getElementById('outf-image-url').value.trim()),
-                Items: Array.from(document.getElementById('outfit-items-select').selectedOptions).map(opt => opt.value).join(', ')
-            }
+            closeProductPanel();
+            renderAll();
         };
-        try {
-            await fetchAPI('Outfits', id ? 'PATCH' : 'POST', body, id);
-            showToast("Outfit saved");
-            closePanel();
-            loadData();
-        } catch(e) { showToast("Error saving", true); }
-    }
 
-    async function deleteOutfit(id, name) {
-        if(!confirm(`Delete ${name}? This cannot be undone.`)) return;
-        try {
-            await fetchAPI('Outfits', 'DELETE', null, id);
-            showToast("Outfit deleted");
-            loadData();
-        } catch(e) { showToast("Error deleting", true); }
-    }
-
-    async function toggleSoldOut(recordId, toggleElement) {
-        const isSoldOut = !toggleElement.checked;
-        const row = toggleElement.closest('tr');
-        try {
-            await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE}/Products/${recordId}`, {
-                method: 'PATCH',
-                headers: {
-                    Authorization: `Bearer ${AIRTABLE_TOKEN}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ fields: { 'Sold Out': isSoldOut } })
+        window.deleteProduct = function (id) {
+            showConfirm('Delete Product', 'This product will be permanently removed.', () => {
+                products = products.filter(p => p.id !== id);
+                outfits.forEach(o => { o.items = o.items.filter(i => i !== id); });
+                renderAll();
             });
-            const label = toggleElement.closest('label').querySelector('span.ml-3');
-            if (label) label.textContent = isSoldOut ? 'SOLD OUT' : 'IN STOCK';
-            if (isSoldOut) {
-                row.classList.add('opacity-50');
-                row.querySelector('.product-name')?.classList.add('line-through');
-            } else {
-                row.classList.remove('opacity-50');
-                row.querySelector('.product-name')?.classList.remove('line-through');
-            }
-            showToast('Status updated!', false);
-        } catch(err) {
-            showToast('Failed to update status', true);
-            toggleElement.checked = !toggleElement.checked; // revert toggle on failure
-        }
-    }
+        };
 
-</script>
+        // ═══════════════════════════════════════════
+        // DROPS
+        // ═══════════════════════════════════════════
+
+        window.removeDrop = function (id) {
+            const p = products.find(x => x.id === id);
+            if (p) { p.drop = false; renderAll(); }
+        };
+
+        document.getElementById('clearDropBtn').onclick = () => {
+            showConfirm('Clear Entire Drop', 'All products will be removed from the current drop.', () => {
+                products.forEach(p => p.drop = false);
+                renderAll();
+            });
+        };
+
+        // ═══════════════════════════════════════════
+        // SOLD OUT TOGGLE
+        // ═══════════════════════════════════════════
+
+        window.toggleSoldOut = function (id) {
+            const p = products.find(x => x.id === id);
+            if (p) { p.soldOut = !p.soldOut; renderAll(); }
+        };
+
+        // ═══════════════════════════════════════════
+        // OUTFIT PANEL
+        // ═══════════════════════════════════════════
+
+        const outfitPanel = document.getElementById('outfitPanel');
+        const outfitPanelOverlay = document.getElementById('outfitPanelOverlay');
+
+        function openOutfitPanel() { outfitPanel.classList.add('open'); outfitPanelOverlay.style.display = 'block'; renderOutfitItems(); }
+        function closeOutfitPanel() { outfitPanel.classList.remove('open'); outfitPanelOverlay.style.display = 'none'; resetOutfitForm(); }
+
+        document.getElementById('addOutfitBtn').onclick = () => { editingOutfitId = null; document.getElementById('outfitPanelTitle').textContent = 'Add New Outfit'; openOutfitPanel(); };
+        document.getElementById('outfitPanelClose').onclick = closeOutfitPanel;
+        document.getElementById('outfitCancelBtn').onclick = closeOutfitPanel;
+        outfitPanelOverlay.onclick = closeOutfitPanel;
+
+        document.getElementById('oName').oninput = () => {
+            if (!editingOutfitId) document.getElementById('oSlug').value = slugify(document.getElementById('oName').value);
+        };
+
+        document.getElementById('oImage').oninput = () => {
+            const url = convertGDriveUrl(document.getElementById('oImage').value);
+            const prev = document.getElementById('oImagePreview');
+            if (url) { prev.src = url; prev.style.display = 'block'; } else { prev.style.display = 'none'; }
+        };
+
+        function renderOutfitItems(selectedIds = [], filter = '') {
+            const list = document.getElementById('oItemsList');
+            const filtered = products.filter(p => !filter || p.name.toLowerCase().includes(filter.toLowerCase()));
+            list.innerHTML = filtered.map(p => `
+    <label class="form-check"><input type="checkbox" value="${p.id}" ${selectedIds.includes(p.id) ? 'checked' : ''}><span>${p.name} — Size ${p.size}</span></label>
+  `).join('') || '<div style="padding:8px;color:#6B7280;font-size:13px">No products found</div>';
+        }
+
+        document.getElementById('oItemsSearch').oninput = () => {
+            const selectedIds = Array.from(document.querySelectorAll('#oItemsList input:checked')).map(i => i.value);
+            renderOutfitItems(selectedIds, document.getElementById('oItemsSearch').value);
+        };
+
+        function resetOutfitForm() {
+            ['oName', 'oSlug', 'oDescription', 'oImage', 'oDate', 'oItemsSearch'].forEach(id => document.getElementById(id).value = '');
+            document.getElementById('oVibe').selectedIndex = 0;
+            document.getElementById('oImagePreview').style.display = 'none';
+            editingOutfitId = null;
+        }
+
+        window.editOutfit = function (id) {
+            const o = outfits.find(x => x.id === id);
+            if (!o) return;
+            editingOutfitId = id;
+            document.getElementById('outfitPanelTitle').textContent = 'Edit Outfit';
+            document.getElementById('oName').value = o.name;
+            document.getElementById('oSlug').value = o.slug;
+            document.getElementById('oVibe').value = o.vibe || '';
+            document.getElementById('oDescription').value = o.description || '';
+            document.getElementById('oImage').value = o.image || '';
+            document.getElementById('oImage').oninput();
+            document.getElementById('oDate').value = o.date || '';
+            openOutfitPanel();
+            renderOutfitItems(o.items);
+        };
+
+        document.getElementById('outfitSaveBtn').onclick = () => {
+            const name = document.getElementById('oName').value.trim();
+            if (!name) { alert('Outfit name is required'); return; }
+            const selectedItems = Array.from(document.querySelectorAll('#oItemsList input:checked')).map(i => i.value);
+            const data = {
+                name,
+                slug: document.getElementById('oSlug').value.trim() || slugify(name),
+                vibe: document.getElementById('oVibe').value,
+                description: document.getElementById('oDescription').value.trim(),
+                image: document.getElementById('oImage').value.trim(),
+                date: document.getElementById('oDate').value,
+                items: selectedItems,
+            };
+            if (editingOutfitId) {
+                const idx = outfits.findIndex(o => o.id === editingOutfitId);
+                if (idx > -1) outfits[idx] = { ...outfits[idx], ...data };
+            } else {
+                outfits.push({ id: uid(), ...data });
+            }
+            closeOutfitPanel();
+            renderAll();
+        };
+
+        window.deleteOutfit = function (id) {
+            showConfirm('Delete Outfit', 'This outfit will be permanently removed.', () => {
+                outfits = outfits.filter(o => o.id !== id);
+                renderAll();
+            });
+        };
+
+        // ═══════════════════════════════════════════
+        // CONFIRM DIALOG
+        // ═══════════════════════════════════════════
+
+        function showConfirm(title, msg, cb) {
+            document.getElementById('confirmTitle').textContent = title;
+            document.getElementById('confirmMsg').textContent = msg;
+            document.getElementById('confirmDialog').classList.add('show');
+            confirmCallback = cb;
+        }
+
+        document.getElementById('confirmCancel').onclick = () => { document.getElementById('confirmDialog').classList.remove('show'); confirmCallback = null; };
+        document.getElementById('confirmOk').onclick = () => { document.getElementById('confirmDialog').classList.remove('show'); if (confirmCallback) confirmCallback(); confirmCallback = null; };
+
+    </script>
 </body>
+
 </html>

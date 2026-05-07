@@ -1,329 +1,618 @@
 <!DOCTYPE html>
+<html lang="en">
 
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>About | Archive Closet</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Be+Vietnam+Pro:wght@100;200;300;400;500;600;700;800;900&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "inverse-surface": "#313030",
-                        "on-secondary-container": "#783c24",
-                        "surface-container-high": "#eae7e7",
-                        "tertiary-fixed-dim": "#e7bf9d",
-                        "on-tertiary-fixed-variant": "#5c4127",
-                        "on-primary-container": "#fffbff",
-                        "background": "#fcf9f8",
-                        "surface-container-lowest": "#ffffff",
-                        "surface-dim": "#dcd9d9",
-                        "outline": "#827473",
-                        "surface-variant": "#e5e2e1",
-                        "secondary-fixed-dim": "#ffb59a",
-                        "error": "#ba1a1a",
-                        "primary-fixed-dim": "#ecbaba",
-                        "on-secondary": "#ffffff",
-                        "inverse-on-surface": "#f3f0ef",
-                        "primary-fixed": "#ffdad9",
-                        "on-background": "#1c1b1b",
-                        "surface-container": "#f0eded",
-                        "on-primary": "#ffffff",
-                        "tertiary-fixed": "#ffdcc0",
-                        "surface-bright": "#fcf9f8",
-                        "on-surface-variant": "#504444",
-                        "tertiary-container": "#8f6e51",
-                        "surface": "#fcf9f8",
-                        "secondary-container": "#feaa8a",
-                        "inverse-primary": "#ecbaba",
-                        "outline-variant": "#d4c2c2",
-                        "on-tertiary-fixed": "#2b1703",
-                        "on-tertiary-container": "#fffbff",
-                        "on-secondary-fixed-variant": "#71361e",
-                        "on-error": "#ffffff",
-                        "error-container": "#ffdad6",
-                        "secondary": "#8e4d33",
-                        "on-secondary-fixed": "#380d00",
-                        "primary-container": "#936a6a",
-                        "on-tertiary": "#ffffff",
-                        "surface-tint": "#7b5455",
-                        "surface-container-low": "#f6f3f2",
-                        "primary": "#785252",
-                        "on-surface": "#1c1b1b",
-                        "on-error-container": "#93000a",
-                        "secondary-fixed": "#ffdbce",
-                        "on-primary-fixed": "#2f1314",
-                        "tertiary": "#74563b",
-                        "surface-container-highest": "#e5e2e1",
-                        "on-primary-fixed-variant": "#613d3e"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "margin-desktop": "40px",
-                        "container-max": "1280px",
-                        "gutter": "24px",
-                        "unit": "8px",
-                        "section-gap": "80px",
-                        "margin-mobile": "16px"
-                    },
-                    "fontFamily": {
-                        "price-display": ["Space Grotesk"],
-                        "body-md": ["Be Vietnam Pro"],
-                        "h2": ["Newsreader"],
-                        "label-caps": ["Space Grotesk"],
-                        "h1": ["Newsreader"],
-                        "h3": ["Newsreader"],
-                        "body-lg": ["Be Vietnam Pro"]
-                    },
-                    "fontSize": {
-                        "price-display": ["20px", {"lineHeight": "1", "fontWeight": "500"}],
-                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                        "h2": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
-                        "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
-                        "h1": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}],
-                        "h3": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}],
-                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
-                    }
-                },
-            },
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About | Archive Closet</title>
+    <meta name="description"
+        content="Archive Closet started in Harare with a simple idea: find the pieces no one else has, and get them to people who actually want them." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-    </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1A1A1A;
+            background: #FFFFFF;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
-        .baddie-shadow {
-            box-shadow: 0px 4px 20px rgba(26, 26, 26, 0.05);
+
+        a {
+            color: inherit;
+            text-decoration: none;
         }
-        .hero-gradient {
-            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%);
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        :root {
+            --bg: #FFFFFF;
+            --fg: #1A1A1A;
+            --muted: #666666;
+            --border: #E5E5E5;
+            --surface: #F5F5F5;
+            --accent: #C45B3A;
+        }
+
+        /* ── Header ── */
+        .site-header {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+        }
+
+        @media (min-width: 768px) {
+            .header-inner {
+                padding: 16px 32px;
+            }
+        }
+
+        .logo {
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: none;
+            align-items: center;
+            gap: 24px;
+        }
+
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+
+        .nav-links a {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--fg);
+        }
+
+        .nav-links a.active {
+            color: var(--fg);
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        .header-icons {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-icons a {
+            padding: 4px;
+            color: var(--fg);
+            transition: color 0.2s;
+        }
+
+        .header-icons a:hover {
+            color: var(--accent);
+        }
+
+        .header-icons svg {
+            width: 18px;
+            height: 18px;
+            stroke-width: 1.5;
+        }
+
+        /* ── Hero ── */
+        .hero {
+            background: var(--surface);
+        }
+
+        .hero-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 768px) {
+            .hero-inner {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .hero-image {
+            aspect-ratio: 4/5;
+            overflow: hidden;
+            background: var(--border);
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 48px 24px;
+        }
+
+        @media (min-width: 768px) {
+            .hero-text {
+                padding: 64px 48px;
+            }
+        }
+
+        .hero-text h1 {
+            font-size: 24px;
+            line-height: 32px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            letter-spacing: -0.01em;
+        }
+
+        .hero-text p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--muted);
+            max-width: 28rem;
+        }
+
+        .hero-text p+p {
+            margin-top: 16px;
+        }
+
+        /* ── Section ── */
+        .section {
+            padding: 64px 24px;
+        }
+
+        @media (min-width: 768px) {
+            .section {
+                padding: 80px 32px;
+            }
+        }
+
+        .section-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 24px;
+            line-height: 32px;
+            font-weight: 600;
+            margin-bottom: 48px;
+            letter-spacing: -0.01em;
+        }
+
+        .bg-surface {
+            background: var(--surface);
+        }
+
+        /* ── How It Works ── */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+        }
+
+        @media (min-width: 768px) {
+            .steps-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 48px;
+            }
+        }
+
+        .step-icon {
+            width: 32px;
+            height: 32px;
+            margin-bottom: 20px;
+            color: var(--fg);
+        }
+
+        .step-title {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 12px;
+        }
+
+        .step-body {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--muted);
+        }
+
+        /* ── Values ── */
+        .values-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        @media (min-width: 768px) {
+            .values-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 24px;
+            }
+        }
+
+        .value-card {
+            background: var(--bg);
+            padding: 32px;
+        }
+
+        .value-num {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--muted);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .value-title {
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+        }
+
+        .value-body {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--muted);
+        }
+
+        /* ── Founder ── */
+        .founder {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0;
+        }
+
+        @media (min-width: 768px) {
+            .founder {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .founder-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 48px 24px;
+            order: 1;
+        }
+
+        @media (min-width: 768px) {
+            .founder-text {
+                padding: 64px 48px;
+                order: 0;
+            }
+        }
+
+        .founder-quote {
+            font-size: 20px;
+            line-height: 1.5;
+            font-weight: 500;
+            font-style: italic;
+            max-width: 28rem;
+            margin-bottom: 24px;
+        }
+
+        .founder-attr {
+            font-size: 14px;
+            color: var(--muted);
+            margin-bottom: 24px;
+        }
+
+        .founder-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .founder-links a {
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            transition: color 0.2s;
+        }
+
+        .founder-links a:hover {
+            color: var(--accent);
+        }
+
+        .founder-image {
+            aspect-ratio: 3/4;
+            overflow: hidden;
+            background: var(--surface);
+            order: 2;
+        }
+
+        @media (min-width: 768px) {
+            .founder-image {
+                order: 1;
+            }
+        }
+
+        .founder-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ── Gallery Strip ── */
+        .gallery-strip {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @media (min-width: 768px) {
+            .gallery-strip {
+                grid-template-columns: repeat(6, 1fr);
+            }
+        }
+
+        .gallery-cell {
+            aspect-ratio: 1;
+            overflow: hidden;
+        }
+
+        .gallery-cell img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+
+        .gallery-cell:hover img {
+            transform: scale(1.05);
+        }
+
+        /* ── Footer ── */
+        .site-footer {
+            border-top: 1px solid var(--border);
+            padding: 32px 24px;
+            text-align: center;
+        }
+
+        .footer-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            font-size: 12px;
+            color: var(--muted);
         }
     </style>
 </head>
-<body class="bg-background text-on-background font-body-md selection:bg-secondary-container selection:text-on-secondary-container">
-<!-- TopNavBar -->
-<header class="sticky top-0 z-50 bg-[#F9F6F1] border-b border-stone-200">
-<nav class="flex justify-between items-center px-8 py-6 w-full max-w-7xl mx-auto">
-<div class="flex items-center gap-8">
-<a class="text-2xl font-['Newsreader'] font-bold italic text-stone-900" href="index.html">Archive Closet</a>
-<div class="hidden md:flex gap-6">
-<a class="text-stone-600 font-sans uppercase tracking-widest text-xs hover:text-[#A67B7B] transition-colors duration-300" href="shop.html">Women</a>
-<a class="text-stone-600 font-sans uppercase tracking-widest text-xs hover:text-[#A67B7B] transition-colors duration-300" href="outfits.html">Outfits</a><a class="text-stone-600 font-sans uppercase tracking-widest text-xs hover:text-[#A67B7B] transition-colors duration-300" href="drops.html">New Drops</a>
-<a class="text-[#A67B7B] border-b-2 border-[#E07A5F] pb-1 font-sans uppercase tracking-widest text-xs" href="about.html">About</a>
-</div>
-</div>
-<div class="flex items-center gap-4">
-<a class="p-2 transition-opacity active:opacity-70" href="https://wa.me/263718968489?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20a%20few%20pieces" target="_blank">
-<span class="material-symbols-outlined text-[#A67B7B]" data-icon="shopping_bag">shopping_bag</span>
-</a>
-<button aria-controls="mobile-menu" aria-expanded="false" class="md:hidden p-2" data-mobile-menu-toggle type="button">
-<span class="material-symbols-outlined text-[#A67B7B]" data-icon="menu">menu</span>
-</button>
-</div>
-</nav>
-<div class="hidden border-t border-stone-200 md:hidden px-8 py-4" id="mobile-menu">
-<div class="flex flex-col gap-4">
-<a class="text-stone-600 font-sans uppercase tracking-widest text-xs hover:text-[#A67B7B] transition-colors duration-300" href="shop.html">Women</a>
-<a class="text-stone-600 font-sans uppercase tracking-widest text-xs hover:text-[#A67B7B] transition-colors duration-300" href="outfits.html">Outfits</a>
-<a class="text-stone-600 font-sans uppercase tracking-widest text-xs hover:text-[#A67B7B] transition-colors duration-300" href="drops.html">New Drops</a>
-<a class="text-stone-600 font-sans uppercase tracking-widest text-xs hover:text-[#A67B7B] transition-colors duration-300" href="about.html">About</a>
 
-</div>
-</div>
-</header>
-<main>
-<!-- Editorial Hero Section -->
-<section class="relative w-full h-[90vh] overflow-hidden">
-  <!-- Hero Image -->
-  <img 
-    src="images/hero-banner.png" 
-    alt="Archive Closet — Vintage soul. Baddie energy." 
-    class="w-full h-full object-cover object-center"
-  />
-  <!-- Dark overlay for text legibility -->
-  <div class="absolute inset-0 bg-black/40"></div>
-  <!-- Text overlay -->
-  <div class="absolute inset-0 flex flex-col justify-end px-8 md:px-16 pb-16 max-w-7xl mx-auto w-full">
-    <span class="font-label-caps text-label-caps text-secondary-fixed bg-black/30 backdrop-blur-sm px-3 py-1 rounded-full inline-block w-fit mb-4">ARCHIVE CLOSET</span>
-    <h1 class="font-['Newsreader'] text-[52px] md:text-[72px] leading-[1.05] text-white italic mb-4">
-      We find the pieces.<br/>You write the story.
-    </h1>
-    <p class="font-body-lg text-white/80 max-w-lg mb-8">
-      Harare-based vintage thrift. Curated weekly. Every piece has a past.
-    </p>
-    <div class="flex gap-4">
-      <a href="shop.html" class="px-8 py-4 bg-primary text-white font-label-caps rounded-full shadow-lg hover:bg-secondary transition-all">
-        SHOP THE DROP
-      </a>
-      <a href="https://www.instagram.com/archivecloset.zw" target="_blank" class="px-8 py-4 border border-white/60 text-white font-label-caps rounded-full hover:bg-white/10 transition-all backdrop-blur-sm">
-        FOLLOW US
-      </a>
-    </div>
-  </div>
-</section>
-<!-- The Archive Story Section (Asymmetric Layout) -->
-<section class="mt-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
-<div class="grid grid-cols-1">
-<div>
-<span class="font-label-caps text-label-caps text-secondary uppercase tracking-[0.2em] mb-4 block">Our Origin</span>
-<h2 class="font-h2 text-h2 text-on-surface mb-6">The Archive Story</h2>
-<div class="space-y-6 text-on-surface-variant font-body-lg text-body-lg leading-relaxed">
-<p>Archive Closet was born from a deep-rooted obsession with the hunt. We believe that true style isn't bought from a catalog—it's discovered in the dusty corners of a Parisian flea market or a hidden basement in Brooklyn. Our curation process is rigorous, focusing on the "Baddie Vintage" aesthetic: high-confidence, archival pieces that bridge the gap between luxury history and street-level rawness.</p>
-<p>Sustainability is our core, not an afterthought. By recirculating these one-of-a-kind artifacts, we celebrate the artistry of the past while protecting our future. Every drop is a curated capsule designed to empower your unique narrative with textures that feel as good as they look.</p>
-</div>
-</div>
-<div class="md:col-span-6 md:col-start-7 order-1 md:order-2 mb-10 md:mb-0">
-</div>
-</div>
-</section>
-<!-- How It Works Section (Bento-ish Grid) -->
-<section class="mt-section-gap bg-surface-container-low py-20 px-margin-mobile md:px-margin-desktop">
-<div class="max-w-container-max mx-auto text-center mb-16">
-<h2 class="font-h2 text-h2 text-on-surface">How It Works</h2>
-<p class="text-on-surface-variant mt-2">Curated luxury, made personal.</p>
-</div>
-<div class="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
-<!-- Step 1 -->
-<div class="flex flex-col items-center text-center group">
-<div class="w-20 h-20 rounded-full bg-secondary-fixed flex items-center justify-center mb-6 group-hover:scale-105 transition-transform duration-300">
-<span class="material-symbols-outlined text-on-secondary-fixed text-3xl">auto_awesome</span>
-</div>
-<h3 class="font-h3 text-h3 text-on-surface mb-3">Browse the Drop</h3>
-<p class="text-on-surface-variant max-w-xs">New pieces land weekly. Follow us for early access to our curated selections before they hit the shop.</p>
-</div>
-<!-- Step 2 -->
-<div class="flex flex-col items-center text-center group">
-<div class="w-20 h-20 rounded-full bg-primary-fixed flex items-center justify-center mb-6 group-hover:scale-105 transition-transform duration-300">
-<span class="material-symbols-outlined text-on-primary-fixed text-3xl">chat_bubble</span>
-</div>
-<h3 class="font-h3 text-h3 text-on-surface mb-3">Reserve via WhatsApp</h3>
-<p class="text-on-surface-variant max-w-xs">We keep it personal. See something you love? Message us directly to reserve your piece and discuss sizing.</p>
-</div>
-<!-- Step 3 -->
-<div class="flex flex-col items-center text-center group">
-<div class="w-20 h-20 rounded-full bg-tertiary-fixed flex items-center justify-center mb-6 group-hover:scale-105 transition-transform duration-300">
-<span class="material-symbols-outlined text-on-tertiary-fixed text-3xl">checkroom</span>
-</div>
-<h3 class="font-h3 text-h3 text-on-surface mb-3">Wear It Your Way</h3>
-<p class="text-on-surface-variant max-w-xs">Express your aesthetic. Tag us in your Archive closet finds to join our growing style community.</p>
-</div>
-</div>
-</section>
-<!-- Our Values Section (Horizontal Cards) -->
-<section class="mt-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
-<div class="flex flex-col md:flex-row justify-between items-baseline mb-12 gap-4">
-<h2 class="font-h2 text-h2 text-on-surface">Our Values</h2>
-<div class="h-px bg-outline-variant flex-grow mx-8 hidden md:block"></div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
-<div class="p-8 border border-outline-variant/30 rounded-xl bg-surface-bright baddie-shadow hover:-translate-y-1 transition-all duration-300">
-<span class="font-label-caps text-secondary text-label-caps block mb-4">01</span>
-<h3 class="font-h3 text-h3 text-on-surface mb-4">Sustainable</h3>
-<p class="text-on-surface-variant">Extending the life cycle of garment design through conscious curation and circular fashion practices.</p>
-</div>
-<div class="p-8 border border-outline-variant/30 rounded-xl bg-surface-bright baddie-shadow hover:-translate-y-1 transition-all duration-300">
-<span class="font-label-caps text-secondary text-label-caps block mb-4">02</span>
-<h3 class="font-h3 text-h3 text-on-surface mb-4">One-of-a-Kind</h3>
-<p class="text-on-surface-variant">We prioritize rarity and unique character over mass-produced trends. Your style should be as unique as your story.</p>
-</div>
-<div class="p-8 border border-outline-variant/30 rounded-xl bg-surface-bright baddie-shadow hover:-translate-y-1 transition-all duration-300">
-<span class="font-label-caps text-secondary text-label-caps block mb-4">03</span>
-<h3 class="font-h3 text-h3 text-on-surface mb-4">Community-First</h3>
-<p class="text-on-surface-variant">Building a space where fashion enthusiasts connect, share inspiration, and redefine the vintage experience together.</p>
-</div>
-</div>
-</section>
-<!-- Meet the Curator Section -->
-<section class="mt-section-gap mb-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
-<div class="bg-secondary-fixed/10 rounded-3xl overflow-hidden p-8 md:p-16 flex flex-col md:flex-row gap-12 items-center">
-<div class="w-full md:w-1/3 aspect-[3/4] relative">
-<img alt="Portrait of the curator" class="w-full h-full object-cover rounded-2xl baddie-shadow" src="images/valerie.JPG"/>
-<div class="absolute -bottom-4 -right-4 bg-primary text-on-primary font-label-caps text-[10px] px-4 py-2 rounded-full tracking-widest uppercase">Lead Curator</div>
-</div>
-<div class="w-full md:w-2/3">
-<span class="font-label-caps text-secondary text-label-caps uppercase mb-4 block">The Visionary</span>
-<h2 class="font-h2 text-h2 text-on-surface mb-6">Meet the Curator</h2>
-<p class="font-body-lg text-body-lg text-on-surface-variant mb-6 leading-relaxed">
-                        "I've always believed that the most powerful outfits are the ones that carry a piece of history. Archive Closet is my love letter to the '90s and early 2000s—a time of raw creativity and bold silhouettes. My mission is to find those pieces that make you feel invincible, providing a curated gateway to an aesthetic that is both timeless and provocative."
-                    </p>
-<p class="font-h3 text-h3 italic text-primary">— Valerie Muhwandagara, Founder</p>
-<div class="mt-10 flex gap-6">
-<a class="flex items-center gap-2 text-on-surface-variant hover:text-secondary transition-colors" href="https://www.instagram.com/iamtidashe?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">
-<span class="material-symbols-outlined">camera_alt</span>
-<span class="font-label-caps">Instagram</span>
-</a>
-<a class="flex items-center gap-2 text-on-surface-variant hover:text-secondary transition-colors" href="mailto:anotidashemuhwandagara@gmail.com">
-<span class="material-symbols-outlined">mail</span>
-<span class="font-label-caps">Contact Valerie</span>
-</a>
-</div>
-</div>
-</div>
-</section>
-<!-- Call to Action Image Grid -->
-<section class="grid grid-cols-2 md:grid-cols-4 w-full overflow-hidden">
-<img alt="Gallery item 1" class="w-full h-[500px] object-cover object-top hover:scale-105 transition-transform duration-700" src="images/gallery1.jpeg"/>
-<img alt="Gallery item 2" class="w-full h-[500px] object-cover object-top hover:scale-105 transition-transform duration-700" src="images/gallery2.jpeg"/>
-<img alt="Gallery item 3" class="w-full h-[500px] object-cover object-top hover:scale-105 transition-transform duration-700" src="images/gallery3.jpeg"/>
-<img alt="Gallery item 4" class="w-full h-[500px] object-cover object-top hover:scale-105 transition-transform duration-700" src="images/gallery4.JPG"/>
-</section>
-</main>
-<!-- Footer -->
-<footer class="bg-[#F9F6F1] border-t border-stone-200">
-<div class="grid grid-cols-1 md:grid-cols-3 gap-12 px-8 py-16 w-full max-w-7xl mx-auto text-center md:text-left">
-<div>
-<a class="text-xl font-['Newsreader'] font-bold italic text-stone-800" href="index.html">Archive Closet</a>
-<p class="mt-4 text-stone-500 text-sm font-['Newsreader'] max-w-xs mx-auto md:mx-0">Curating the finest archival streetwear and vintage gems for the modern baddie aesthetic.</p>
-</div>
-<div class="flex flex-col gap-4">
-<p class="font-['Space_Grotesk'] text-xs uppercase tracking-widest text-stone-900 mb-2">Help</p>
-<a class="text-stone-500 hover:text-[#E07A5F] transition-colors text-sm" href="contact.html">Contact</a>
-<a class="text-stone-500 hover:text-[#E07A5F] transition-colors text-sm" href="faq.html">FAQ</a>
-<a class="flex items-center justify-center md:justify-start gap-2 text-stone-500 hover:text-green-600 transition-colors text-sm" href="https://wa.me/263718968489" target="_blank">
-<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>
-<span>WhatsApp Support</span>
-</a>
-</div>
-<div class="flex flex-col gap-4">
-<p class="font-['Space_Grotesk'] text-xs uppercase tracking-widest text-stone-900 mb-2">Social</p>
-<div class="flex justify-center md:justify-start gap-6">
-<a class="text-stone-500 hover:text-[#E07A5F] transition-colors" href="https://www.instagram.com/iamtidashe" target="_blank" title="Instagram">
-<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-</a>
-<a class="text-stone-500 hover:text-[#E07A5F] transition-colors" href="https://www.tiktok.com/@archivecloset.zw" target="_blank" title="TikTok">
-<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/></svg>
-</a>
-<a class="text-stone-500 hover:text-[#E07A5F] transition-colors" href="https://pin.it/4ZSlH79KU" title="Pinterest">
-<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 01.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
-</a>
-</div>
-</div>
-</div>
-<div class="border-t border-stone-100 py-8 text-center">
-<p class="text-stone-400 text-xs font-['Space_Grotesk'] uppercase tracking-tighter">© Archive Closet. All rights reserved.</p>
-</div>
-</footer>
-<script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const toggle = document.querySelector("[data-mobile-menu-toggle]");
-        const menu = document.getElementById("mobile-menu");
-        if (!toggle || !menu) return;
-        toggle.addEventListener("click", function () {
-          const isHidden = menu.classList.contains("hidden");
-          menu.classList.toggle("hidden", !isHidden);
-          toggle.setAttribute("aria-expanded", String(isHidden));
-        });
-      });
+<body>
+
+    <!-- ── HEADER ── -->
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="index.html" class="logo">Archive Closet</a>
+            <nav class="nav-links">
+                <a href="shop.html?gender=menswear">Menswear</a>
+                <a href="shop.html?gender=womenswear">Womenswear</a>
+                <a href="shop.html?category=crochet">Crochet</a>
+                <a href="drops.html">Drops</a>
+                <a href="about.html" class="active">About</a>
+            </nav>
+            <div class="header-icons">
+                <a href="https://wa.me/263718968489" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path
+                            d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ── HERO ── -->
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-image">
+                <img src="" alt="Archive Closet studio" id="heroImage" />
+            </div>
+            <div class="hero-text">
+                <h1>How It Started</h1>
+                <p>We started in Harare with a simple idea: find the pieces no one else has, and get them to people who
+                    actually want them.</p>
+                <p>No mass orders. No restocks. Just rare pieces, dropped weekly.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── HOW IT WORKS ── -->
+    <section class="section">
+        <div class="section-inner">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps-grid">
+                <div>
+                    <svg class="step-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5">
+                        <path d="M21 8l-2-3H5L3 8m18 0v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8m18 0H3" />
+                        <path d="M10 12h4" />
+                    </svg>
+                    <h3 class="step-title">The Drop</h3>
+                    <p class="step-body">New pieces every Friday. First come, first serve.</p>
+                </div>
+                <div>
+                    <svg class="step-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5">
+                        <path
+                            d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+                    </svg>
+                    <h3 class="step-title">The Order</h3>
+                    <p class="step-body">See it? WhatsApp us. We hold it. You pay. We deliver.</p>
+                </div>
+                <div>
+                    <svg class="step-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5">
+                        <path
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                    <h3 class="step-title">The Fit</h3>
+                    <p class="step-body">Wear it. Tag us. We repost.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── VALUES ── -->
+    <section class="section bg-surface">
+        <div class="section-inner">
+            <h2 class="section-title">What We Stand For</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-num">01</div>
+                    <h3 class="value-title">One-of-One</h3>
+                    <p class="value-body">Every piece is unique. No duplicates.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-num">02</div>
+                    <h3 class="value-title">No Restocks</h3>
+                    <p class="value-body">When it's gone, it's gone. That makes it yours.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-num">03</div>
+                    <h3 class="value-title">Community</h3>
+                    <p class="value-body">Tag us in your fit. We feature the best.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── FOUNDER ── -->
+    <section class="section">
+        <div class="founder">
+            <div class="founder-text">
+                <blockquote class="founder-quote">"I started this because I was tired of seeing the same clothes on
+                    everyone. I wanted pieces that felt personal."</blockquote>
+                <p class="founder-attr">— Valerie Muhwandagara, Founder</p>
+                <div class="founder-links">
+                    <a href="https://www.instagram.com/archivecloset.zw" target="_blank"
+                        rel="noopener noreferrer">Instagram</a>
+                    <a href="mailto:anotidashemuhwandagara@gmail.com">Email</a>
+                </div>
+            </div>
+            <div class="founder-image">
+                <img src="" alt="Valerie Muhwandagara, Founder of Archive Closet" id="founderImage" />
+            </div>
+        </div>
+    </section>
+
+    <!-- ── GALLERY STRIP ── -->
+    <section class="gallery-strip" id="galleryStrip">
+        <!-- Populated by JS -->
+    </section>
+
+    <!-- ── FOOTER ── -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            &copy; <span id="year"></span> Archive Closet. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // ── Image data — replace src values with real URLs ──
+        const heroImageUrl = '';      // founder or studio shot
+        const founderImageUrl = '';   // founder portrait
+
+        const galleryImages = [
+            '', // gallery image 1
+            '', // gallery image 2
+            '', // gallery image 3
+            '', // gallery image 4
+            '', // gallery image 5
+            '', // gallery image 6
+        ];
+
+        // Google Drive helper
+        function convertGDriveUrl(url) {
+            if (!url) return '';
+            const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+            if (match) return 'https://lh3.googleusercontent.com/d/' + match[1] + '=s1200';
+            return url;
+        }
+
+        // Hero image
+        const heroEl = document.getElementById('heroImage');
+        const heroSrc = convertGDriveUrl(heroImageUrl);
+        if (heroSrc) {
+            heroEl.src = heroSrc;
+        } else {
+            heroEl.parentElement.style.background = 'var(--surface)';
+            heroEl.style.display = 'none';
+        }
+
+        // Founder image
+        const founderEl = document.getElementById('founderImage');
+        const founderSrc = convertGDriveUrl(founderImageUrl);
+        if (founderSrc) {
+            founderEl.src = founderSrc;
+        } else {
+            founderEl.parentElement.style.background = 'var(--surface)';
+            founderEl.style.display = 'none';
+        }
+
+        // Gallery strip
+        const strip = document.getElementById('galleryStrip');
+        const validGallery = galleryImages.map(convertGDriveUrl).filter(Boolean);
+        if (validGallery.length > 0) {
+            validGallery.forEach(src => {
+                const cell = document.createElement('div');
+                cell.className = 'gallery-cell';
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = 'Archive Closet';
+                img.loading = 'lazy';
+                cell.appendChild(img);
+                strip.appendChild(cell);
+            });
+        } else {
+            strip.style.display = 'none';
+        }
     </script>
-</body></html>
 
+</body>
+
+</html>

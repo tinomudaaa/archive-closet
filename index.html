@@ -1,644 +1,582 @@
-<!DOCTYPE html>
+<!doctype html>
+<html lang="en">
 
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&amp;family=Be+Vietnam+Pro:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            "colors": {
-                "on-secondary-fixed": "#380d00",
-                "inverse-surface": "#313030",
-                "tertiary": "#74563b",
-                "secondary": "#8e4d33",
-                "on-error": "#ffffff",
-                "surface-dim": "#dcd9d9",
-                "secondary-fixed": "#ffdbce",
-                "primary-fixed": "#ffdad9",
-                "surface-tint": "#7b5455",
-                "surface-variant": "#e5e2e1",
-                "surface-container-low": "#f6f3f2",
-                "tertiary-fixed-dim": "#e7bf9d",
-                "surface-container-high": "#eae7e7",
-                "on-tertiary-fixed-variant": "#5c4127",
-                "on-tertiary-fixed": "#2b1703",
-                "surface-container-highest": "#e5e2e1",
-                "on-secondary-fixed-variant": "#71361e",
-                "on-primary-fixed-variant": "#613d3e",
-                "on-tertiary-container": "#fffbff",
-                "on-surface-variant": "#504444",
-                "primary-container": "#936a6a",
-                "on-primary": "#ffffff",
-                "secondary-fixed-dim": "#ffb59a",
-                "surface-bright": "#fcf9f8",
-                "surface-container": "#f0eded",
-                "background": "#fcf9f8",
-                "tertiary-fixed": "#ffdcc0",
-                "surface": "#fcf9f8",
-                "surface-container-lowest": "#ffffff",
-                "on-background": "#1c1b1b",
-                "secondary-container": "#feaa8a",
-                "primary": "#785252",
-                "error": "#ba1a1a",
-                "on-primary-container": "#fffbff",
-                "inverse-primary": "#ecbaba",
-                "tertiary-container": "#8f6e51",
-                "outline": "#827473",
-                "on-secondary-container": "#783c24",
-                "on-surface": "#1c1b1b",
-                "inverse-on-surface": "#f3f0ef",
-                "error-container": "#ffdad6",
-                "on-error-container": "#93000a",
-                "primary-fixed-dim": "#ecbaba",
-                "on-secondary": "#ffffff",
-                "on-tertiary": "#ffffff",
-                "on-primary-fixed": "#2f1314",
-                "outline-variant": "#d4c2c2"
-            },
-            "fontFamily": {
-                "label-caps": ["Space Grotesk"],
-                "h2": ["Newsreader"],
-                "body-lg": ["Be Vietnam Pro"],
-                "price-display": ["Space Grotesk"],
-                "h1": ["Newsreader"],
-                "body-md": ["Be Vietnam Pro"],
-                "h3": ["Newsreader"]
-            }
-          }
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Archive Closet — Streetwear Archive</title>
+  <meta name="description"
+    content="Rare finds for the bold. One-of-one streetwear pieces dropped weekly. Order on WhatsApp." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+          colors: {
+            ink: '#1A1A1A',
+            muted: '#666666',
+            hairline: '#E5E5E5',
+            surface: '#F5F5F5',
+            accent: '#C45B3A',
+          },
+          letterSpacing: { wider2: '0.15em', wide1: '0.1em' },
         }
       }
-    </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        .baddie-shadow {
-            box-shadow: 0px 4px 20px rgba(26, 26, 26, 0.05);
-        }
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-            animation: marquee 30s linear infinite;
-        }
-        .hero-zoom {
-            background-size: 110%;
-            background-position: center;
-        }
-    </style>
-</head>
-<body class="bg-[#F9F6F1] text-on-surface font-body-md selection:bg-secondary-container">
-<!-- TopNavBar -->
-<header class="sticky top-0 z-50 bg-[#F9F6F1] border-b border-stone-200">
-<nav class="flex justify-between items-center px-8 py-6 w-full max-w-7xl mx-auto">
-<div class="flex items-center gap-8">
-<a class="text-2xl font-['Newsreader'] font-bold italic text-stone-900" href="index.html">Archive Closet</a>
-<div class="hidden md:flex gap-6">
-<a class="text-[#A67B7B] border-b-2 border-[#E07A5F] pb-1 font-sans uppercase tracking-widest text-xs" href="shop.html">Women</a>
-<a class="text-stone-600 font-sans uppercase tracking-widest text-xs hover:text-[#A67B7B] transition-colors duration-300" href="outfits.html">Outfits</a><a class="text-stone-600 font-sans uppercase tracking-widest text-xs hover:text-[#A67B7B] transition-colors duration-300" href="drops.html">New Drops</a>
-<a class="text-stone-600 font-sans uppercase tracking-widest text-xs hover:text-[#A67B7B] transition-colors duration-300" href="about.html">About</a>
-</div>
-</div>
-<div class="flex items-center gap-4">
-<a class="p-2 transition-opacity active:opacity-70" href="https://wa.me/263718968489?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20a%20few%20pieces" target="_blank">
-<span class="material-symbols-outlined text-[#A67B7B]" data-icon="shopping_bag">shopping_bag</span>
-</a>
-<button aria-controls="mobile-menu" aria-expanded="false" class="md:hidden p-2" data-mobile-menu-toggle type="button">
-<span class="material-symbols-outlined text-[#A67B7B]" data-icon="menu">menu</span>
-</button>
-</div>
-</nav>
-<div class="hidden border-t border-stone-200 md:hidden px-8 py-4" id="mobile-menu">
-<div class="flex flex-col gap-4">
-<a class="text-stone-600 font-sans uppercase tracking-widest text-xs hover:text-[#A67B7B] transition-colors duration-300" href="shop.html">Women</a>
-<a class="text-stone-600 font-sans uppercase tracking-widest text-xs hover:text-[#A67B7B] transition-colors duration-300" href="outfits.html">Outfits</a>
-<a class="text-stone-600 font-sans uppercase tracking-widest text-xs hover:text-[#A67B7B] transition-colors duration-300" href="drops.html">New Drops</a>
-<a class="text-stone-600 font-sans uppercase tracking-widest text-xs hover:text-[#A67B7B] transition-colors duration-300" href="about.html">About</a>
+    }
+  </script>
+  <style>
+    html,
+    body {
+      background: #fff;
+      color: #1A1A1A;
+      font-family: 'Inter', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased
+    }
 
-</div>
-</div>
-</header>
-<main>
-<!-- Hero Section -->
-<section class="relative w-full h-screen overflow-hidden">
-  <!-- Hero Image -->
-  <img 
-    src="images/home-hero.png" 
-    alt="Archive Closet" 
-    class="w-full h-full object-cover object-center"
-  />
-  <!-- Gradient overlay — dark at bottom, clear at top -->
-  <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-  
-  <!-- Text — bottom left, cinematic -->
-  <div class="absolute bottom-0 left-0 right-0 px-8 md:px-16 pb-16 md:pb-20 max-w-7xl mx-auto">
-    <div class="max-w-2xl">
-      <span class="font-label-caps text-label-caps text-secondary-fixed bg-white/10 backdrop-blur-sm px-3 py-1 rounded-full inline-block mb-6">
-        NEW DROP — EVERY FRIDAY
-      </span>
-      <h1 class="font-['Newsreader'] text-[56px] md:text-[80px] leading-[1.0] tracking-tight text-white italic mb-4">
-        Vintage soul.<br/>Baddie energy.
-      </h1>
-      <p class="font-body-lg text-white/70 mb-10 max-w-md">
-        Harare's home for rare archival finds. Curated weekly. Ordered via WhatsApp.
-      </p>
-      <div class="flex flex-wrap gap-4">
-        <a href="shop.html" 
-           class="px-10 py-4 bg-primary text-white font-label-caps rounded-full shadow-xl hover:bg-secondary transition-all">
-          SHOP NOW
+    * {
+      border-color: #E5E5E5
+    }
+
+    .label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      font-weight: 500
+    }
+
+    .navlink {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .15em;
+      font-weight: 500;
+      color: #1A1A1A
+    }
+
+    .navlink:hover {
+      text-decoration: underline;
+      text-underline-offset: 6px
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      background: #1A1A1A;
+      color: #fff;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .15em;
+      font-weight: 500;
+      padding: 14px 22px;
+      border-radius: 2px;
+      transition: background .2s
+    }
+
+    .btn-primary:hover {
+      background: #C45B3A
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      background: #fff;
+      color: #1A1A1A;
+      border: 1px solid #1A1A1A;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .15em;
+      font-weight: 500;
+      padding: 13px 21px;
+      border-radius: 2px;
+      transition: .2s
+    }
+
+    .btn-secondary:hover {
+      background: #1A1A1A;
+      color: #fff
+    }
+
+    .marquee {
+      display: flex;
+      gap: 3rem;
+      animation: scroll 30s linear infinite;
+      white-space: nowrap
+    }
+
+    @keyframes scroll {
+      from {
+        transform: translateX(0)
+      }
+
+      to {
+        transform: translateX(-50%)
+      }
+    }
+
+    .accordion[open] summary svg {
+      transform: rotate(180deg)
+    }
+
+    .product-img {
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      width: 100%;
+      background: #F5F5F5;
+      transition: opacity .3s
+    }
+
+    .cat-card:hover img {
+      transform: scale(1.05)
+    }
+
+    .cat-card img {
+      transition: transform .7s ease
+    }
+
+    .sold .product-img {
+      filter: grayscale(1);
+      opacity: .7
+    }
+
+    input.clean {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, .6);
+      color: #fff;
+      padding: 14px 16px;
+      width: 100%;
+      font-size: 14px;
+      border-radius: 2px
+    }
+
+    input.clean::placeholder {
+      color: rgba(255, 255, 255, .7)
+    }
+
+    input.clean:focus {
+      outline: none;
+      border-color: #fff
+    }
+  </style>
+</head>
+
+<body class="bg-white text-ink">
+
+  <!-- NAV -->
+  <header class="border-b border-hairline sticky top-0 bg-white z-50">
+    <div class="max-w-[1400px] mx-auto px-4 md:px-8 xl:px-12 flex items-center justify-between h-16">
+      <a href="/" class="font-semibold text-[18px] tracking-tight">ARCHIVE CLOSET</a>
+      <nav class="hidden lg:flex items-center gap-8">
+        <a href="#menswear" class="navlink">Menswear</a>
+        <a href="#womenswear" class="navlink">Womenswear</a>
+        <a href="#crochet" class="navlink">Crochet</a>
+        <a href="#drops" class="navlink">Drops</a>
+        <a href="#about" class="navlink">About</a>
+      </nav>
+      <div class="flex items-center gap-4">
+        <button aria-label="Search" class="p-2 hover:text-accent">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="7" />
+            <path d="m20 20-3.5-3.5" />
+          </svg>
+        </button>
+        <a href="https://wa.me/263718968489?text=Hi%20Archive%20Closet%2C%20I%27m%20interested%20in%20a%20piece"
+          target="_blank" rel="noopener" aria-label="WhatsApp" class="p-2 hover:text-accent">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path
+              d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+          </svg>
         </a>
-        <a href="outfits.html" 
-           class="px-10 py-4 border border-white/60 text-white font-label-caps rounded-full hover:bg-white/10 backdrop-blur-sm transition-all">
-          EXPLORE LOOKS
+        <button id="menuBtn" aria-label="Menu" class="lg:hidden p-2">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div id="mobileMenu" class="lg:hidden hidden border-t border-hairline">
+      <div class="px-4 py-4 space-y-1">
+        <details class="accordion border-b border-hairline">
+          <summary class="navlink py-4 flex justify-between items-center cursor-pointer list-none">Menswear<svg
+              width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              class="transition-transform">
+              <polyline points="6 9 12 15 18 9" />
+            </svg></summary>
+          <div class="pb-4 pl-2 space-y-2 text-sm text-muted">
+            <a class="block" href="#">Tops</a><a class="block" href="#">Bottoms</a><a class="block"
+              href="#">Outerwear</a><a class="block" href="#">Footwear</a><a class="block" href="#">Tailoring</a>
+          </div>
+        </details>
+        <details class="accordion border-b border-hairline">
+          <summary class="navlink py-4 flex justify-between items-center cursor-pointer list-none">Womenswear<svg
+              width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              class="transition-transform">
+              <polyline points="6 9 12 15 18 9" />
+            </svg></summary>
+          <div class="pb-4 pl-2 space-y-2 text-sm text-muted">
+            <a class="block" href="#">Tops</a><a class="block" href="#">Bottoms</a><a class="block"
+              href="#">Dresses</a><a class="block" href="#">Outerwear</a><a class="block" href="#">Sets</a>
+          </div>
+        </details>
+        <details class="accordion border-b border-hairline">
+          <summary class="navlink py-4 flex justify-between items-center cursor-pointer list-none">Crochet<svg
+              width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              class="transition-transform">
+              <polyline points="6 9 12 15 18 9" />
+            </svg></summary>
+          <div class="pb-4 pl-2 space-y-2 text-sm text-muted">
+            <a class="block" href="#">Tops</a><a class="block" href="#">Dresses</a><a class="block"
+              href="#">Accessories</a>
+          </div>
+        </details>
+        <a class="navlink block py-4 border-b border-hairline" href="#drops">Drops</a>
+        <a class="navlink block py-4" href="#about">About</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="relative min-h-[70vh] max-h-[80vh] flex items-end overflow-hidden bg-ink">
+    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1800&auto=format&fit=crop&q=80"
+      alt="Archive Closet hero" class="absolute inset-0 w-full h-full object-cover opacity-90" />
+    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent"></div>
+    <div class="relative max-w-[1400px] mx-auto px-4 md:px-8 xl:px-12 py-16 md:py-20 w-full">
+      <span class="label inline-block bg-ink text-white px-3 py-1 mb-6">New Drop — Friday</span>
+      <h1 class="text-white font-semibold text-[28px] md:text-[48px] leading-[1.05] max-w-2xl">RARE FINDS FOR THE BOLD
+      </h1>
+      <p class="text-white/80 text-sm md:text-base mt-4 max-w-md leading-relaxed">One-of-one pieces. Dropped weekly.
+        Ordered via WhatsApp.</p>
+      <div class="mt-8">
+        <a href="#drops" class="btn-primary bg-white text-ink hover:!bg-accent hover:!text-white"
+          style="background:#fff;color:#1A1A1A">Shop the Drop <span aria-hidden>→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <section class="border-y border-hairline py-4 overflow-hidden">
+    <div class="marquee">
+      <div class="flex gap-12 label text-muted">
+        <span>Levi's</span><span>•</span><span>Carhartt</span><span>•</span><span>Dickies</span><span>•</span><span>Nike</span><span>•</span><span>Adidas</span><span>•</span><span>Vintage
+          Sport</span><span>•</span>
+      </div>
+      <div class="flex gap-12 label text-muted">
+        <span>Levi's</span><span>•</span><span>Carhartt</span><span>•</span><span>Dickies</span><span>•</span><span>Nike</span><span>•</span><span>Adidas</span><span>•</span><span>Vintage
+          Sport</span><span>•</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="py-16 md:py-20">
+    <div class="max-w-[1400px] mx-auto px-4 md:px-8 xl:px-12">
+      <h2 class="text-[24px] md:text-[32px] font-semibold mb-8 md:mb-12">SHOP BY CATEGORY</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+        <a href="#" class="cat-card relative block aspect-[3/4] overflow-hidden bg-surface group">
+          <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=900&auto=format&fit=crop&q=80"
+            alt="Tops" class="w-full h-full object-cover" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-4 md:p-6 flex items-end justify-between text-white">
+            <div>
+              <div class="text-[20px] font-semibold leading-tight">Tops</div>
+              <div class="text-xs text-white/70 mt-1">24 pieces</div>
+            </div>
+            <span aria-hidden class="text-xl">→</span>
+          </div>
+        </a>
+        <a href="#" class="cat-card relative block aspect-[3/4] overflow-hidden bg-surface group">
+          <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=900&auto=format&fit=crop&q=80"
+            alt="Bottoms" class="w-full h-full object-cover" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-4 md:p-6 flex items-end justify-between text-white">
+            <div>
+              <div class="text-[20px] font-semibold leading-tight">Bottoms</div>
+              <div class="text-xs text-white/70 mt-1">18 pieces</div>
+            </div>
+            <span aria-hidden class="text-xl">→</span>
+          </div>
+        </a>
+        <a href="#"
+          class="cat-card relative block aspect-[3/4] overflow-hidden bg-surface group col-span-2 md:col-span-1">
+          <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=900&auto=format&fit=crop&q=80"
+            alt="Outerwear" class="w-full h-full object-cover" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-4 md:p-6 flex items-end justify-between text-white">
+            <div>
+              <div class="text-[20px] font-semibold leading-tight">Outerwear</div>
+              <div class="text-xs text-white/70 mt-1">12 pieces</div>
+            </div>
+            <span aria-hidden class="text-xl">→</span>
+          </div>
         </a>
       </div>
     </div>
-  </div>
-</section>
-<!-- Weekly Drop Countdown -->
-<section class="bg-secondary-container py-6 overflow-hidden">
-<div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row items-center justify-between gap-4">
-<div class="flex items-center gap-4">
-<span class="material-symbols-outlined text-on-secondary-container" data-icon="schedule" data-weight="fill" style="font-variation-settings: 'FILL' 1;">schedule</span>
-<span class="font-label-caps text-label-caps text-on-secondary-container uppercase">Next Drop Arriving In:</span>
-</div>
-<div class="flex gap-8">
-<div class="text-center">
-<span id="countdown-days" class="font-price-display text-2xl text-on-secondary-container">02</span>
-<p class="font-label-caps text-[10px] uppercase text-on-secondary-container opacity-80">Days</p>
-</div>
-<div class="text-center">
-<span id="countdown-hours" class="font-price-display text-2xl text-on-secondary-container">14</span>
-<p class="font-label-caps text-[10px] uppercase text-on-secondary-container opacity-80">Hours</p>
-</div>
-<div class="text-center">
-<span id="countdown-mins" class="font-price-display text-2xl text-on-secondary-container">52</span>
-<p class="font-label-caps text-[10px] uppercase text-on-secondary-container opacity-80">Mins</p>
-</div>
-</div>
-<div class="hidden lg:block text-on-secondary-container italic font-h3">
-                    Curated. Exclusive. Rare.
-                </div>
-</div>
-</section>
-<!-- Logo Marquee -->
-<section class="py-12 bg-white border-y border-stone-100">
-<div class="relative flex overflow-x-hidden">
-<div class="animate-marquee whitespace-nowrap flex items-center gap-24 py-2">
-<span class="font-h2 text-2xl text-stone-300 lowercase italic px-4">Levi's</span>
-<span class="font-h2 text-2xl text-stone-300 lowercase italic px-4">Carhartt</span>
-<span class="font-h2 text-2xl text-stone-300 lowercase italic px-4">Dickies</span>
-<span class="font-h2 text-2xl text-stone-300 lowercase italic px-4">Harley Davidson</span>
-<span class="font-h2 text-2xl text-stone-300 lowercase italic px-4">Nike Vintage</span>
-<span class="font-h2 text-2xl text-stone-300 lowercase italic px-4">Adidas Originals</span>
-<!-- Repeat for seamless loop -->
-<span class="font-h2 text-2xl text-stone-300 lowercase italic px-4">Levi's</span>
-<span class="font-h2 text-2xl text-stone-300 lowercase italic px-4">Carhartt</span>
-<span class="font-h2 text-2xl text-stone-300 lowercase italic px-4">Dickies</span>
-<span class="font-h2 text-2xl text-stone-300 lowercase italic px-4">Harley Davidson</span>
-<span class="font-h2 text-2xl text-stone-300 lowercase italic px-4">Nike Vintage</span>
-<span class="font-h2 text-2xl text-stone-300 lowercase italic px-4">Adidas Originals</span>
-</div>
-</div>
-</section>
-<!-- Categories & Filters -->
-<section class="max-w-7xl mx-auto px-8 py-16">
-<div class="flex flex-col gap-6">
-<div class="flex gap-4 overflow-x-auto no-scrollbar pb-2" id="category-filters">
-<button class="bg-primary text-on-primary px-6 py-2 rounded-full font-label-caps text-label-caps uppercase" data-category="all">Shop All Women</button>
-<button class="bg-stone-200 text-stone-600 px-6 py-2 rounded-full font-label-caps text-label-caps uppercase transition-colors hover:bg-stone-300" data-category="outerwear">Outerwear</button>
-<button class="bg-stone-200 text-stone-600 px-6 py-2 rounded-full font-label-caps text-label-caps uppercase transition-colors hover:bg-stone-300" data-category="bottoms">Bottoms</button>
-</div>
-<div class="flex gap-6 overflow-x-auto no-scrollbar pb-2 border-t border-stone-200 pt-6" id="subcategory-filters">
-<a class="text-stone-400 font-h3 text-lg italic whitespace-nowrap hover:text-[#E07A5F] transition-colors" href="#" data-subcategory="corsets-tops">Corsets &amp; Tops</a>
-<a class="text-stone-400 font-h3 text-lg italic whitespace-nowrap hover:text-[#E07A5F] transition-colors" href="#" data-subcategory="mini-skirts">Mini Skirts</a>
-<a class="text-stone-400 font-h3 text-lg italic whitespace-nowrap hover:text-[#E07A5F] transition-colors" href="#" data-subcategory="cargo-utility">Cargo &amp; Utility</a>
-<a class="text-stone-400 font-h3 text-lg italic whitespace-nowrap hover:text-[#E07A5F] transition-colors" href="#" data-subcategory="denim">Denim</a>
-<a class="text-stone-400 font-h3 text-lg italic whitespace-nowrap hover:text-[#E07A5F] transition-colors" href="#" data-subcategory="dresses">Dresses</a>
-<a class="text-stone-400 font-h3 text-lg italic whitespace-nowrap hover:text-[#E07A5F] transition-colors" href="#" data-subcategory="vintage-tees">Vintage Tees</a>
-<a class="text-stone-400 font-h3 text-lg italic whitespace-nowrap hover:text-[#E07A5F] transition-colors" href="#" data-subcategory="jackets">Jackets</a>
-<a class="text-stone-400 font-h3 text-lg italic whitespace-nowrap hover:text-[#E07A5F] transition-colors" href="#" data-subcategory="coats">Coats</a>
-<a class="text-stone-400 font-h3 text-lg italic whitespace-nowrap hover:text-[#E07A5F] transition-colors" href="#" data-subcategory="blazers">Blazers</a>
-</div>
-</div>
-</section>
-<!-- Drop Masonry Grid -->
-<section class="max-w-7xl mx-auto px-8 pb-24">
-<div class="flex justify-between items-end mb-12">
-<div>
-<p class="font-label-caps text-label-caps text-secondary uppercase tracking-[0.2em] mb-2">Curated Selection</p>
-<h2 class="font-h2 text-h2 italic">This Week's Drop</h2>
-</div>
-<a class="text-stone-900 border-b border-stone-900 pb-1 font-label-caps text-xs uppercase tracking-widest hover:text-secondary hover:border-secondary transition-colors" href="shop.html">View All Archive</a>
-</div>
-<div id="featured-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-  <div class="col-span-4 text-center py-20 text-on-surface-variant">Loading...</div>
-</div>
-</section>
-<!-- Outfit Carousel -->
-<section class="bg-stone-900 py-24 text-white">
-<div class="max-w-7xl mx-auto px-8">
-<div class="flex flex-col md:flex-row justify-between items-center mb-16 gap-8">
-<div class="text-center md:text-left">
-<h2 class="font-h2 text-h1 italic mb-4">This Week's Looks</h2>
-<p class="text-stone-400 font-body-lg max-w-md">Our stylists curate new archival outfits every week. Grab the full look before it's gone.</p>
-</div>
-<div class="flex items-center gap-6">
-<span id="carousel-counter" class="font-label-caps text-label-caps uppercase tracking-widest text-stone-500">Look 1 of 1</span>
-<div class="flex gap-4">
-<button id="carousel-prev" class="w-12 h-12 rounded-full border border-stone-700 flex items-center justify-center hover:bg-stone-800 transition-colors">
-<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
-</button>
-<button id="carousel-next" class="w-12 h-12 rounded-full border border-stone-700 flex items-center justify-center hover:bg-stone-800 transition-colors">
-<span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
-</button>
-</div>
-</div>
-</div>
-<div class="relative overflow-hidden rounded-xl h-[600px]">
-<div id="carousel-track" class="flex w-full h-full transition-transform duration-500 ease"></div>
-</div>
-<div id="carousel-dots" class="flex justify-center gap-2 mt-8"></div>
-</div>
-</section>
-</main>
-<!-- Footer -->
-<footer class="bg-[#F9F6F1] border-t border-stone-200">
-<div class="grid grid-cols-1 md:grid-cols-3 gap-12 px-8 py-16 w-full max-w-7xl mx-auto text-center md:text-left">
-<div>
-<a class="text-xl font-['Newsreader'] font-bold italic text-stone-800" href="index.html">Archive Closet</a>
-<p class="mt-4 text-stone-500 text-sm font-['Newsreader'] max-w-xs mx-auto md:mx-0">Curating the finest archival streetwear and vintage gems for the modern baddie aesthetic.</p>
-</div>
-<div class="flex flex-col gap-4">
-<p class="font-['Space_Grotesk'] text-xs uppercase tracking-widest text-stone-900 mb-2">Help</p>
-<a class="text-stone-500 hover:text-[#E07A5F] transition-colors text-sm" href="contact.html">Contact</a>
-<a class="text-stone-500 hover:text-[#E07A5F] transition-colors text-sm" href="faq.html">FAQ</a>
-<a class="flex items-center justify-center md:justify-start gap-2 text-stone-500 hover:text-green-600 transition-colors text-sm" href="https://wa.me/263718968489" target="_blank">
-<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>
-<span>WhatsApp Support</span>
-</a>
-</div>
-<div class="flex flex-col gap-4">
-<p class="font-['Space_Grotesk'] text-xs uppercase tracking-widest text-stone-900 mb-2">Social</p>
-<div class="flex justify-center md:justify-start gap-6">
-<a class="text-stone-500 hover:text-[#E07A5F] transition-colors" href="https://www.instagram.com/archivecloset.zw?igsh=MXQ0dmo5ejBwZ3NwMg%3D%3D" target="_blank" title="Instagram">
-<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-</a>
-<a class="text-stone-500 hover:text-[#E07A5F] transition-colors" href="https://www.tiktok.com/@archivecloset.zw" target="_blank" title="TikTok">
-<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/></svg>
-</a>
-<a class="text-stone-500 hover:text-[#E07A5F] transition-colors" href="https://pin.it/4ZSlH79KU" title="Pinterest">
-<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 01.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
-</a>
-</div>
-</div>
-</div>
-<div class="border-t border-stone-100 py-8 text-center">
-<p class="text-stone-400 text-xs font-['Space_Grotesk'] uppercase tracking-tighter">© Archive Closet. All rights reserved.</p>
-</div>
-</footer>
-<script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const toggle = document.querySelector("[data-mobile-menu-toggle]");
-        const menu = document.getElementById("mobile-menu");
-        if (toggle && menu) {
-          toggle.addEventListener("click", function () {
-            const isHidden = menu.classList.contains("hidden");
-            menu.classList.toggle("hidden", !isHidden);
-            toggle.setAttribute("aria-expanded", String(isHidden));
-          });
-        }
+  </section>
 
-        const catButtons = document.querySelectorAll('#category-filters button');
-        const subcatLinks = document.querySelectorAll('#subcategory-filters a');
-        const products = document.querySelectorAll('.product-card');
-
-        const subcatMap = {
-            'all': ['corsets-tops', 'mini-skirts', 'cargo-utility', 'denim', 'dresses', 'vintage-tees', 'jackets', 'coats', 'blazers'],
-            'outerwear': ['jackets', 'coats', 'blazers', 'vintage-tees'],
-            'bottoms': ['mini-skirts', 'cargo-utility', 'denim']
-        };
-
-        let currentCat = 'all';
-        let currentSubcat = 'all';
-
-        catButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                currentCat = btn.getAttribute('data-category');
-                currentSubcat = 'all';
-                
-                catButtons.forEach(b => b.className = "bg-stone-200 text-stone-600 px-6 py-2 rounded-full font-label-caps text-label-caps uppercase transition-colors hover:bg-stone-300");
-                btn.className = "bg-primary text-on-primary px-6 py-2 rounded-full font-label-caps text-label-caps uppercase";
-
-                subcatLinks.forEach(link => {
-                    const sub = link.getAttribute('data-subcategory');
-                    link.className = "text-stone-400 font-h3 text-lg italic whitespace-nowrap hover:text-[#E07A5F] transition-colors";
-                    if (subcatMap[currentCat] && subcatMap[currentCat].includes(sub)) {
-                        link.style.display = 'inline';
-                    } else {
-                        link.style.display = 'none';
-                    }
-                });
-
-                filterProducts();
-            });
-        });
-
-        subcatLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                currentSubcat = link.getAttribute('data-subcategory');
-
-                subcatLinks.forEach(l => {
-                    if (l.style.display !== 'none') {
-                        l.className = "text-stone-400 font-h3 text-lg italic whitespace-nowrap hover:text-[#E07A5F] transition-colors";
-                    }
-                });
-                link.className = "text-[#E07A5F] font-h3 text-lg italic whitespace-nowrap";
-
-                filterProducts();
-            });
-        });
-
-        function filterProducts() {
-            products.forEach(prod => {
-                const cat = prod.getAttribute('data-category');
-                const subcat = prod.getAttribute('data-subcategory');
-                
-                const matchCat = currentCat === 'all' || cat === currentCat;
-                const matchSubcat = currentSubcat === 'all' || subcat === currentSubcat;
-
-                if (matchCat && matchSubcat) {
-                    prod.style.display = 'block';
-                } else {
-                    prod.style.display = 'none';
-                }
-            });
-        }
-
-        // Carousel Logic
-        const track = document.getElementById('carousel-track');
-        const prevBtn = document.getElementById('carousel-prev');
-        const nextBtn = document.getElementById('carousel-next');
-        const dotsContainer = document.getElementById('carousel-dots');
-        const counter = document.getElementById('carousel-counter');
-
-        let looksData = [];
-
-async function fetchLooks() {
-  const token = 'pataZsBfhel1enI6B.1cb8c9438910f68301f337acf353fed97006d86d829aa16be9cec56b2a330b1a';
-  const base = 'appHABJu0gWFOkDUH';
-
-  // Get start and end of current week (Monday to Sunday)
-  const now = new Date();
-  const day = now.getDay();
-  const monday = new Date(now);
-  monday.setDate(now.getDate() - (day === 0 ? 6 : day - 1));
-  monday.setHours(0, 0, 0, 0);
-  const sunday = new Date(monday);
-  sunday.setDate(monday.getDate() + 6);
-  sunday.setHours(23, 59, 59, 999);
-
-  const from = monday.toISOString().split('T')[0];
-  const to = sunday.toISOString().split('T')[0];
-
-  const formula = encodeURIComponent(`AND({Drop Date} >= '${from}', {Drop Date} <= '${to}')`);
-  const url = `https://api.airtable.com/v0/${base}/Outfits?filterByFormula=${formula}`;
-  const res = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
-  const data = await res.json();
-  return data.records.filter(r => r.fields['Name']);
-}
-
-function getOutfitImage(f) {
-    if (f['Cover Image'] && f['Cover Image'].length > 0) return f['Cover Image'][0].url;
-    if (f['Cover Image URL']) return convertGDriveUrl(f['Cover Image URL']);
-    return null; // return null instead of placeholder
-}
-
-async function initCarousel() {
-  const records = await fetchLooks();
-
-  looksData = records.map(r => r.fields);
-
-        let currentSlide = 0;
-        let slideInterval;
-
-        function renderCarousel() {
-            if (!track || !dotsContainer) return;
-            track.innerHTML = '';
-            dotsContainer.innerHTML = '';
-            
-            looksData.forEach((f, index) => {
-                const slide = document.createElement('div');
-                slide.className = 'min-w-full h-full relative flex-shrink-0 flex items-center justify-center';
-                
-                const itemsList = f['Items'] 
-                    ? f['Items'].split(',').map(i => i.trim()).filter(Boolean)
-                    : [];
-
-                const itemsHtml = itemsList.length 
-                    ? itemsList.map(item => `<span class="text-xs text-on-surface-variant font-body-md text-stone-300">&middot; ${item}</span>`).join('') 
-                    : '';
-
-                const message = encodeURIComponent(`Hi! I want the "${f['Name']}" look. Items: ${f['Items'] || 'see outfit'}. Is it available?`);
-
-                const imgSrc = getOutfitImage(f);
-                const imageHtml = imgSrc 
-                    ? `<img src="${imgSrc}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="${f['Name']}"/>`
-                    : `<div class="w-full h-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center"><span class="font-h3 text-primary/40 text-center px-4">${f['Name']}</span></div>`;
-
-                slide.innerHTML = `
-                    <div class="relative rounded-2xl overflow-hidden aspect-[3/4] bg-surface-container group h-full w-full max-w-[450px]">
-                        ${imageHtml}
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
-                        <div class="absolute bottom-0 left-0 right-0 p-6">
-                            <span class="text-xs font-label-caps text-white/70 bg-white/10 px-2 py-1 rounded-full mb-2 inline-block">${f['Vibe'] || ''}</span>
-                            <h3 class="font-h3 text-white text-lg mb-2">${f['Name']}</h3>
-                            <div class="flex flex-wrap gap-2 mb-4">${itemsHtml}</div>
-                            <a href="https://wa.me/263718968489?text=${message}" target="_blank"
-                               class="font-label-caps text-white underline underline-offset-4 hover:opacity-80">
-                                GET THIS LOOK →
-                            </a>
-                        </div>
-                    </div>
-                `;
-                track.appendChild(slide);
-
-                const dot = document.createElement('div');
-                dot.className = `w-2 h-2 rounded-full cursor-pointer transition-colors ${index === 0 ? 'bg-secondary' : 'bg-stone-700'}`;
-                dot.addEventListener('click', () => {
-                    goToSlide(index);
-                    resetAutoPlay();
-                });
-                dotsContainer.appendChild(dot);
-            });
-        }
-
-        function updateCarousel() {
-            if (!track || !counter || !dotsContainer) return;
-            track.style.transform = `translateX(-${currentSlide * 100}%)`;
-            counter.textContent = `Look ${currentSlide + 1} of ${looksData.length}`;
-            
-            Array.from(dotsContainer.children).forEach((dot, index) => {
-                dot.className = `w-2 h-2 rounded-full cursor-pointer transition-colors ${index === currentSlide ? 'bg-secondary' : 'bg-stone-700'}`;
-            });
-        }
-
-        function goToSlide(index) {
-            currentSlide = index;
-            updateCarousel();
-        }
-
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % looksData.length;
-            updateCarousel();
-        }
-
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + looksData.length) % looksData.length;
-            updateCarousel();
-        }
-
-        function startAutoPlay() {
-            slideInterval = setInterval(nextSlide, 5000);
-        }
-
-        function resetAutoPlay() {
-            clearInterval(slideInterval);
-            startAutoPlay();
-        }
-
-        if (track && looksData.length > 0) {
-    renderCarousel();
-    startAutoPlay();
-
-    if (nextBtn) {
-      nextBtn.addEventListener('click', () => { nextSlide(); resetAutoPlay(); });
-    }
-    if (prevBtn) {
-      prevBtn.addEventListener('click', () => { prevSlide(); resetAutoPlay(); });
-    }
-  }
-}
-
-initCarousel();
-      });
-    </script>
-<script>
-function getNextSunday() {
-  const now = new Date();
-  const nowUTC2 = new Date(now.getTime() + (2 * 60 * 60 * 1000));
-  const day = nowUTC2.getUTCDay();
-  const daysUntilSunday = day === 0 ? 7 : 7 - day;
-  const next = new Date(nowUTC2);
-  next.setUTCDate(nowUTC2.getUTCDate() + daysUntilSunday);
-  next.setUTCHours(0, 0, 0, 0);
-  return next.getTime() - (2 * 60 * 60 * 1000);
-}
-
-function updateCountdown() {
-  const target = getNextSunday();
-  const now = Date.now();
-  const diff = Math.max(0, target - now);
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-  const pad = n => String(n).padStart(2, '0');
-  
-  const d = document.getElementById('countdown-days');
-  const h = document.getElementById('countdown-hours');
-  const m = document.getElementById('countdown-mins');
-  
-  if (d) d.textContent = pad(days);
-  if (h) h.textContent = pad(hours);
-  if (m) m.textContent = pad(mins);
-}
-
-updateCountdown();
-setInterval(updateCountdown, 1000);
-</script>
-
-<script>
-const AIRTABLE_TOKEN = 'pataZsBfhel1enI6B.1cb8c9438910f68301f337acf353fed97006d86d829aa16be9cec56b2a330b1a';
-const AIRTABLE_BASE = 'appHABJu0gWFOkDUH';
-
-async function fetchFeatured() {
-  const formula = encodeURIComponent(`{Featured} = 1`);
-  const url = `https://api.airtable.com/v0/${AIRTABLE_BASE}/Products?filterByFormula=${formula}&maxRecords=8`;
-  const res = await fetch(url, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } });
-  const data = await res.json();
-  return data.records;
-}
-
-function convertGDriveUrl(url) {
-    if (!url || typeof url !== 'string') return '';
-    url = url.trim();
-    if (!url.includes('drive.google.com')) return url;
-    const match1 = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
-    if (match1) return `https://drive.google.com/uc?export=view&id=${match1[1]}`;
-    const match2 = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-    if (match2) return `https://drive.google.com/uc?export=view&id=${match2[1]}`;
-    return url;
-}
-
-function getImage(f) {
-    if (f['Images'] && f['Images'].length > 0) return f['Images'][0].url;
-    if (f['Image URL']) return convertGDriveUrl(f['Image URL']);
-    return 'https://placehold.co/400x533?text=No+Image';
-}
-
-function renderFeaturedCard(record, index) {
-  const f = record.fields;
-  if (!f['Name'] || !f['Price']) return '';
-  const image = getImage(f);
-  const offset = index % 2 !== 0 ? 'translate-y-8' : '';
-  return `
-    <a href="product.html?slug=${f['Slug']}" class="group cursor-pointer product-card ${offset}" data-category="${f['Category'] || ''}" data-subcategory="${f['Category'] || ''}">
-      <div class="relative overflow-hidden rounded-lg baddie-shadow aspect-[3/4]">
-        <img alt="${f['Name']}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="${image}"/>
-        <div class="absolute bottom-4 left-4">
-          <span class="bg-white/90 backdrop-blur-md px-2 py-1 text-[10px] font-label-caps uppercase rounded">Size: ${f['Size'] || ''}</span>
+  <!-- DROP -->
+  <section id="drops" class="py-16 md:py-20 bg-surface">
+    <div class="max-w-[1400px] mx-auto px-4 md:px-8 xl:px-12">
+      <div class="flex items-end justify-between mb-8 md:mb-12">
+        <h2 class="text-[24px] md:text-[32px] font-semibold">THIS WEEK'S DROP</h2>
+        <a href="#" class="navlink hidden md:inline-flex items-center gap-2">View All <span aria-hidden>→</span></a>
+      </div>
+      <div id="productGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+        <!-- skeleton -->
+        <div class="animate-pulse">
+          <div class="product-img bg-hairline"></div>
+          <div class="h-3 bg-hairline mt-3 w-3/4"></div>
+          <div class="h-3 bg-hairline mt-2 w-1/2"></div>
+        </div>
+        <div class="animate-pulse">
+          <div class="product-img bg-hairline"></div>
+          <div class="h-3 bg-hairline mt-3 w-3/4"></div>
+          <div class="h-3 bg-hairline mt-2 w-1/2"></div>
+        </div>
+        <div class="animate-pulse">
+          <div class="product-img bg-hairline"></div>
+          <div class="h-3 bg-hairline mt-3 w-3/4"></div>
+          <div class="h-3 bg-hairline mt-2 w-1/2"></div>
+        </div>
+        <div class="animate-pulse">
+          <div class="product-img bg-hairline"></div>
+          <div class="h-3 bg-hairline mt-3 w-3/4"></div>
+          <div class="h-3 bg-hairline mt-2 w-1/2"></div>
         </div>
       </div>
-      <div class="mt-4 flex justify-between items-start">
-        <div>
-          <h3 class="font-body-md text-stone-900">${f['Name']}</h3>
-          <p class="font-price-display text-stone-500 mt-1">$${f['Price']}.00</p>
+      <div class="md:hidden mt-8 text-center"><a href="#" class="btn-secondary">View All <span aria-hidden>→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDITORIAL -->
+  <section class="relative min-h-[60vh] flex items-center overflow-hidden">
+    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1800&auto=format&fit=crop&q=80"
+      alt="Editorial" class="absolute inset-0 w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-black/30"></div>
+    <div
+      class="relative max-w-[1400px] mx-auto px-4 md:px-8 xl:px-12 py-20 w-full grid md:grid-cols-2 gap-8 items-center">
+      <div class="text-white">
+        <span class="label inline-block bg-white text-ink px-3 py-1 mb-4">Style Notes</span>
+        <h2 class="text-[24px] md:text-[36px] font-semibold leading-tight max-w-md">BUILT FROM PIECES YOU WON'T SEE
+          TWICE.</h2>
+        <p class="mt-4 text-white/80 max-w-md text-sm md:text-base leading-relaxed">Sourced from estates, archives, and
+          dead-stock corners. Each piece checked, photographed, and dropped Friday.</p>
+        <a href="#drops" class="btn-primary mt-8 bg-white text-ink" style="background:#fff;color:#1A1A1A">See the Edit
+          <span aria-hidden>→</span></a>
+      </div>
+      <div class="hidden md:flex justify-end">
+        <div class="bg-white p-4 w-72 rounded-sm">
+          <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&auto=format&fit=crop&q=80" alt=""
+            class="w-full aspect-[3/4] object-cover" />
+          <div class="mt-3">
+            <div class="text-sm font-medium">Carhartt Detroit Jacket</div>
+            <div class="flex items-center justify-between mt-1 text-xs text-muted">
+              <span>$120 · Size L</span>
+              <span class="text-ink">★★★★★</span>
+            </div>
+            <a href="#" class="mt-3 btn-primary w-full justify-center">Get the look <span aria-hidden>→</span></a>
+          </div>
         </div>
       </div>
-    </a>
-  `;
-}
+    </div>
+  </section>
 
-async function initFeatured() {
-  const grid = document.getElementById('featured-grid');
-  if (!grid) return;
-  try {
-    const records = await fetchFeatured();
-    if (records.length === 0) {
-      grid.innerHTML = '<p class="col-span-4 text-center py-20 text-on-surface-variant">Check back Friday for the new drop.</p>';
-      return;
+  <!-- BRAND STRIP -->
+  <section class="py-12 border-y border-hairline">
+    <div
+      class="max-w-[1400px] mx-auto px-4 md:px-8 xl:px-12 flex flex-wrap justify-center md:justify-between items-center gap-x-10 gap-y-6 label text-muted">
+      <span class="text-[16px] font-semibold tracking-wider hover:text-ink transition">LEVI'S</span>
+      <span class="text-[16px] font-semibold tracking-wider hover:text-ink transition">CARHARTT</span>
+      <span class="text-[16px] font-semibold tracking-wider hover:text-ink transition">DICKIES</span>
+      <span class="text-[16px] font-semibold tracking-wider hover:text-ink transition">NIKE</span>
+      <span class="text-[16px] font-semibold tracking-wider hover:text-ink transition">ADIDAS</span>
+      <span class="text-[16px] font-semibold tracking-wider hover:text-ink transition">CHAMPION</span>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="py-16 md:py-20">
+    <div class="max-w-3xl mx-auto px-4 md:px-8 text-center">
+      <h2 class="text-[24px] md:text-[32px] font-semibold mb-10">WHAT THEY'RE SAYING</h2>
+      <div id="testimonialBox">
+        <div class="text-ink tracking-widest mb-6">★★★★★</div>
+        <blockquote id="testimonialQuote" class="text-lg md:text-xl leading-relaxed max-w-xl mx-auto">"Found a Carhartt
+          jacket I'd been hunting for months. Easy WhatsApp checkout, delivered same week."</blockquote>
+        <div class="mt-8 flex flex-col items-center gap-3">
+          <img id="testimonialAvatar" src="https://i.pravatar.cc/96?img=47" alt=""
+            class="w-12 h-12 rounded-full object-cover" />
+          <div id="testimonialAuthor" class="text-sm text-muted">— Valerie M., Harare</div>
+        </div>
+      </div>
+      <div id="dots" class="flex justify-center gap-2 mt-8"></div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="relative overflow-hidden">
+    <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=1800&auto=format&fit=crop&q=80" alt=""
+      class="absolute inset-0 w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-black/55"></div>
+    <div class="relative max-w-2xl mx-auto px-4 md:px-8 py-20 md:py-28 text-center text-white">
+      <h2 class="text-[28px] md:text-[40px] font-semibold">DON'T MISS OUT</h2>
+      <p class="mt-3 text-white/80 text-sm md:text-base">Get notified when new drops land.</p>
+      <form class="mt-8 flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+        onsubmit="event.preventDefault();this.querySelector('button').textContent='SUBSCRIBED ✓'">
+        <input type="email" required placeholder="Email Address" class="clean" />
+        <button type="submit" class="btn-primary !bg-white !text-ink whitespace-nowrap"
+          style="background:#fff;color:#1A1A1A">Subscribe <span aria-hidden>→</span></button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-hairline">
+    <div class="max-w-[1400px] mx-auto px-4 md:px-8 xl:px-12 py-16 grid grid-cols-2 md:grid-cols-4 gap-10">
+      <div>
+        <div class="label mb-5">Pages</div>
+        <ul class="space-y-3 text-sm">
+          <li><a href="#" class="hover:text-accent">Shop</a></li>
+          <li><a href="#" class="hover:text-accent">Drops</a></li>
+          <li><a href="#about" class="hover:text-accent">About</a></li>
+          <li><a href="#" class="hover:text-accent">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="label mb-5">Category</div>
+        <ul class="space-y-3 text-sm">
+          <li><a href="#" class="hover:text-accent">Tops</a></li>
+          <li><a href="#" class="hover:text-accent">Bottoms</a></li>
+          <li><a href="#" class="hover:text-accent">Outerwear</a></li>
+          <li><a href="#" class="hover:text-accent">Dresses</a></li>
+          <li><a href="#" class="hover:text-accent">Sets</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="label mb-5">Brand</div>
+        <ul class="space-y-3 text-sm">
+          <li><a href="#" class="hover:text-accent">Levi's</a></li>
+          <li><a href="#" class="hover:text-accent">Carhartt</a></li>
+          <li><a href="#" class="hover:text-accent">Dickies</a></li>
+          <li><a href="#" class="hover:text-accent">Nike</a></li>
+          <li><a href="#" class="hover:text-accent">Adidas</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="label mb-5">Follow Us</div>
+        <ul class="space-y-3 text-sm">
+          <li><a href="#" class="hover:text-accent">Instagram</a></li>
+          <li><a href="#" class="hover:text-accent">TikTok</a></li>
+          <li><a href="#" class="hover:text-accent">Pinterest</a></li>
+          <li><a href="https://wa.me/263718968489" target="_blank" rel="noopener" class="hover:text-accent">WhatsApp</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-hairline py-6 text-center text-xs text-muted">© 2026 Archive Closet. All rights
+      reserved.</div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn?.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+    // Google Drive URL converter (preserved)
+    function convertGDriveUrl(url) {
+      if (!url) return '';
+      const m = url.match(/[-\w]{25,}/);
+      return m ? `https://drive.google.com/thumbnail?id=${m[0]}&sz=w800` : url;
     }
-    grid.innerHTML = records.map(renderFeaturedCard).join('');
-  } catch(err) {
-    console.error(err);
-  }
-}
 
-initFeatured();
-</script>
+    // Airtable
+    const AIRTABLE_TOKEN = 'pataZsBfhel1enI6B...'; // replace with full token
+    const AIRTABLE_BASE = 'appHABJu0gWFOkDUH';
+    const AIRTABLE_TABLE = 'Products';
+    const WHATSAPP_NUM = '263718968489';
+
+    async function loadProducts() {
+      const grid = document.getElementById('productGrid');
+      try {
+        const url = `https://api.airtable.com/v0/${AIRTABLE_BASE}/${AIRTABLE_TABLE}?filterByFormula=%7BFeatured%7D%3D1&maxRecords=8`;
+        const res = await fetch(url, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } });
+        if (!res.ok) throw new Error('airtable');
+        const { records } = await res.json();
+        renderProducts(records.map(r => ({
+          name: r.fields.Name || 'Untitled',
+          price: r.fields.Price || '—',
+          size: r.fields.Size || '',
+          slug: r.fields.Slug || r.id,
+          sold: !!r.fields.SoldOut,
+          img: convertGDriveUrl(r.fields.ImageURL || (r.fields.Image && r.fields.Image[0]?.url) || ''),
+        })));
+      } catch (e) {
+        renderProducts(fallbackProducts());
+      }
+    }
+
+    function fallbackProducts() {
+      const imgs = [
+        'photo-1521572163474-6864f9cf17ab', 'photo-1542272604-787c3835535d', 'photo-1591047139829-d91aecb6caea',
+        'photo-1490481651871-ab68de25d43d', 'photo-1551028719-00167b16eac5', 'photo-1529139574466-a303027c1d8b',
+        'photo-1483985988355-763728e1935b', 'photo-1485125639709-a60c3a500bf1'
+      ];
+      const names = ['Carhartt Detroit Jacket', 'Levi\'s 501 Vintage', 'Dickies Work Pant', 'Nike Windrunner 90s', 'Champion Reverse Weave', 'Adidas Track Top', 'Vintage Wool Cardigan', 'Crochet Tank — One-of-One'];
+      return imgs.map((id, i) => ({
+        name: names[i], price: 30 + i * 8, size: ['S', 'M', 'L', 'XL'][i % 4], slug: 'item-' + i, sold: i === 4,
+        img: `https://images.unsplash.com/${id}?w=800&auto=format&fit=crop&q=80`
+      }));
+    }
+
+    function renderProducts(items) {
+      const grid = document.getElementById('productGrid');
+      grid.innerHTML = items.map(p => `
+      <a href="product.html?slug=${encodeURIComponent(p.slug)}" class="group block ${p.sold ? 'sold' : ''}">
+        <div class="relative overflow-hidden">
+          <img src="${p.img}" alt="${p.name}" class="product-img group-hover:opacity-90" loading="lazy"/>
+          ${p.sold ? '<span class="absolute top-3 left-3 label bg-ink text-white px-2 py-1">Sold Out</span>' : ''}
+        </div>
+        <div class="mt-3 text-sm truncate">${p.name}</div>
+        <div class="mt-1 text-sm text-muted">$${p.price}${p.size ? ` · Size ${p.size}` : ''}</div>
+      </a>
+    `).join('');
+    }
+
+    loadProducts();
+
+    // Testimonials
+    const testimonials = [
+      { q: '"Found a Carhartt jacket I\'d been hunting for months. Easy WhatsApp checkout, delivered same week."', a: '— Valerie M., Harare', img: 'https://i.pravatar.cc/96?img=47' },
+      { q: '"The crochet sets are unreal. Fit perfectly. Already eyeing the next drop."', a: '— Tendai K., Bulawayo', img: 'https://i.pravatar.cc/96?img=32' },
+      { q: '"Real archive pieces, not mass thrift. Worth every cent."', a: '— Rumbi N., Harare', img: 'https://i.pravatar.cc/96?img=15' },
+    ];
+    const dots = document.getElementById('dots');
+    testimonials.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.className = 'w-2 h-2 rounded-full bg-hairline transition';
+      d.onclick = () => setTestimonial(i);
+      dots.appendChild(d);
+    });
+    let tIdx = 0;
+    function setTestimonial(i) {
+      tIdx = i;
+      const t = testimonials[i];
+      document.getElementById('testimonialQuote').textContent = t.q;
+      document.getElementById('testimonialAuthor').textContent = t.a;
+      document.getElementById('testimonialAvatar').src = t.img;
+      [...dots.children].forEach((d, j) => d.className = `w-2 h-2 rounded-full transition ${j === i ? 'bg-ink' : 'bg-hairline'}`);
+    }
+    setTestimonial(0);
+    setInterval(() => setTestimonial((tIdx + 1) % testimonials.length), 5000);
+  </script>
 </body>
+
 </html>

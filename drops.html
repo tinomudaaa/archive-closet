@@ -1,380 +1,688 @@
 <!DOCTYPE html>
+<html lang="en">
 
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Be+Vietnam+Pro:wght@100..900&amp;family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "inverse-surface": "#313030",
-                        "on-secondary-container": "#783c24",
-                        "surface-container-high": "#eae7e7",
-                        "tertiary-fixed-dim": "#e7bf9d",
-                        "on-tertiary-fixed-variant": "#5c4127",
-                        "on-primary-container": "#fffbff",
-                        "background": "#fcf9f8",
-                        "surface-container-lowest": "#ffffff",
-                        "surface-dim": "#dcd9d9",
-                        "outline": "#827473",
-                        "surface-variant": "#e5e2e1",
-                        "secondary-fixed-dim": "#ffb59a",
-                        "error": "#ba1a1a",
-                        "primary-fixed-dim": "#ecbaba",
-                        "on-secondary": "#ffffff",
-                        "inverse-on-surface": "#f3f0ef",
-                        "primary-fixed": "#ffdad9",
-                        "on-background": "#1c1b1b",
-                        "surface-container": "#f0eded",
-                        "on-primary": "#ffffff",
-                        "tertiary-fixed": "#ffdcc0",
-                        "surface-bright": "#fcf9f8",
-                        "on-surface-variant": "#504444",
-                        "tertiary-container": "#8f6e51",
-                        "surface": "#fcf9f8",
-                        "secondary-container": "#feaa8a",
-                        "inverse-primary": "#ecbaba",
-                        "outline-variant": "#d4c2c2",
-                        "on-tertiary-fixed": "#2b1703",
-                        "on-tertiary-container": "#fffbff",
-                        "on-secondary-fixed-variant": "#71361e",
-                        "on-error": "#ffffff",
-                        "error-container": "#ffdad6",
-                        "secondary": "#8e4d33",
-                        "on-secondary-fixed": "#380d00",
-                        "primary-container": "#936a6a",
-                        "on-tertiary": "#ffffff",
-                        "surface-tint": "#7b5455",
-                        "surface-container-low": "#f6f3f2",
-                        "primary": "#785252",
-                        "on-surface": "#1c1b1b",
-                        "on-error-container": "#93000a",
-                        "secondary-fixed": "#ffdbce",
-                        "on-primary-fixed": "#2f1314",
-                        "tertiary": "#74563b",
-                        "surface-container-highest": "#e5e2e1",
-                        "on-primary-fixed-variant": "#613d3e"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "margin-desktop": "40px",
-                        "container-max": "1280px",
-                        "gutter": "24px",
-                        "unit": "8px",
-                        "section-gap": "80px",
-                        "margin-mobile": "16px"
-                    },
-                    "fontFamily": {
-                        "price-display": ["Space Grotesk"],
-                        "body-md": ["Be Vietnam Pro"],
-                        "h2": ["Newsreader"],
-                        "label-caps": ["Space Grotesk"],
-                        "h1": ["Newsreader"],
-                        "h3": ["Newsreader"],
-                        "body-lg": ["Be Vietnam Pro"]
-                    },
-                    "fontSize": {
-                        "price-display": ["20px", {"lineHeight": "1", "fontWeight": "500"}],
-                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                        "h2": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
-                        "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
-                        "h1": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}],
-                        "h3": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}],
-                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
-                    }
-                },
-            },
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Drops | Archive Closet</title>
+    <meta name="description"
+        content="Shop the latest drop from Archive Closet. One-of-one pieces, once they're gone, they're gone." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-    </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1A1A1A;
+            background: #FFFFFF;
+            -webkit-font-smoothing: antialiased;
         }
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: inherit;
+            color: inherit;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        :root {
+            --bg: #FFFFFF;
+            --fg: #1A1A1A;
+            --muted: #666666;
+            --border: #E5E5E5;
+            --surface: #F5F5F5;
+            --accent: #C45B3A;
+            --destructive: #DC2626;
+        }
+
+        /* ── Header ── */
+        .site-header {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+        }
+
+        @media (min-width: 768px) {
+            .header-inner {
+                padding: 16px 32px;
+            }
+        }
+
+        .logo {
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: none;
+            align-items: center;
             gap: 24px;
         }
-        .masonry-item:nth-child(even) { margin-top: 40px; }
-        @media (max-width: 768px) {
-            .masonry-item:nth-child(even) { margin-top: 0; }
+
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
         }
-        .editorial-gradient {
-            background: linear-gradient(180deg, rgba(252, 249, 248, 0) 0%, rgba(252, 249, 248, 0.9) 100%);
+
+        .nav-links a {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--fg);
+        }
+
+        .nav-links a.active {
+            color: var(--fg);
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        .header-icons {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-icons a,
+        .header-icons button {
+            padding: 4px;
+            color: var(--fg);
+            transition: color 0.2s;
+        }
+
+        .header-icons a:hover,
+        .header-icons button:hover {
+            color: var(--accent);
+        }
+
+        .header-icons svg {
+            width: 18px;
+            height: 18px;
+            stroke-width: 1.5;
+        }
+
+        /* ── Hero ── */
+        .hero {
+            text-align: center;
+            padding: 64px 16px;
+        }
+
+        @media (min-width: 768px) {
+            .hero {
+                padding: 80px 32px;
+            }
+        }
+
+        .drop-number {
+            font-size: 36px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        @media (min-width: 768px) {
+            .drop-number {
+                font-size: 64px;
+            }
+        }
+
+        .hero-divider {
+            width: 48px;
+            height: 2px;
+            background: var(--fg);
+            margin: 20px auto;
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+            color: var(--muted);
+            margin-top: 16px;
+        }
+
+        .hero-tagline {
+            font-size: 14px;
+            color: var(--muted);
+            font-style: italic;
+            margin-top: 8px;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            margin-top: 32px;
+            background: var(--fg);
+            color: var(--bg);
+            padding: 14px 32px;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: background 0.2s;
+        }
+
+        .hero-cta:hover {
+            background: rgba(26, 26, 26, 0.8);
+        }
+
+        /* ── Countdown ── */
+        .countdown-section {
+            background: var(--surface);
+            padding: 48px 16px;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .countdown-section {
+                padding: 64px 32px;
+            }
+        }
+
+        .countdown-label {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 24px;
+        }
+
+        .countdown-grid {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        @media (min-width: 768px) {
+            .countdown-grid {
+                gap: 32px;
+            }
+        }
+
+        .countdown-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 60px;
+        }
+
+        .countdown-num {
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        @media (min-width: 768px) {
+            .countdown-num {
+                font-size: 56px;
+            }
+        }
+
+        .countdown-unit-label {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-top: 8px;
+        }
+
+        .countdown-live {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--accent);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .remind-link {
+            display: inline-block;
+            margin-top: 28px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--accent);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            transition: color 0.2s;
+        }
+
+        .remind-link:hover {
+            color: #a34a2e;
+        }
+
+        /* ── Section Header ── */
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        @media (min-width: 768px) {
+            .section-title {
+                font-size: 24px;
+            }
+        }
+
+        .section-meta {
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .section-link {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--muted);
+            transition: color 0.2s;
+        }
+
+        .section-link:hover {
+            color: var(--fg);
+        }
+
+        /* ── Product Grid ── */
+        .drop-section {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 48px 16px;
+        }
+
+        @media (min-width: 768px) {
+            .drop-section {
+                padding: 64px 32px;
+            }
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        @media (min-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 24px;
+            }
+        }
+
+        .product-card {
+            display: block;
+        }
+
+        .card-img {
+            position: relative;
+            aspect-ratio: 3/4;
+            overflow: hidden;
+            background: var(--surface);
+        }
+
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover .card-img img {
+            transform: scale(1.05);
+        }
+
+        .card-img.sold-out img {
+            filter: grayscale(1);
+            opacity: 0.7;
+        }
+
+        .card-badge {
+            position: absolute;
+            right: 8px;
+            top: 8px;
+            background: var(--destructive);
+            color: #fff;
+            padding: 3px 8px;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .card-info {
+            margin-top: 10px;
+        }
+
+        .card-name {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .card-price {
+            font-size: 14px;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        .card-size {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        .no-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        /* ── Empty State ── */
+        .empty-state {
+            text-align: center;
+            padding: 48px 16px;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        /* ── Footer ── */
+        .site-footer {
+            border-top: 1px solid var(--border);
+            padding: 32px 16px;
+            text-align: center;
+        }
+
+        .footer-text {
+            font-size: 12px;
+            color: var(--muted);
+            letter-spacing: 0.05em;
         }
     </style>
 </head>
-<body class="bg-background text-on-background font-body-md selection:bg-secondary-container selection:text-on-secondary-container">
-<!-- TopNavBar -->
-<header class="sticky top-0 z-50 bg-[#F9F6F1] border-b border-stone-200">
-<nav class="flex justify-between items-center px-8 py-6 w-full max-w-7xl mx-auto">
-<div class="flex items-center gap-8">
-<a class="text-2xl font-['Newsreader'] font-bold italic text-stone-900" href="index.html">Archive Closet</a>
-<div class="hidden md:flex gap-6">
-<a class="text-stone-600 font-sans uppercase tracking-widest text-xs hover:text-[#A67B7B] transition-colors duration-300" href="shop.html">Women</a>
-<a class="text-stone-600 font-sans uppercase tracking-widest text-xs hover:text-[#A67B7B] transition-colors duration-300" href="outfits.html">Outfits</a><a class="text-[#A67B7B] border-b-2 border-[#E07A5F] pb-1 font-sans uppercase tracking-widest text-xs" href="drops.html">New Drops</a>
-<a class="text-stone-600 font-sans uppercase tracking-widest text-xs hover:text-[#A67B7B] transition-colors duration-300" href="about.html">About</a>
-</div>
-</div>
-<div class="flex items-center gap-4">
-<a class="p-2 transition-opacity active:opacity-70" href="https://wa.me/263718968489?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20a%20few%20pieces" target="_blank">
-<span class="material-symbols-outlined text-[#A67B7B]" data-icon="shopping_bag">shopping_bag</span>
-</a>
-<button aria-controls="mobile-menu" aria-expanded="false" class="md:hidden p-2" data-mobile-menu-toggle type="button">
-<span class="material-symbols-outlined text-[#A67B7B]" data-icon="menu">menu</span>
-</button>
-</div>
-</nav>
-<div class="hidden border-t border-stone-200 md:hidden px-8 py-4" id="mobile-menu">
-<div class="flex flex-col gap-4">
-<a class="text-stone-600 font-sans uppercase tracking-widest text-xs hover:text-[#A67B7B] transition-colors duration-300" href="shop.html">Women</a>
-<a class="text-stone-600 font-sans uppercase tracking-widest text-xs hover:text-[#A67B7B] transition-colors duration-300" href="outfits.html">Outfits</a>
-<a class="text-stone-600 font-sans uppercase tracking-widest text-xs hover:text-[#A67B7B] transition-colors duration-300" href="drops.html">New Drops</a>
-<a class="text-stone-600 font-sans uppercase tracking-widest text-xs hover:text-[#A67B7B] transition-colors duration-300" href="about.html">About</a>
 
-</div>
-</div>
-</header>
-<main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-<!-- Magazine Header Section -->
-<header class="py-section-gap flex flex-col md:flex-row items-end justify-between gap-gutter">
-<div class="w-full md:w-2/3">
-<span class="font-label-caps text-label-caps text-secondary uppercase tracking-[0.2em] mb-4 block">Archive Release</span>
-<h1 class="font-h1 text-h1 text-on-background mb-6 max-w-xl italic">Drop 007 — Now Live</h1>
-<p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg mb-8">
-                    Curated selection of late 90s archival silhouettes and rare streetwear essentials. Released February 24, 2024.
-                </p>
-<div class="flex gap-4">
-<a href="shop.html" class="bg-primary text-on-primary px-8 py-4 rounded-lg font-label-caps flex items-center gap-2 hover:bg-secondary transition-colors active:translate-y-[2px] duration-150">
-                        SHOP THE DROP <span class="material-symbols-outlined">arrow_forward</span>
-</a>
-</div>
-</div>
-<div class="w-full md:w-1/3 bg-surface-container p-8 rounded-xl border border-outline-variant/30 text-center">
-<p class="font-label-caps text-label-caps text-on-surface-variant mb-6 uppercase tracking-widest">Next Drop Countdown</p>
-<div class="flex justify-center gap-6">
-<div class="flex flex-col">
-<span id="countdown-days" class="font-h1 text-h2 text-secondary">06</span>
-<span class="font-label-caps text-[10px] text-outline uppercase">Days</span>
-</div>
-<div class="flex flex-col">
-<span id="countdown-hours" class="font-h1 text-h2 text-secondary">14</span>
-<span class="font-label-caps text-[10px] text-outline uppercase">Hrs</span>
-</div>
-<div class="flex flex-col">
-<span id="countdown-mins" class="font-h1 text-h2 text-secondary">22</span>
-<span class="font-label-caps text-[10px] text-outline uppercase">Min</span>
-</div>
-</div>
-<a href="https://wa.me/263718968489?text=Hi%2C%20I%27d%20like%20to%20be%20reminded%20about%20the%20next%20drop%20%F0%9F%A4%8D" target="_blank" class="mt-8 text-primary font-label-caps border-b border-primary hover:text-secondary hover:border-secondary transition-all">REMIND ME</a>
-</div>
-</header>
-<!-- Main Content (Masonry Drop Items) -->
-<section class="pb-section-gap">
-<div id="drop-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-  <div class="col-span-4 text-center py-20 text-on-surface-variant">Loading drop...</div>
-</div>
-</section>
-<!-- Past Drops Section -->
-<section class="mt-16">
-  <div class="flex justify-between items-end mb-8">
-    <div>
-      <h2 class="font-h2 text-on-surface">Past Archive</h2>
-      <p class="font-body-md text-on-surface-variant mt-1">Previously dropped pieces — still available to enquire about.</p>
-    </div>
-    <a href="shop.html" class="font-label-caps text-secondary underline underline-offset-4 hover:text-primary transition-colors">VIEW ALL</a>
-  </div>
-  <div id="past-drops-grid" class="grid grid-cols-2 md:grid-cols-4 gap-6">
-    <p class="text-on-surface-variant col-span-4 text-center py-10">Loading...</p>
-  </div>
-</section>
-</main>
-<!-- Footer -->
-<footer class="bg-[#F9F6F1] border-t border-stone-200">
-<div class="grid grid-cols-1 md:grid-cols-3 gap-12 px-8 py-16 w-full max-w-7xl mx-auto text-center md:text-left">
-<div>
-<a class="text-xl font-['Newsreader'] font-bold italic text-stone-800" href="index.html">Archive Closet</a>
-<p class="mt-4 text-stone-500 text-sm font-['Newsreader'] max-w-xs mx-auto md:mx-0">Curating the finest archival streetwear and vintage gems for the modern baddie aesthetic.</p>
-</div>
-<div class="flex flex-col gap-4">
-<p class="font-['Space_Grotesk'] text-xs uppercase tracking-widest text-stone-900 mb-2">Help</p>
-<a class="text-stone-500 hover:text-[#E07A5F] transition-colors text-sm" href="contact.html">Contact</a>
-<a class="text-stone-500 hover:text-[#E07A5F] transition-colors text-sm" href="faq.html">FAQ</a>
-<a class="flex items-center justify-center md:justify-start gap-2 text-stone-500 hover:text-green-600 transition-colors text-sm" href="https://wa.me/263718968489" target="_blank">
-<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path></svg>
-<span>WhatsApp Support</span>
-</a>
-</div>
-<div class="flex flex-col gap-4">
-<p class="font-['Space_Grotesk'] text-xs uppercase tracking-widest text-stone-900 mb-2">Social</p>
-<div class="flex justify-center md:justify-start gap-6">
-<a class="text-stone-500 hover:text-[#E07A5F] transition-colors" href="https://www.instagram.com/archivecloset.zw?igsh=MXQ0dmo5ejBwZ3NwMg%3D%3D" target="_blank" title="Instagram">
-<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-</a>
-<a class="text-stone-500 hover:text-[#E07A5F] transition-colors" href="https://www.tiktok.com/@archivecloset.zw" target="_blank" title="TikTok">
-<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/></svg>
-</a>
-<a class="text-stone-500 hover:text-[#E07A5F] transition-colors" href="https://pin.it/4ZSlH79KU" title="Pinterest">
-<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 01.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
-</a>
-</div>
-</div>
-</div>
-<div class="border-t border-stone-100 py-8 text-center">
-<p class="text-stone-400 text-xs font-['Space_Grotesk'] uppercase tracking-tighter">© Archive Closet. All rights reserved.</p>
-</div>
-</footer>
-<script>document.addEventListener("DOMContentLoaded",function(){const toggle=document.querySelector("[data-mobile-menu-toggle]");const menu=document.getElementById("mobile-menu");if(!toggle||!menu)return;toggle.addEventListener("click",function(){const isHidden=menu.classList.contains("hidden");menu.classList.toggle("hidden",!isHidden);toggle.setAttribute("aria-expanded",String(isHidden));});});</script>
-<script>
-function getNextSunday() {
-  const now = new Date();
-  const nowUTC2 = new Date(now.getTime() + (2 * 60 * 60 * 1000));
-  const day = nowUTC2.getUTCDay();
-  const daysUntilSunday = day === 0 ? 7 : 7 - day;
-  const next = new Date(nowUTC2);
-  next.setUTCDate(nowUTC2.getUTCDate() + daysUntilSunday);
-  next.setUTCHours(0, 0, 0, 0);
-  return next.getTime() - (2 * 60 * 60 * 1000);
-}
+<body>
 
-function updateCountdown() {
-  const target = getNextSunday();
-  const now = Date.now();
-  const diff = Math.max(0, target - now);
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-  const pad = n => String(n).padStart(2, '0');
-  
-  const d = document.getElementById('countdown-days');
-  const h = document.getElementById('countdown-hours');
-  const m = document.getElementById('countdown-mins');
-  
-  if (d) d.textContent = pad(days);
-  if (h) h.textContent = pad(hours);
-  if (m) m.textContent = pad(mins);
-}
-
-updateCountdown();
-setInterval(updateCountdown, 1000);
-</script>
-
-<script>
-const AIRTABLE_TOKEN = 'pataZsBfhel1enI6B.1cb8c9438910f68301f337acf353fed97006d86d829aa16be9cec56b2a330b1a';
-const AIRTABLE_BASE = 'appHABJu0gWFOkDUH';
-
-async function fetchDropProducts() {
-  const formula = encodeURIComponent(`{Drop} = 1`);
-  const url = `https://api.airtable.com/v0/${AIRTABLE_BASE}/Products?filterByFormula=${formula}`;
-  const res = await fetch(url, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } });
-  const data = await res.json();
-  return data.records;
-}
-
-function convertGDriveUrl(url) {
-    if (!url || typeof url !== 'string') return '';
-    url = url.trim();
-    if (!url.includes('drive.google.com')) return url;
-    const match1 = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
-    if (match1) return `https://drive.google.com/uc?export=view&id=${match1[1]}`;
-    const match2 = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-    if (match2) return `https://drive.google.com/uc?export=view&id=${match2[1]}`;
-    return url;
-}
-
-function getImage(f) {
-    if (f['Images'] && f['Images'].length > 0) return f['Images'][0].url;
-    if (f['Image URL']) return convertGDriveUrl(f['Image URL']);
-    return 'https://placehold.co/400x533?text=No+Image';
-}
-
-function renderDropCard(record) {
-  const f = record.fields;
-  if (!f['Name'] || !f['Price']) return '';
-  const image = getImage(f);
-  const soldOut = f['Sold Out'];
-  return `
-    <div class="group cursor-pointer" onclick="window.location='product.html?slug=${f['Slug']}'">
-      <div class="relative overflow-hidden rounded-lg aspect-[3/4]">
-        <img alt="${f['Name']}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="${image}"/>
-        ${soldOut ? `<div class="absolute inset-0 bg-background/60 flex items-center justify-center"><span class="uppercase text-xs tracking-widest border px-4 py-2">Sold Out</span></div>` : ''}
-        <div class="absolute bottom-4 left-4">
-          <span class="bg-white/90 backdrop-blur-md px-2 py-1 text-[10px] font-label-caps uppercase rounded">Size: ${f['Size'] || ''}</span>
+    <!-- ════ HEADER ════ -->
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="index.html" class="logo">Archive Closet</a>
+            <nav class="nav-links">
+                <a href="shop.html?gender=menswear">Menswear</a>
+                <a href="shop.html?gender=womenswear">Womenswear</a>
+                <a href="shop.html?category=crochet">Crochet</a>
+                <a href="drops.html" class="active">Drops</a>
+                <a href="about.html">About</a>
+            </nav>
+            <div class="header-icons">
+                <button aria-label="Search">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <circle cx="11" cy="11" r="8" />
+                        <path d="m21 21-4.35-4.35" stroke-linecap="round" />
+                    </svg>
+                </button>
+                <a href="https://wa.me/263718968489" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22l5.9-2Z" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </a>
+            </div>
         </div>
-      </div>
-      <div class="mt-4">
-        <h3 class="font-body-md text-on-surface">${f['Name']}</h3>
-        <p class="font-price-display text-primary mt-1">$${f['Price']}</p>
-      </div>
-    </div>
-  `;
-}
+    </header>
 
-async function loadPastDrops() {
-    const grid = document.getElementById('past-drops-grid');
-    if (!grid) return;
-    try {
-        const res = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE}/Products`, {
-            headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` }
-        });
-        const data = await res.json();
-        const past = data.records
-            .filter(r => r.fields['Name'] && r.fields['Price'] && !r.fields['Drop'])
-            .slice(0, 8);
+    <!-- ════ HERO ════ -->
+    <section class="hero">
+        <h1 class="drop-number" id="dropNumber">THE LATEST DROP</h1>
+        <div class="hero-divider"></div>
+        <p class="hero-subtitle">The latest pieces, available now.</p>
+        <p class="hero-tagline">Once they're gone, they're gone.</p>
+        <a href="#drop-grid" class="hero-cta">Shop This Drop →</a>
+    </section>
 
-        if (!past.length) {
-            grid.innerHTML = '<p class="text-on-surface-variant col-span-4 text-center py-10">No past drops yet.</p>';
-            return;
+    <!-- ════ COUNTDOWN ════ -->
+    <section class="countdown-section">
+        <p class="countdown-label">Next Drop In</p>
+        <div id="countdown" class="countdown-grid">
+            <div class="countdown-unit">
+                <span class="countdown-num" id="cd-days">--</span>
+                <span class="countdown-unit-label">Days</span>
+            </div>
+            <div class="countdown-unit">
+                <span class="countdown-num" id="cd-hrs">--</span>
+                <span class="countdown-unit-label">Hrs</span>
+            </div>
+            <div class="countdown-unit">
+                <span class="countdown-num" id="cd-min">--</span>
+                <span class="countdown-unit-label">Min</span>
+            </div>
+            <div class="countdown-unit">
+                <span class="countdown-num" id="cd-sec">--</span>
+                <span class="countdown-unit-label">Sec</span>
+            </div>
+        </div>
+        <a class="remind-link"
+            href="https://wa.me/263718968489?text=Hi!%20Remind%20me%20when%20the%20next%20drop%20goes%20live."
+            target="_blank" rel="noopener noreferrer">
+            Remind Me on WhatsApp
+        </a>
+    </section>
+
+    <!-- ════ THIS DROP ════ -->
+    <section class="drop-section" id="drop-grid">
+        <div class="section-header">
+            <h2 class="section-title">THIS DROP</h2>
+            <span class="section-meta" id="dropCount"></span>
+        </div>
+        <div class="product-grid" id="currentDropGrid"></div>
+        <div class="empty-state" id="currentDropEmpty" style="display:none;">
+            <p>The current drop is empty.<br>Check back Friday for new pieces.</p>
+        </div>
+    </section>
+
+    <!-- ════ PAST DROPS ════ -->
+    <section class="drop-section" id="pastDropsSection" style="display:none;">
+        <div class="section-header">
+            <h2 class="section-title">PAST DROPS</h2>
+            <a href="shop.html" class="section-link">View All →</a>
+        </div>
+        <div class="product-grid" id="pastDropsGrid"></div>
+    </section>
+
+    <!-- ════ FOOTER ════ -->
+    <footer class="site-footer">
+        <p class="footer-text">&copy; 2025 Archive Closet. All pieces are one-of-one.</p>
+    </footer>
+
+    <script>
+        // ══════════════════════════════════════════════
+        // COUNTDOWN — Next Friday 12:00 PM CAT (UTC+2)
+        // ══════════════════════════════════════════════
+        function getNextDropDate() {
+            const now = new Date();
+            // Work in UTC+2 (CAT)
+            const catOffset = 2 * 60; // minutes
+            const catNow = new Date(now.getTime() + (catOffset + now.getTimezoneOffset()) * 60000);
+
+            const day = catNow.getDay(); // 0=Sun
+            const hour = catNow.getHours();
+
+            let daysUntilFri;
+            if (day === 5) {
+                // Friday
+                daysUntilFri = (hour >= 12) ? 7 : 0;
+            } else {
+                daysUntilFri = (5 - day + 7) % 7;
+                if (daysUntilFri === 0) daysUntilFri = 7;
+            }
+
+            const target = new Date(catNow);
+            target.setDate(target.getDate() + daysUntilFri);
+            target.setHours(12, 0, 0, 0);
+
+            // Convert back to real UTC
+            return new Date(target.getTime() - (catOffset + now.getTimezoneOffset()) * 60000);
         }
 
-        grid.innerHTML = past.map(r => {
-            const f = r.fields;
-            const soldOut = f['Sold Out'];
+        function pad(n) { return String(n).padStart(2, '0'); }
+
+        let dropTarget = getNextDropDate();
+
+        function updateCountdown() {
+            const now = new Date();
+            const diff = dropTarget - now;
+
+            if (diff <= 0) {
+                document.getElementById('countdown').innerHTML =
+                    '<span class="countdown-live">DROP IS LIVE</span>';
+                // Recalculate for next week after a minute
+                setTimeout(() => { dropTarget = getNextDropDate(); updateCountdown(); }, 60000);
+                return;
+            }
+
+            const d = Math.floor(diff / 86400000);
+            const h = Math.floor((diff % 86400000) / 3600000);
+            const m = Math.floor((diff % 3600000) / 60000);
+            const s = Math.floor((diff % 60000) / 1000);
+
+            document.getElementById('cd-days').textContent = pad(d);
+            document.getElementById('cd-hrs').textContent = pad(h);
+            document.getElementById('cd-min').textContent = pad(m);
+            document.getElementById('cd-sec').textContent = pad(s);
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // ══════════════════════════════════════════════
+        // PRODUCT DATA — Replace with Airtable fetch
+        // ══════════════════════════════════════════════
+
+        // Mock: current drop products ({Drop} = true)
+        const currentDrop = [
+            { slug: "silk-blouse-cream", name: "Silk Blouse in Cream", price: 45, size: "M", images: [], soldOut: false },
+            { slug: "linen-top-sage", name: "Linen Top in Sage", price: 38, size: "S", images: [], soldOut: false },
+            { slug: "cotton-tee-black", name: "Cotton Tee in Black", price: 29, size: "L", images: [], soldOut: false },
+            { slug: "knit-sweater-oatmeal", name: "Knit Sweater in Oatmeal", price: 55, size: "OS", images: [], soldOut: false },
+        ];
+
+        // Mock: past drop products ({Drop} = false)
+        const pastDrops = [
+            { slug: "satin-cami-burgundy", name: "Satin Cami in Burgundy", price: 52, size: "M", images: [], soldOut: true },
+            { slug: "denim-jacket-wash", name: "Denim Jacket in Wash", price: 68, size: "L", images: [], soldOut: true },
+            { slug: "wool-trousers-charcoal", name: "Wool Trousers in Charcoal", price: 60, size: "M", images: [], soldOut: false },
+            { slug: "ribbed-tank-white", name: "Ribbed Tank in White", price: 22, size: "S", images: [], soldOut: true },
+        ];
+
+        // Drop number — replace with Airtable count or field
+        const dropNumber = 12; // set to null for fallback
+
+        // ══════════════════════════════════════════════
+        // RENDER
+        // ══════════════════════════════════════════════
+        function convertGDriveUrl(url) {
+            const match = url.match(/\/d\/([^/]+)/);
+            return match ? `https://drive.google.com/thumbnail?id=${match[1]}&sz=w800` : url;
+        }
+
+        function renderCard(p) {
+            const img = p.images && p.images[0] ? convertGDriveUrl(p.images[0]) : '';
+            const soldClass = p.soldOut ? ' sold-out' : '';
             return `
-                <a href="product.html?slug=${f['Slug']}" class="group cursor-pointer">
-                    <div class="relative aspect-[3/4] overflow-hidden rounded-lg mb-3 bg-surface-container">
-                        <img src="${getImage(f)}" alt="${f['Name']}" 
-                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ${soldOut ? 'grayscale opacity-60' : ''}"/>
-                        ${soldOut ? '<div class="absolute inset-0 flex items-center justify-center"><span class="bg-black/60 text-white font-label-caps text-xs px-3 py-1 rounded-full">SOLD OUT</span></div>' : ''}
-                    </div>
-                    <p class="font-body-md font-semibold text-on-surface">${f['Name']}</p>
-                    <p class="font-price-display text-on-surface-variant">$${f['Price']}</p>
-                </a>
-            `;
-        }).join('');
-    } catch(e) {
-        grid.innerHTML = '<p class="text-on-surface-variant col-span-4 text-center py-10">Could not load archive.</p>';
-    }
-}
+        <a href="product.html?slug=${p.slug}" class="product-card">
+          <div class="card-img${soldClass}">
+            ${img ? `<img src="${img}" alt="${p.name}" loading="lazy">` : '<div class="no-image">No image</div>'}
+            ${p.soldOut ? '<span class="card-badge">Sold Out</span>' : ''}
+          </div>
+          <div class="card-info">
+            <p class="card-name">${p.name}</p>
+            <p class="card-price">$${p.price}</p>
+            ${p.size ? `<p class="card-size">Size ${p.size}</p>` : ''}
+          </div>
+        </a>
+      `;
+        }
 
-async function initDrop() {
-  const grid = document.getElementById('drop-grid');
-  if (!grid) return;
-  try {
-    const records = await fetchDropProducts();
-    if (records.length === 0) {
-      grid.innerHTML = '<p class="col-span-4 text-center py-20 text-on-surface-variant">No drop products yet.</p>';
-    } else {
-      grid.innerHTML = records.map(renderDropCard).join('');
-    }
-  } catch(err) {
-    grid.innerHTML = '<p class="col-span-4 text-center py-20 text-error">Failed to load drop.</p>';
-  }
-  await loadPastDrops();
-}
+        // Drop number
+        if (dropNumber) {
+            document.getElementById('dropNumber').textContent = 'DROP ' + String(dropNumber).padStart(3, '0');
+        }
 
-initDrop();
-</script>
-</body></html>
+        // Current drop
+        const currentGrid = document.getElementById('currentDropGrid');
+        const currentEmpty = document.getElementById('currentDropEmpty');
+        const dropCountEl = document.getElementById('dropCount');
 
+        if (currentDrop.length > 0) {
+            currentGrid.innerHTML = currentDrop.map(renderCard).join('');
+            dropCountEl.textContent = currentDrop.length + (currentDrop.length === 1 ? ' piece' : ' pieces');
+        } else {
+            currentGrid.style.display = 'none';
+            currentEmpty.style.display = 'block';
+        }
+
+        // Past drops
+        const pastSection = document.getElementById('pastDropsSection');
+        const pastGrid = document.getElementById('pastDropsGrid');
+
+        if (pastDrops.length > 0) {
+            pastSection.style.display = 'block';
+            pastGrid.innerHTML = pastDrops.map(renderCard).join('');
+        }
+    </script>
+
+</body>
+
+</html>
