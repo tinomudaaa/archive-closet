@@ -224,8 +224,8 @@
                 <a href="shop.html?gender=menswear" class="navlink" data-nav="menswear">Menswear</a>
                 <a href="shop.html?gender=womenswear" class="navlink" data-nav="womenswear">Womenswear</a>
                 <a href="shop.html?gender=crochet" class="navlink" data-nav="crochet">Crochet</a>
-                <a href="index.html#drops" class="navlink">Drops</a>
-                <a href="index.html#about" class="navlink">About</a>
+                <a href="drops.html" class="navlink">Drops</a>
+                <a href="about.html" class="navlink">About</a>
             </nav>
             <div class="flex items-center gap-4">
                 <button aria-label="Search" class="hidden md:block">
@@ -271,8 +271,8 @@
                 </div>
             </details>
             <a href="shop.html?gender=crochet" class="block py-3 navlink">Crochet</a>
-            <a href="index.html#drops" class="block py-3 navlink">Drops</a>
-            <a href="index.html#about" class="block py-3 navlink">About</a>
+            <a href="drops.html" class="block py-3 navlink">Drops</a>
+            <a href="about.html" class="block py-3 navlink">About</a>
         </div>
     </header>
 
@@ -386,16 +386,16 @@
             <div>
                 <div class="label mb-4">Help</div>
                 <ul class="space-y-2 text-muted">
-                    <li><a href="#">Sizing</a></li>
-                    <li><a href="#">Shipping</a></li>
-                    <li><a href="https://wa.me/263718968489">Contact</a></li>
+                    <li><a href="about.html">Sizing</a></li>
+                    <li><a href="about.html">Shipping</a></li>
+                    <li><a href="https://wa.me/263718968489?text=Hi%20Archive%20Closet%2C%20I%20have%20a%20question">Contact</a></li>
                 </ul>
             </div>
             <div>
                 <div class="label mb-4">Follow</div>
                 <ul class="space-y-2 text-muted">
-                    <li><a href="#">Instagram</a></li>
-                    <li><a href="#">TikTok</a></li>
+                    <li><a href="https://www.instagram.com/archivecloset.zw" target="_blank" rel="noopener">Instagram</a></li>
+                    <li><a href="https://www.tiktok.com/@archivecloset.zw" target="_blank" rel="noopener">TikTok</a></li>
                 </ul>
             </div>
         </div>
@@ -409,7 +409,7 @@
         <div class="px-5 py-4 border-b border-hairline flex items-center justify-between">
             <button id="clearSheet" class="text-sm underline">Clear all</button>
             <div class="label">Filters</div>
-            <button id="closeSheet" class="text-sm" id="resultCountBtn">Close</button>
+            <button id="closeSheet" class="text-sm">Close</button>
         </div>
         <div class="p-5 space-y-6">
             <div>
@@ -461,7 +461,7 @@
 
     <script>
         // ====== Airtable config ======
-        const AIRTABLE_TOKEN = 'pataZsBfhel1enI6B.REPLACE_WITH_REAL_TOKEN';
+        const AIRTABLE_TOKEN = 'REPLACE_WITH_YOUR_FULL_AIRTABLE_TOKEN_HERE'; // Paste your full Airtable token here
         const AIRTABLE_BASE = 'appHABJu0gWFOkDUH';
         const AIRTABLE_TABLE = 'Products';
         const WHATSAPP = '263718968489';
