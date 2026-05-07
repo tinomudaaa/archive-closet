@@ -171,9 +171,10 @@
     <div class="max-w-[1400px] mx-auto px-4 md:px-8 xl:px-12 flex items-center justify-between h-16">
       <a href="/" class="font-semibold text-[18px] tracking-tight">ARCHIVE CLOSET</a>
       <nav class="hidden lg:flex items-center gap-8">
-        <a href="shop.html?gender=menswear" class="navlink">Menswear</a>
-        <a href="shop.html?gender=womenswear" class="navlink">Womenswear</a>
+        <a href="shop.html?gender=menswear" class="navlink">Mens</a>
+        <a href="shop.html?gender=womenswear" class="navlink">Women</a>
         <a href="shop.html?gender=crochet" class="navlink">Crochet</a>
+        <a href="outfits.html" class="navlink">Outfits</a>
         <a href="drops.html" class="navlink">Drops</a>
         <a href="about.html" class="navlink">About</a>
       </nav>
@@ -205,7 +206,7 @@
     <div id="mobileMenu" class="lg:hidden hidden border-t border-hairline">
       <div class="px-4 py-4 space-y-1">
         <details class="accordion border-b border-hairline">
-          <summary class="navlink py-4 flex justify-between items-center cursor-pointer list-none">Menswear<svg
+          <summary class="navlink py-4 flex justify-between items-center cursor-pointer list-none">Mens<svg
               width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
               class="transition-transform">
               <polyline points="6 9 12 15 18 9" />
@@ -215,7 +216,7 @@
           </div>
         </details>
         <details class="accordion border-b border-hairline">
-          <summary class="navlink py-4 flex justify-between items-center cursor-pointer list-none">Womenswear<svg
+          <summary class="navlink py-4 flex justify-between items-center cursor-pointer list-none">Women<svg
               width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
               class="transition-transform">
               <polyline points="6 9 12 15 18 9" />
@@ -234,6 +235,7 @@
             <a class="block" href="shop.html?gender=crochet&category=tops">Tops</a><a class="block" href="shop.html?gender=crochet&category=dresses">Dresses</a><a class="block" href="shop.html?gender=crochet&category=accessories">Accessories</a>
           </div>
         </details>
+        <a class="navlink block py-4 border-b border-hairline" href="outfits.html">Outfits</a>
         <a class="navlink block py-4 border-b border-hairline" href="drops.html">Drops</a>
         <a class="navlink block py-4" href="about.html">About</a>
       </div>
@@ -353,86 +355,36 @@
     </div>
   </section>
 
-  <!-- EDITORIAL -->
+  <!-- EDITORIAL / DROP OUTFITS -->
   <section class="relative min-h-[60vh] flex items-center overflow-hidden">
-    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1800&auto=format&fit=crop&q=80"
-      alt="Editorial" class="absolute inset-0 w-full h-full object-cover" />
+    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1800&auto=format&fit=crop&q=80" alt="Editorial" class="absolute inset-0 w-full h-full object-cover" id="editorialBg"/>
     <div class="absolute inset-0 bg-black/30"></div>
-    <div
-      class="relative max-w-[1400px] mx-auto px-4 md:px-8 xl:px-12 py-20 w-full grid md:grid-cols-2 gap-8 items-center">
+    <div class="relative max-w-[1400px] mx-auto px-4 md:px-8 xl:px-12 py-20 w-full grid md:grid-cols-2 gap-8 items-center">
       <div class="text-white">
-        <span class="label inline-block bg-white text-ink px-3 py-1 mb-4">Style Notes</span>
-        <h2 class="text-[24px] md:text-[36px] font-semibold leading-tight max-w-md">BUILT FROM PIECES YOU WON'T SEE
-          TWICE.</h2>
-        <p class="mt-4 text-white/80 max-w-md text-sm md:text-base leading-relaxed">Sourced from estates, archives, and
-          dead-stock corners. Each piece checked, photographed, and dropped Friday.</p>
-        <a href="shop.html" class="btn-primary mt-8 bg-white text-ink" style="background:#fff;color:#1A1A1A">See the Edit
-          <span aria-hidden>→</span></a>
+        <span class="label inline-block bg-white text-ink px-3 py-1 mb-4" id="outfitLabel">THIS WEEK'S DROP</span>
+        <h2 class="text-[24px] md:text-[36px] font-semibold leading-tight max-w-md" id="outfitName">BUILT FROM PIECES YOU WON'T SEE TWICE.</h2>
+        <p class="mt-4 text-white/80 max-w-md text-sm md:text-base leading-relaxed" id="outfitDesc">Sourced from estates, archives, and dead-stock corners. Each piece checked, photographed, and dropped Friday.</p>
+        <a href="outfits.html" class="btn-primary mt-8 bg-white text-ink" id="outfitCta" style="background:#fff;color:#1A1A1A">See the Edit <span aria-hidden>→</span></a>
       </div>
       <div class="hidden md:flex justify-end">
-        <div class="bg-white p-4 w-72 rounded-sm">
-          <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&auto=format&fit=crop&q=80" alt=""
-            class="w-full aspect-[3/4] object-cover" />
+        <div class="bg-white p-4 w-72 rounded-sm" id="outfitCard">
+          <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&auto=format&fit=crop&q=80" alt="" class="w-full aspect-[3/4] object-cover" id="outfitImg"/>
           <div class="mt-3">
-            <div class="text-sm font-medium">Carhartt Detroit Jacket</div>
+            <div class="text-sm font-medium" id="outfitProductName">Carhartt Detroit Jacket</div>
             <div class="flex items-center justify-between mt-1 text-xs text-muted">
-              <span>$120 · Size L</span>
+              <span id="outfitPrice">$120 · Size L</span>
               <span class="text-ink">★★★★★</span>
             </div>
-            <a href="#" class="mt-3 btn-primary w-full justify-center">Get the look <span aria-hidden>→</span></a>
+            <a href="#" class="mt-3 btn-primary w-full justify-center" id="outfitLink">Get the look <span aria-hidden>→</span></a>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- BRAND STRIP -->
-  <section class="py-12 border-y border-hairline">
-    <div
-      class="max-w-[1400px] mx-auto px-4 md:px-8 xl:px-12 flex flex-wrap justify-center md:justify-between items-center gap-x-10 gap-y-6 label text-muted">
-      <span class="text-[16px] font-semibold tracking-wider hover:text-ink transition">LEVI'S</span>
-      <span class="text-[16px] font-semibold tracking-wider hover:text-ink transition">CARHARTT</span>
-      <span class="text-[16px] font-semibold tracking-wider hover:text-ink transition">DICKIES</span>
-      <span class="text-[16px] font-semibold tracking-wider hover:text-ink transition">NIKE</span>
-      <span class="text-[16px] font-semibold tracking-wider hover:text-ink transition">ADIDAS</span>
-      <span class="text-[16px] font-semibold tracking-wider hover:text-ink transition">CHAMPION</span>
-    </div>
-  </section>
 
-  <!-- TESTIMONIALS -->
-  <section class="py-16 md:py-20">
-    <div class="max-w-3xl mx-auto px-4 md:px-8 text-center">
-      <h2 class="text-[24px] md:text-[32px] font-semibold mb-10">WHAT THEY'RE SAYING</h2>
-      <div id="testimonialBox">
-        <div class="text-ink tracking-widest mb-6">★★★★★</div>
-        <blockquote id="testimonialQuote" class="text-lg md:text-xl leading-relaxed max-w-xl mx-auto">"Found a Carhartt
-          jacket I'd been hunting for months. Easy WhatsApp checkout, delivered same week."</blockquote>
-        <div class="mt-8 flex flex-col items-center gap-3">
-          <img id="testimonialAvatar" src="https://i.pravatar.cc/96?img=47" alt=""
-            class="w-12 h-12 rounded-full object-cover" />
-          <div id="testimonialAuthor" class="text-sm text-muted">— Valerie M., Harare</div>
-        </div>
-      </div>
-      <div id="dots" class="flex justify-center gap-2 mt-8"></div>
-    </div>
-  </section>
 
-  <!-- NEWSLETTER -->
-  <section class="relative overflow-hidden">
-    <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=1800&auto=format&fit=crop&q=80" alt=""
-      class="absolute inset-0 w-full h-full object-cover" />
-    <div class="absolute inset-0 bg-black/55"></div>
-    <div class="relative max-w-2xl mx-auto px-4 md:px-8 py-20 md:py-28 text-center text-white">
-      <h2 class="text-[28px] md:text-[40px] font-semibold">DON'T MISS OUT</h2>
-      <p class="mt-3 text-white/80 text-sm md:text-base">Get notified when new drops land.</p>
-      <form class="mt-8 flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
-        onsubmit="event.preventDefault();this.querySelector('button').textContent='SUBSCRIBED ✓'">
-        <input type="email" required placeholder="Email Address" class="clean" />
-        <button type="submit" class="btn-primary !bg-white !text-ink whitespace-nowrap"
-          style="background:#fff;color:#1A1A1A">Subscribe <span aria-hidden>→</span></button>
-      </form>
-    </div>
-  </section>
+
 
   <!-- FOOTER -->
   <footer class="bg-white border-t border-hairline">
@@ -548,30 +500,47 @@
     loadProducts();
     document.getElementById('footerYear').textContent = new Date().getFullYear();
 
-    // Testimonials
-    const testimonials = [
-      { q: '"Found a Carhartt jacket I\'d been hunting for months. Easy WhatsApp checkout, delivered same week."', a: '— Valerie M., Harare', img: 'https://i.pravatar.cc/96?img=47' },
-      { q: '"The crochet sets are unreal. Fit perfectly. Already eyeing the next drop."', a: '— Tendai K., Bulawayo', img: 'https://i.pravatar.cc/96?img=32' },
-      { q: '"Real archive pieces, not mass thrift. Worth every cent."', a: '— Rumbi N., Harare', img: 'https://i.pravatar.cc/96?img=15' },
+    // Drop outfits carousel
+    const dropOutfits = [
+      {
+        name: "Night Out",
+        desc: "Head-turning evening look. Corset top, mini skirt, boots.",
+        product: "Corset Top in Black",
+        price: "$45 · Size M",
+        image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&auto=format&fit=crop&q=80",
+        link: "outfits.html?slug=night-out"
+      },
+      {
+        name: "Downtown Fit",
+        desc: "Easy street look with an edge. Vintage tee, cargo pants, sneakers.",
+        product: "Vintage Tee in White",
+        price: "$38 · Size L",
+        image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&auto=format&fit=crop&q=80",
+        link: "outfits.html?slug=downtown-fit"
+      },
+      {
+        name: "Soft Hours",
+        desc: "Muted tones and flowing shapes. Linen blouse, wide-leg trousers.",
+        product: "Linen Blouse in Cream",
+        price: "$52 · Size S",
+        image: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=600&auto=format&fit=crop&q=80",
+        link: "outfits.html?slug=soft-hours"
+      }
     ];
-    const dots = document.getElementById('dots');
-    testimonials.forEach((_, i) => {
-      const d = document.createElement('button');
-      d.className = 'w-2 h-2 rounded-full bg-hairline transition';
-      d.onclick = () => setTestimonial(i);
-      dots.appendChild(d);
-    });
-    let tIdx = 0;
-    function setTestimonial(i) {
-      tIdx = i;
-      const t = testimonials[i];
-      document.getElementById('testimonialQuote').textContent = t.q;
-      document.getElementById('testimonialAuthor').textContent = t.a;
-      document.getElementById('testimonialAvatar').src = t.img;
-      [...dots.children].forEach((d, j) => d.className = `w-2 h-2 rounded-full transition ${j === i ? 'bg-ink' : 'bg-hairline'}`);
+
+    let outfitIdx = 0;
+    function cycleOutfit() {
+      const o = dropOutfits[outfitIdx];
+      document.getElementById('outfitName').textContent = o.name.toUpperCase();
+      document.getElementById('outfitDesc').textContent = o.desc;
+      document.getElementById('outfitProductName').textContent = o.product;
+      document.getElementById('outfitPrice').textContent = o.price;
+      document.getElementById('outfitImg').src = o.image;
+      document.getElementById('outfitLink').href = o.link;
+      outfitIdx = (outfitIdx + 1) % dropOutfits.length;
     }
-    setTestimonial(0);
-    setInterval(() => setTestimonial((tIdx + 1) % testimonials.length), 5000);
+    setInterval(cycleOutfit, 5000);
+    cycleOutfit(); // Start immediately
   </script>
 </body>
 
