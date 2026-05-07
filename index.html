@@ -171,11 +171,11 @@
     <div class="max-w-[1400px] mx-auto px-4 md:px-8 xl:px-12 flex items-center justify-between h-16">
       <a href="/" class="font-semibold text-[18px] tracking-tight">ARCHIVE CLOSET</a>
       <nav class="hidden lg:flex items-center gap-8">
-        <a href="#menswear" class="navlink">Menswear</a>
-        <a href="#womenswear" class="navlink">Womenswear</a>
-        <a href="#crochet" class="navlink">Crochet</a>
-        <a href="#drops" class="navlink">Drops</a>
-        <a href="#about" class="navlink">About</a>
+        <a href="shop.html?gender=menswear" class="navlink">Menswear</a>
+        <a href="shop.html?gender=womenswear" class="navlink">Womenswear</a>
+        <a href="shop.html?gender=crochet" class="navlink">Crochet</a>
+        <a href="drops.html" class="navlink">Drops</a>
+        <a href="about.html" class="navlink">About</a>
       </nav>
       <div class="flex items-center gap-4">
         <button aria-label="Search" class="p-2 hover:text-accent">
@@ -211,8 +211,7 @@
               <polyline points="6 9 12 15 18 9" />
             </svg></summary>
           <div class="pb-4 pl-2 space-y-2 text-sm text-muted">
-            <a class="block" href="#">Tops</a><a class="block" href="#">Bottoms</a><a class="block"
-              href="#">Outerwear</a><a class="block" href="#">Footwear</a><a class="block" href="#">Tailoring</a>
+            <a class="block" href="shop.html?gender=menswear&category=tops">Tops</a><a class="block" href="shop.html?gender=menswear&category=bottoms">Bottoms</a><a class="block" href="shop.html?gender=menswear&category=outerwear">Outerwear</a><a class="block" href="shop.html?gender=menswear&category=footwear">Footwear</a><a class="block" href="shop.html?gender=menswear&category=tailoring">Tailoring</a>
           </div>
         </details>
         <details class="accordion border-b border-hairline">
@@ -222,8 +221,7 @@
               <polyline points="6 9 12 15 18 9" />
             </svg></summary>
           <div class="pb-4 pl-2 space-y-2 text-sm text-muted">
-            <a class="block" href="#">Tops</a><a class="block" href="#">Bottoms</a><a class="block"
-              href="#">Dresses</a><a class="block" href="#">Outerwear</a><a class="block" href="#">Sets</a>
+            <a class="block" href="shop.html?gender=womenswear&category=tops">Tops</a><a class="block" href="shop.html?gender=womenswear&category=bottoms">Bottoms</a><a class="block" href="shop.html?gender=womenswear&category=dresses">Dresses</a><a class="block" href="shop.html?gender=womenswear&category=outerwear">Outerwear</a><a class="block" href="shop.html?gender=womenswear&category=sets">Sets</a>
           </div>
         </details>
         <details class="accordion border-b border-hairline">
@@ -233,12 +231,11 @@
               <polyline points="6 9 12 15 18 9" />
             </svg></summary>
           <div class="pb-4 pl-2 space-y-2 text-sm text-muted">
-            <a class="block" href="#">Tops</a><a class="block" href="#">Dresses</a><a class="block"
-              href="#">Accessories</a>
+            <a class="block" href="shop.html?gender=crochet&category=tops">Tops</a><a class="block" href="shop.html?gender=crochet&category=dresses">Dresses</a><a class="block" href="shop.html?gender=crochet&category=accessories">Accessories</a>
           </div>
         </details>
-        <a class="navlink block py-4 border-b border-hairline" href="#drops">Drops</a>
-        <a class="navlink block py-4" href="#about">About</a>
+        <a class="navlink block py-4 border-b border-hairline" href="drops.html">Drops</a>
+        <a class="navlink block py-4" href="about.html">About</a>
       </div>
     </div>
   </header>
@@ -280,7 +277,7 @@
     <div class="max-w-[1400px] mx-auto px-4 md:px-8 xl:px-12">
       <h2 class="text-[24px] md:text-[32px] font-semibold mb-8 md:mb-12">SHOP BY CATEGORY</h2>
       <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-        <a href="#" class="cat-card relative block aspect-[3/4] overflow-hidden bg-surface group">
+        <a href="shop.html?category=tops" class="cat-card relative block aspect-[3/4] overflow-hidden bg-surface group">
           <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=900&auto=format&fit=crop&q=80"
             alt="Tops" class="w-full h-full object-cover" loading="lazy" />
           <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
@@ -292,7 +289,7 @@
             <span aria-hidden class="text-xl">→</span>
           </div>
         </a>
-        <a href="#" class="cat-card relative block aspect-[3/4] overflow-hidden bg-surface group">
+        <a href="shop.html?category=bottoms" class="cat-card relative block aspect-[3/4] overflow-hidden bg-surface group">
           <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=900&auto=format&fit=crop&q=80"
             alt="Bottoms" class="w-full h-full object-cover" loading="lazy" />
           <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
@@ -304,7 +301,7 @@
             <span aria-hidden class="text-xl">→</span>
           </div>
         </a>
-        <a href="#"
+        <a href="shop.html?category=outerwear"
           class="cat-card relative block aspect-[3/4] overflow-hidden bg-surface group col-span-2 md:col-span-1">
           <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=900&auto=format&fit=crop&q=80"
             alt="Outerwear" class="w-full h-full object-cover" loading="lazy" />
@@ -326,7 +323,7 @@
     <div class="max-w-[1400px] mx-auto px-4 md:px-8 xl:px-12">
       <div class="flex items-end justify-between mb-8 md:mb-12">
         <h2 class="text-[24px] md:text-[32px] font-semibold">THIS WEEK'S DROP</h2>
-        <a href="#" class="navlink hidden md:inline-flex items-center gap-2">View All <span aria-hidden>→</span></a>
+        <a href="shop.html" class="navlink hidden md:inline-flex items-center gap-2">View All <span aria-hidden>→</span></a>
       </div>
       <div id="productGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
         <!-- skeleton -->
@@ -351,7 +348,7 @@
           <div class="h-3 bg-hairline mt-2 w-1/2"></div>
         </div>
       </div>
-      <div class="md:hidden mt-8 text-center"><a href="#" class="btn-secondary">View All <span aria-hidden>→</span></a>
+      <div class="md:hidden mt-8 text-center"><a href="shop.html" class="btn-secondary">View All <span aria-hidden>→</span></a>
       </div>
     </div>
   </section>
@@ -369,7 +366,7 @@
           TWICE.</h2>
         <p class="mt-4 text-white/80 max-w-md text-sm md:text-base leading-relaxed">Sourced from estates, archives, and
           dead-stock corners. Each piece checked, photographed, and dropped Friday.</p>
-        <a href="#drops" class="btn-primary mt-8 bg-white text-ink" style="background:#fff;color:#1A1A1A">See the Edit
+        <a href="shop.html" class="btn-primary mt-8 bg-white text-ink" style="background:#fff;color:#1A1A1A">See the Edit
           <span aria-hidden>→</span></a>
       </div>
       <div class="hidden md:flex justify-end">
@@ -443,45 +440,43 @@
       <div>
         <div class="label mb-5">Pages</div>
         <ul class="space-y-3 text-sm">
-          <li><a href="#" class="hover:text-accent">Shop</a></li>
-          <li><a href="#" class="hover:text-accent">Drops</a></li>
-          <li><a href="#about" class="hover:text-accent">About</a></li>
-          <li><a href="#" class="hover:text-accent">Contact</a></li>
+          <li><a href="shop.html" class="hover:text-accent">Shop</a></li>
+          <li><a href="drops.html" class="hover:text-accent">Drops</a></li>
+          <li><a href="about.html" class="hover:text-accent">About</a></li>
+          <li><a href="contact.html" class="hover:text-accent">Contact</a></li>
         </ul>
       </div>
       <div>
         <div class="label mb-5">Category</div>
         <ul class="space-y-3 text-sm">
-          <li><a href="#" class="hover:text-accent">Tops</a></li>
-          <li><a href="#" class="hover:text-accent">Bottoms</a></li>
-          <li><a href="#" class="hover:text-accent">Outerwear</a></li>
-          <li><a href="#" class="hover:text-accent">Dresses</a></li>
-          <li><a href="#" class="hover:text-accent">Sets</a></li>
+          <li><a href="shop.html?category=tops" class="hover:text-accent">Tops</a></li>
+          <li><a href="shop.html?category=bottoms" class="hover:text-accent">Bottoms</a></li>
+          <li><a href="shop.html?category=outerwear" class="hover:text-accent">Outerwear</a></li>
+          <li><a href="shop.html?category=dresses" class="hover:text-accent">Dresses</a></li>
+          <li><a href="shop.html?category=sets" class="hover:text-accent">Sets</a></li>
         </ul>
       </div>
       <div>
         <div class="label mb-5">Brand</div>
         <ul class="space-y-3 text-sm">
-          <li><a href="#" class="hover:text-accent">Levi's</a></li>
-          <li><a href="#" class="hover:text-accent">Carhartt</a></li>
-          <li><a href="#" class="hover:text-accent">Dickies</a></li>
-          <li><a href="#" class="hover:text-accent">Nike</a></li>
-          <li><a href="#" class="hover:text-accent">Adidas</a></li>
+          <li><a href="shop.html?brand=levis" class="hover:text-accent">Levi's</a></li>
+          <li><a href="shop.html?brand=carhartt" class="hover:text-accent">Carhartt</a></li>
+          <li><a href="shop.html?brand=dickies" class="hover:text-accent">Dickies</a></li>
+          <li><a href="shop.html?brand=nike" class="hover:text-accent">Nike</a></li>
+          <li><a href="shop.html?brand=adidas" class="hover:text-accent">Adidas</a></li>
         </ul>
       </div>
       <div>
         <div class="label mb-5">Follow Us</div>
         <ul class="space-y-3 text-sm">
-          <li><a href="#" class="hover:text-accent">Instagram</a></li>
-          <li><a href="#" class="hover:text-accent">TikTok</a></li>
-          <li><a href="#" class="hover:text-accent">Pinterest</a></li>
-          <li><a href="https://wa.me/263718968489" target="_blank" rel="noopener" class="hover:text-accent">WhatsApp</a>
-          </li>
+          <li><a href="https://www.instagram.com/archivecloset.zw" target="_blank" rel="noopener" class="hover:text-accent">Instagram</a></li>
+          <li><a href="https://www.tiktok.com/@archivecloset.zw" target="_blank" rel="noopener" class="hover:text-accent">TikTok</a></li>
+          <li><a href="https://www.pinterest.com/archivecloset" target="_blank" rel="noopener" class="hover:text-accent">Pinterest</a></li>
+          <li><a href="https://wa.me/263718968489" target="_blank" rel="noopener" class="hover:text-accent">WhatsApp</a></li>
         </ul>
       </div>
     </div>
-    <div class="border-t border-hairline py-6 text-center text-xs text-muted">© 2026 Archive Closet. All rights
-      reserved.</div>
+    <div class="border-t border-hairline py-6 text-center text-xs text-muted">© <span id="footerYear"></span> Archive Closet. All rights reserved.</div>
   </footer>
 
   <script>
@@ -490,15 +485,15 @@
     const mobileMenu = document.getElementById('mobileMenu');
     menuBtn?.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
 
-    // Google Drive URL converter (preserved)
+    // Google Drive URL converter
     function convertGDriveUrl(url) {
       if (!url) return '';
-      const m = url.match(/[-\w]{25,}/);
-      return m ? `https://drive.google.com/thumbnail?id=${m[0]}&sz=w800` : url;
+      const m = url.match(/\/d\/([a-zA-Z0-9_-]{25,})/) || url.match(/id=([a-zA-Z0-9_-]{25,})/);
+      return m ? `https://drive.google.com/thumbnail?id=${m[1]}&sz=w800` : url;
     }
 
     // Airtable
-    const AIRTABLE_TOKEN = 'pataZsBfhel1enI6B...'; // replace with full token
+    const AIRTABLE_TOKEN = 'REPLACE_WITH_YOUR_FULL_AIRTABLE_TOKEN_HERE'; // Paste your full Airtable token here
     const AIRTABLE_BASE = 'appHABJu0gWFOkDUH';
     const AIRTABLE_TABLE = 'Products';
     const WHATSAPP_NUM = '263718968489';
@@ -551,6 +546,7 @@
     }
 
     loadProducts();
+    document.getElementById('footerYear').textContent = new Date().getFullYear();
 
     // Testimonials
     const testimonials = [

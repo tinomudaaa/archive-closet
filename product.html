@@ -701,7 +701,7 @@
                         <nav class="nav-links">
                                 <a href="shop.html?gender=menswear">Menswear</a>
                                 <a href="shop.html?gender=womenswear">Womenswear</a>
-                                <a href="shop.html?category=crochet">Crochet</a>
+                                <a href="shop.html?gender=crochet">Crochet</a>
                                 <a href="drops.html">Drops</a>
                                 <a href="about.html">About</a>
                         </nav>
@@ -843,8 +843,39 @@
         </section>
 
         <!-- ════ FOOTER ════ -->
-        <footer class="site-footer">
-                <p class="footer-text">&copy; 2025 Archive Closet. All pieces are one-of-one.</p>
+        <footer class="site-footer" style="border-top:1px solid var(--border);padding:32px 16px;">
+                <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);gap:40px;font-size:12px;color:var(--muted);">
+                        <div>
+                                <div style="font-weight:600;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:16px;">Archive Closet</div>
+                                <p style="line-height:1.6;">Rare finds for the bold.</p>
+                        </div>
+                        <div>
+                                <div style="font-weight:600;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:16px;">Shop</div>
+                                <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:8px;">
+                                        <li><a href="shop.html?gender=menswear" style="color:var(--muted);">Menswear</a></li>
+                                        <li><a href="shop.html?gender=womenswear" style="color:var(--muted);">Womenswear</a></li>
+                                        <li><a href="shop.html?gender=crochet" style="color:var(--muted);">Crochet</a></li>
+                                        <li><a href="drops.html" style="color:var(--muted);">Drops</a></li>
+                                </ul>
+                        </div>
+                        <div>
+                                <div style="font-weight:600;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:16px;">Help</div>
+                                <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:8px;">
+                                        <li><a href="about.html" style="color:var(--muted);">About</a></li>
+                                        <li><a href="contact.html" style="color:var(--muted);">Contact</a></li>
+                                </ul>
+                        </div>
+                        <div>
+                                <div style="font-weight:600;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:16px;">Follow</div>
+                                <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:8px;">
+                                        <li><a href="https://www.instagram.com/archivecloset.zw" target="_blank" rel="noopener" style="color:var(--muted);">Instagram</a></li>
+                                        <li><a href="https://wa.me/263718968489" target="_blank" rel="noopener" style="color:var(--muted);">WhatsApp</a></li>
+                                </ul>
+                        </div>
+                </div>
+                <div style="text-align:center;margin-top:32px;padding-top:16px;border-top:1px solid var(--border);font-size:12px;color:var(--muted);">
+                        &copy; <span id="year"></span> Archive Closet. All rights reserved.
+                </div>
         </footer>
 
         <!-- ════ LIGHTBOX ════ -->
@@ -874,29 +905,6 @@
 
         <script>
                 // ══════════════════════════════════════════════
-                // PRODUCT DATA — Replace with your Airtable fetch
-                // ══════════════════════════════════════════════
-                const product = {
-                        name: "Silk Blouse in Cream",
-                        price: 45,
-                        size: "M",
-                        gender: "Womenswear",
-                        category: "Tops",
-                        condition: "Excellent",   // "Excellent" | "Good" | "Fair"
-                        era: "90s",               // or null
-                        description: "Rare 90s silk blouse in cream. Soft hand feel, minimal wear. Pearl-tone buttons, relaxed fit. One-of-one.",
-                        images: [],               // Array of image URLs
-                        soldOut: false
-                };
-
-                const relatedProducts = [
-                        { slug: "linen-top-sage", name: "Linen Top in Sage", price: 38, images: [], soldOut: false },
-                        { slug: "cotton-tee-black", name: "Cotton Tee in Black", price: 29, images: [], soldOut: false },
-                        { slug: "satin-cami-burgundy", name: "Satin Cami in Burgundy", price: 52, images: [], soldOut: true },
-                        { slug: "knit-sweater-oatmeal", name: "Knit Sweater in Oatmeal", price: 55, images: [], soldOut: false }
-                ];
-
-                // ══════════════════════════════════════════════
                 // GALLERY
                 // ══════════════════════════════════════════════
                 let activeIndex = 0;
@@ -906,7 +914,117 @@
                         return match ? `https://drive.google.com/thumbnail?id=${match[1]}&sz=w800` : url;
                 }
 
+                const AIRTABLE_TOKEN = 'REPLACE_WITH_YOUR_FULL_AIRTABLE_TOKEN_HERE';
+                const AIRTABLE_BASE = 'appHABJu0gWFOkDUH';
+                const AIRTABLE_TABLE = 'Products';
+
+                let product = null;
+                let relatedProducts = [];
+
+                async function fetchProduct() {
+                  const params = new URLSearchParams(window.location.search);
+                  const slug = params.get('slug');
+                  const gender = params.get('gender') || '';
+                  
+                  if (!slug) {
+                    showNotFound();
+                    return;
+                  }
+                  
+                  try {
+                    // Fetch product by slug
+                    const url = `https://api.airtable.com/v0/${AIRTABLE_BASE}/${AIRTABLE_TABLE}?filterByFormula=%7BSlug%7D%3D%22${encodeURIComponent(slug)}%22&maxRecords=1`;
+                    const res = await fetch(url, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` }});
+                    if (!res.ok) throw new Error('Fetch failed');
+                    const data = await res.json();
+                    
+                    if (!data.records || data.records.length === 0) {
+                      showNotFound();
+                      return;
+                    }
+                    
+                    const r = data.records[0];
+                    const f = r.fields || {};
+                    product = {
+                      id: r.id,
+                      name: f.Name || 'Untitled',
+                      slug: f.Slug || r.id,
+                      price: Number(f.Price || 0),
+                      size: f.Size || '',
+                      gender: f.Gender || '',
+                      category: f.Category || '',
+                      condition: f.Condition || '',
+                      era: f.Era || '',
+                      description: f.Description || '',
+                      images: (f['Image URL'] ? [f['Image URL']] : []).concat((f.Images || []).map(img => img.url || img)),
+                      soldOut: !!f['Sold Out']
+                    };
+                    
+                    // Fetch related products (same gender, exclude current, random 4)
+                    const relatedUrl = `https://api.airtable.com/v0/${AIRTABLE_BASE}/${AIRTABLE_TABLE}?filterByFormula=AND(%7BGender%7D%3D%22${encodeURIComponent(product.gender)}%22%2C%7BSlug%7D!%3D%22${encodeURIComponent(slug)}%22%2C%7BSold%20Out%7D%3D0)&maxRecords=8`;
+                    const relatedRes = await fetch(relatedUrl, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` }});
+                    if (relatedRes.ok) {
+                      const relatedData = await relatedRes.json();
+                      // Shuffle and pick 4
+                      relatedProducts = (relatedData.records || [])
+                        .map(r => ({
+                          slug: r.fields.Slug || r.id,
+                          name: r.fields.Name || 'Untitled',
+                          price: Number(r.fields.Price || 0),
+                          images: (r.fields['Image URL'] ? [r.fields['Image URL']] : []).concat((r.fields.Images || []).map(img => img.url || img)),
+                          soldOut: !!r.fields['Sold Out']
+                        }))
+                        .sort(() => Math.random() - 0.5)
+                        .slice(0, 4);
+                    }
+                    
+                    renderAll();
+                    
+                  } catch (e) {
+                    console.error(e);
+                    showNotFound();
+                  }
+                }
+
+                function showNotFound() {
+                  document.querySelector('.product-section').style.display = 'none';
+                  document.querySelector('.related-section').style.display = 'none';
+                  
+                  const notFound = document.createElement('div');
+                  notFound.className = 'not-found';
+                  notFound.innerHTML = `
+                    <div class="nf-icon">🔍</div>
+                    <h2>This piece isn't in the archive anymore.</h2>
+                    <p>It may have sold out or been moved.</p>
+                    <a href="shop.html" class="nf-cta">Shop Current Drop →</a>
+                  `;
+                  document.body.insertBefore(notFound, document.querySelector('.related-section'));
+                }
+
+                function renderAll() {
+                  renderGallery();
+                  renderProductInfo();
+                  renderRelated();
+                  updateBreadcrumb();
+                }
+
+                function updateBreadcrumb() {
+                  const bc = document.querySelector('.breadcrumb');
+                  const gender = product.gender || '';
+                  const category = product.category || '';
+                  const genderParam = gender ? `?gender=${encodeURIComponent(gender.toLowerCase())}` : '';
+                  const categoryParam = category ? `&category=${encodeURIComponent(category.toLowerCase())}` : '';
+                  
+                  bc.innerHTML = `
+                    <a href="shop.html">Shop</a><span>/</span>
+                    ${gender ? `<a href="shop.html${genderParam}">${gender}</a><span>/</span>` : ''}
+                    ${category ? `<a href="shop.html${genderParam}${categoryParam}">${category}</a><span>/</span>` : ''}
+                    <span class="current">${product.name}</span>
+                  `;
+                }
+
                 function renderGallery() {
+                        if (!product) return;
                         const imgs = product.images.map(convertGDriveUrl);
                         const mainImage = document.getElementById('mainImage');
                         const mainImg = document.getElementById('mainImg');
@@ -984,6 +1102,7 @@
                 // PRODUCT INFO (dynamic)
                 // ══════════════════════════════════════════════
                 function renderProductInfo() {
+                        if (!product) return;
                         document.title = `${product.name} | Archive Closet`;
                         document.getElementById('productName').textContent = product.name;
                         document.getElementById('productPrice').textContent = `$${product.price}`;
@@ -1029,6 +1148,13 @@
                 // RELATED PRODUCTS
                 // ══════════════════════════════════════════════
                 function renderRelated() {
+                        if (!product) return;
+                        if (relatedProducts.length === 0) {
+                                document.querySelector('.related-section').style.display = 'none';
+                                return;
+                        } else {
+                                document.querySelector('.related-section').style.display = 'block';
+                        }
                         const container = document.getElementById('relatedScroll');
                         container.innerHTML = relatedProducts.map(p => {
                                 const img = p.images[0] ? convertGDriveUrl(p.images[0]) : '';
@@ -1054,9 +1180,8 @@
                 // ══════════════════════════════════════════════
                 // INIT
                 // ══════════════════════════════════════════════
-                renderGallery();
-                renderProductInfo();
-                renderRelated();
+                fetchProduct();
+                document.getElementById('year').textContent = new Date().getFullYear();
         </script>
 
 </body>

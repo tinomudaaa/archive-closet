@@ -376,14 +376,15 @@
                 }
 
                 /* ── Footer ── */
-                .site-footer {
-                        border-top: 1px solid var(--border);
-                        padding: 32px 16px;
-                        text-align: center;
-                        font-size: 12px;
-                        color: var(--muted);
-                        letter-spacing: 0.05em;
-                }
+                .site-footer { border-top: 1px solid var(--border); }
+                .footer-inner { max-width: 1280px; margin: 0 auto; padding: 48px 16px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; font-size: 12px; color: var(--muted); }
+                @media (min-width: 768px) { .footer-inner { grid-template-columns: repeat(4, 1fr); padding: 48px 32px; } }
+                .footer-col h4 { font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 16px; color: var(--fg); }
+                .footer-col ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+                .footer-col a { color: var(--muted); transition: color 0.2s; }
+                .footer-col a:hover { color: var(--accent); }
+                .footer-bottom { text-align: center; padding: 24px 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
+                @media (min-width: 768px) { .footer-bottom { padding: 24px 32px; } }
         </style>
 </head>
 
@@ -396,7 +397,7 @@
                         <nav class="nav-links">
                                 <a href="shop.html?gender=menswear">Menswear</a>
                                 <a href="shop.html?gender=womenswear">Womenswear</a>
-                                <a href="shop.html?category=crochet">Crochet</a>
+                                <a href="shop.html?gender=crochet">Crochet</a>
                                 <a href="drops.html">Drops</a>
                                 <a href="about.html">About</a>
                         </nav>
@@ -436,64 +437,84 @@
 
         <!-- ══════════ FOOTER ══════════ -->
         <footer class="site-footer">
-                &copy; <span id="footerYear"></span> Archive Closet. All rights reserved.
+                <div class="footer-inner">
+                        <div class="footer-col">
+                                <h4>Archive Closet</h4>
+                                <p>Rare finds for the bold.</p>
+                        </div>
+                        <div class="footer-col">
+                                <h4>Shop</h4>
+                                <ul>
+                                        <li><a href="shop.html?gender=menswear">Menswear</a></li>
+                                        <li><a href="shop.html?gender=womenswear">Womenswear</a></li>
+                                        <li><a href="shop.html?gender=crochet">Crochet</a></li>
+                                        <li><a href="drops.html">Drops</a></li>
+                                </ul>
+                        </div>
+                        <div class="footer-col">
+                                <h4>Help</h4>
+                                <ul>
+                                        <li><a href="about.html">About</a></li>
+                                        <li><a href="contact.html">Contact</a></li>
+                                </ul>
+                        </div>
+                        <div class="footer-col">
+                                <h4>Follow</h4>
+                                <ul>
+                                        <li><a href="https://www.instagram.com/archivecloset.zw" target="_blank" rel="noopener">Instagram</a></li>
+                                        <li><a href="https://wa.me/263718968489" target="_blank" rel="noopener">WhatsApp</a></li>
+                                </ul>
+                        </div>
+                </div>
+                <div class="footer-bottom">
+                        &copy; <span id="year"></span> Archive Closet. All rights reserved.
+                </div>
         </footer>
 
         <script>
-                document.getElementById('footerYear').textContent = new Date().getFullYear();
+                // ══════════════════════════════════════════════
+                // AIRTABLE CONFIG
+                // ══════════════════════════════════════════════
+                const AIRTABLE_TOKEN = 'REPLACE_WITH_YOUR_FULL_AIRTABLE_TOKEN_HERE';
+                const AIRTABLE_BASE = 'appHABJu0gWFOkDUH';
+                const AIRTABLE_TABLE = 'Outfits';
 
-                // ══════════════════════════════════════════════
-                // DATA — Replace with Airtable fetch
-                // ══════════════════════════════════════════════
-                const outfits = [
-                        {
-                                name: "Night Out",
-                                slug: "night-out",
-                                vibe: "Going Out",
-                                description: "Head-turning fit for the evening.",
-                                items: "Corset Top, Mini Skirt, Knee-High Boots, Chain Bag",
-                                coverImage: [],
-                                coverImageUrl: "",
-                        },
-                        {
-                                name: "Downtown Fit",
-                                slug: "downtown-fit",
-                                vibe: "Street",
-                                description: "Easy street look with an edge.",
-                                items: "Graphic Tee, Cargo Pants, Chunky Sneakers, Cap",
-                                coverImage: [],
-                                coverImageUrl: "",
-                        },
-                        {
-                                name: "Soft Hours",
-                                slug: "soft-hours",
-                                vibe: "Soft",
-                                description: "Muted tones and flowing shapes.",
-                                items: "Linen Blouse, Wide-Leg Trousers, Sandals, Tote",
-                                coverImage: [],
-                                coverImageUrl: "",
-                        },
-                        {
-                                name: "After Dark",
-                                slug: "after-dark",
-                                vibe: "Going Out",
-                                description: "Satin and shimmer for late nights.",
-                                items: "Satin Cami, Leather Pants, Heeled Mules, Clutch, Layered Necklace, Shades",
-                                coverImage: [],
-                                coverImageUrl: "",
-                        },
-                ];
+                let outfits = [];
+                let activeVibe = "All";
+
+                async function fetchOutfits() {
+                        try {
+                                const url = `https://api.airtable.com/v0/${AIRTABLE_BASE}/${AIRTABLE_TABLE}?sort%5B0%5D%5Bfield%5D=Created%20Time&sort%5B0%5D%5Bdirection%5D=desc&pageSize=100`;
+                                const res = await fetch(url, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` }});
+                                if (!res.ok) throw new Error('Fetch failed');
+                                const data = await res.json();
+                                outfits = (data.records || []).map(r => ({
+                                        id: r.id,
+                                        name: r.fields.Name || 'Untitled',
+                                        slug: r.fields.Slug || r.id,
+                                        vibe: r.fields.Vibe || '',
+                                        description: r.fields.Description || '',
+                                        items: r.fields.Items || '',
+                                        coverImage: r.fields['Cover Image'] || [],
+                                        coverImageUrl: r.fields['Cover Image URL'] || ''
+                                }));
+                        } catch (e) {
+                                console.error('Failed to fetch outfits:', e);
+                                outfits = [];
+                        }
+                        renderFilters();
+                        renderOutfits();
+                }
 
                 const VIBES = ["All", "Soft", "Street", "Going Out"];
-                let activeVibe = "All";
 
                 // ══════════════════════════════════════════════
                 // HELPERS
                 // ══════════════════════════════════════════════
                 function convertGDriveUrl(url) {
                         if (!url) return '';
-                        const match = url.match(/\/d\/([^/]+)/);
-                        return match ? `https://drive.google.com/thumbnail?id=${match[1]}&sz=w800` : url;
+                        const m = url.match(/\/d\/([a-zA-Z0-9_-]{25,})/) || url.match(/id=([a-zA-Z0-9_-]{25,})/);
+                        return m ? `https://drive.google.com/thumbnail?id=${m[1]}&sz=w800` : url;
                 }
 
                 function getImageUrl(outfit) {
@@ -594,9 +615,9 @@
                 // ══════════════════════════════════════════════
                 // INIT
                 // ══════════════════════════════════════════════
-                // showSkeleton(); // Uncomment when fetching from Airtable
-                renderFilters();
-                renderOutfits();
+                showSkeleton();
+                fetchOutfits();
+                document.getElementById('year').textContent = new Date().getFullYear();
         </script>
 
 </body>

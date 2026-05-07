@@ -440,17 +440,15 @@
         }
 
         /* ── Footer ── */
-        .site-footer {
-            border-top: 1px solid var(--border);
-            padding: 32px 16px;
-            text-align: center;
-        }
-
-        .footer-text {
-            font-size: 12px;
-            color: var(--muted);
-            letter-spacing: 0.05em;
-        }
+        .site-footer { border-top: 1px solid var(--border); }
+        .footer-inner { max-width: 1280px; margin: 0 auto; padding: 48px 16px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; font-size: 12px; color: var(--muted); }
+        @media (min-width: 768px) { .footer-inner { grid-template-columns: repeat(4, 1fr); padding: 48px 32px; } }
+        .footer-col h4 { font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 16px; color: var(--fg); }
+        .footer-col ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+        .footer-col a { color: var(--muted); transition: color 0.2s; }
+        .footer-col a:hover { color: var(--accent); }
+        .footer-bottom { text-align: center; padding: 24px 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
+        @media (min-width: 768px) { .footer-bottom { padding: 24px 32px; } }
     </style>
 </head>
 
@@ -463,7 +461,7 @@
             <nav class="nav-links">
                 <a href="shop.html?gender=menswear">Menswear</a>
                 <a href="shop.html?gender=womenswear">Womenswear</a>
-                <a href="shop.html?category=crochet">Crochet</a>
+                <a href="shop.html?gender=crochet">Crochet</a>
                 <a href="drops.html" class="active">Drops</a>
                 <a href="about.html">About</a>
             </nav>
@@ -543,7 +541,38 @@
 
     <!-- ════ FOOTER ════ -->
     <footer class="site-footer">
-        <p class="footer-text">&copy; 2025 Archive Closet. All pieces are one-of-one.</p>
+        <div class="footer-inner">
+            <div class="footer-col">
+                <h4>Archive Closet</h4>
+                <p>Rare finds for the bold.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Shop</h4>
+                <ul>
+                    <li><a href="shop.html?gender=menswear">Menswear</a></li>
+                    <li><a href="shop.html?gender=womenswear">Womenswear</a></li>
+                    <li><a href="shop.html?gender=crochet">Crochet</a></li>
+                    <li><a href="drops.html">Drops</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Help</h4>
+                <ul>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Follow</h4>
+                <ul>
+                    <li><a href="https://www.instagram.com/archivecloset.zw" target="_blank" rel="noopener">Instagram</a></li>
+                    <li><a href="https://wa.me/263718968489" target="_blank" rel="noopener">WhatsApp</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; <span id="year"></span> Archive Closet. All pieces are one-of-one.
+        </div>
     </footer>
 
     <script>
@@ -607,34 +636,109 @@
         setInterval(updateCountdown, 1000);
 
         // ══════════════════════════════════════════════
-        // PRODUCT DATA — Replace with Airtable fetch
+        // AIRTABLE CONFIG
         // ══════════════════════════════════════════════
+        const AIRTABLE_TOKEN = 'REPLACE_WITH_YOUR_FULL_AIRTABLE_TOKEN_HERE';
+        const AIRTABLE_BASE = 'appHABJu0gWFOkDUH';
+        const AIRTABLE_TABLE = 'Products';
 
-        // Mock: current drop products ({Drop} = true)
-        const currentDrop = [
-            { slug: "silk-blouse-cream", name: "Silk Blouse in Cream", price: 45, size: "M", images: [], soldOut: false },
-            { slug: "linen-top-sage", name: "Linen Top in Sage", price: 38, size: "S", images: [], soldOut: false },
-            { slug: "cotton-tee-black", name: "Cotton Tee in Black", price: 29, size: "L", images: [], soldOut: false },
-            { slug: "knit-sweater-oatmeal", name: "Knit Sweater in Oatmeal", price: 55, size: "OS", images: [], soldOut: false },
-        ];
+        let currentDrop = [];
+        let pastDrops = [];
+        let dropNumber = null;
 
-        // Mock: past drop products ({Drop} = false)
-        const pastDrops = [
-            { slug: "satin-cami-burgundy", name: "Satin Cami in Burgundy", price: 52, size: "M", images: [], soldOut: true },
-            { slug: "denim-jacket-wash", name: "Denim Jacket in Wash", price: 68, size: "L", images: [], soldOut: true },
-            { slug: "wool-trousers-charcoal", name: "Wool Trousers in Charcoal", price: 60, size: "M", images: [], soldOut: false },
-            { slug: "ribbed-tank-white", name: "Ribbed Tank in White", price: 22, size: "S", images: [], soldOut: true },
-        ];
+        async function fetchDrops() {
+            try {
+                const currentUrl = `https://api.airtable.com/v0/${AIRTABLE_BASE}/${AIRTABLE_TABLE}?filterByFormula=%7BDrop%7D%3D1&sort%5B0%5D%5Bfield%5D=Created%20Time&sort%5B0%5D%5Bdirection%5D=desc&pageSize=100`;
+                const currentRes = await fetch(currentUrl, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` }});
+                if (currentRes.ok) {
+                    const currentData = await currentRes.json();
+                    currentDrop = (currentData.records || []).map(r => ({
+                        slug: r.fields.Slug || r.id,
+                        name: r.fields.Name || 'Untitled',
+                        price: Number(r.fields.Price || 0),
+                        size: r.fields.Size || '',
+                        images: (r.fields['Image URL'] ? [r.fields['Image URL']] : []).concat((r.fields.Images || []).map(img => img.url || img)),
+                        soldOut: !!r.fields['Sold Out']
+                    }));
+                }
 
-        // Drop number — replace with Airtable count or field
-        const dropNumber = 12; // set to null for fallback
+                const pastUrl = `https://api.airtable.com/v0/${AIRTABLE_BASE}/${AIRTABLE_TABLE}?filterByFormula=OR(%7BDrop%7D%3D0%2C%7BSold%20Out%7D%3D1)&sort%5B0%5D%5Bfield%5D=Created%20Time&sort%5B0%5D%5Bdirection%5D=desc&maxRecords=8`;
+                const pastRes = await fetch(pastUrl, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` }});
+                if (pastRes.ok) {
+                    const pastData = await pastRes.json();
+                    pastDrops = (pastData.records || []).map(r => ({
+                        slug: r.fields.Slug || r.id,
+                        name: r.fields.Name || 'Untitled',
+                        price: Number(r.fields.Price || 0),
+                        size: r.fields.Size || '',
+                        images: (r.fields['Image URL'] ? [r.fields['Image URL']] : []).concat((r.fields.Images || []).map(img => img.url || img)),
+                        soldOut: !!r.fields['Sold Out']
+                    }));
+                }
+
+                const countUrl = `https://api.airtable.com/v0/${AIRTABLE_BASE}/${AIRTABLE_TABLE}?filterByFormula=%7BDrop%7D%3D1`;
+                const countRes = await fetch(countUrl, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` }});
+                if (countRes.ok) {
+                    const countData = await countRes.json();
+                    dropNumber = countData.records ? Math.ceil(countData.records.length / 4) : 1;
+                }
+
+                renderAll();
+            } catch (e) {
+                console.error('Failed to fetch drops:', e);
+                renderAll();
+            }
+        }
+
+        function renderAll() {
+            renderDropNumber();
+            renderCurrentDrop();
+            renderPastDrops();
+        }
+
+        function renderDropNumber() {
+            const el = document.getElementById('dropNumber');
+            if (dropNumber) {
+                el.textContent = 'DROP ' + String(dropNumber).padStart(3, '0');
+            } else {
+                el.textContent = 'THE LATEST DROP';
+            }
+        }
+
+        function renderCurrentDrop() {
+            const grid = document.getElementById('currentDropGrid');
+            const empty = document.getElementById('currentDropEmpty');
+            const countEl = document.getElementById('dropCount');
+            if (currentDrop.length > 0) {
+                grid.style.display = 'grid';
+                empty.style.display = 'none';
+                grid.innerHTML = currentDrop.map(renderCard).join('');
+                countEl.textContent = currentDrop.length + (currentDrop.length === 1 ? ' piece' : ' pieces');
+            } else {
+                grid.style.display = 'none';
+                empty.style.display = 'block';
+                countEl.textContent = '';
+            }
+        }
+
+        function renderPastDrops() {
+            const section = document.getElementById('pastDropsSection');
+            const grid = document.getElementById('pastDropsGrid');
+            if (pastDrops.length > 0) {
+                section.style.display = 'block';
+                grid.innerHTML = pastDrops.map(renderCard).join('');
+            } else {
+                section.style.display = 'none';
+            }
+        }
 
         // ══════════════════════════════════════════════
-        // RENDER
+        // RENDER HELPERS
         // ══════════════════════════════════════════════
         function convertGDriveUrl(url) {
-            const match = url.match(/\/d\/([^/]+)/);
-            return match ? `https://drive.google.com/thumbnail?id=${match[1]}&sz=w800` : url;
+            if (!url) return '';
+            const m = url.match(/\/d\/([a-zA-Z0-9_-]{25,})/) || url.match(/id=([a-zA-Z0-9_-]{25,})/);
+            return m ? `https://drive.google.com/thumbnail?id=${m[1]}&sz=w800` : url;
         }
 
         function renderCard(p) {
@@ -655,32 +759,8 @@
       `;
         }
 
-        // Drop number
-        if (dropNumber) {
-            document.getElementById('dropNumber').textContent = 'DROP ' + String(dropNumber).padStart(3, '0');
-        }
-
-        // Current drop
-        const currentGrid = document.getElementById('currentDropGrid');
-        const currentEmpty = document.getElementById('currentDropEmpty');
-        const dropCountEl = document.getElementById('dropCount');
-
-        if (currentDrop.length > 0) {
-            currentGrid.innerHTML = currentDrop.map(renderCard).join('');
-            dropCountEl.textContent = currentDrop.length + (currentDrop.length === 1 ? ' piece' : ' pieces');
-        } else {
-            currentGrid.style.display = 'none';
-            currentEmpty.style.display = 'block';
-        }
-
-        // Past drops
-        const pastSection = document.getElementById('pastDropsSection');
-        const pastGrid = document.getElementById('pastDropsGrid');
-
-        if (pastDrops.length > 0) {
-            pastSection.style.display = 'block';
-            pastGrid.innerHTML = pastDrops.map(renderCard).join('');
-        }
+        fetchDrops();
+        document.getElementById('year').textContent = new Date().getFullYear();
     </script>
 
 </body>
