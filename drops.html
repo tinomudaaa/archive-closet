@@ -467,12 +467,7 @@
                 <a href="about.html">About</a>
             </nav>
             <div class="header-icons">
-                <button aria-label="Search">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <circle cx="11" cy="11" r="8" />
-                        <path d="m21 21-4.35-4.35" stroke-linecap="round" />
-                    </svg>
-                </button>
+
                 <a href="https://wa.me/263718968489" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22l5.9-2Z" stroke-linecap="round" stroke-linejoin="round" />
@@ -527,7 +522,7 @@
         </div>
         <div class="product-grid" id="currentDropGrid"></div>
         <div class="empty-state" id="currentDropEmpty" style="display:none;">
-            <p>The current drop is empty.<br>Check back Friday for new pieces.</p>
+            <p>The current drop is empty.<br>Check back Sunday for new pieces.</p>
         </div>
     </section>
 
@@ -578,7 +573,7 @@
 
     <script>
         // ══════════════════════════════════════════════
-        // COUNTDOWN — Next Friday 12:00 PM CAT (UTC+2)
+        // COUNTDOWN — Next Sunday 12:00 PM CAT (UTC+2)
         // ══════════════════════════════════════════════
         function getNextDropDate() {
             const now = new Date();
@@ -589,17 +584,17 @@
             const day = catNow.getDay(); // 0=Sun
             const hour = catNow.getHours();
 
-            let daysUntilFri;
-            if (day === 5) {
-                // Friday
-                daysUntilFri = (hour >= 12) ? 7 : 0;
+            let daysUntilSun;
+            if (day === 0) {
+                // Sunday
+                daysUntilSun = (hour >= 12) ? 7 : 0;
             } else {
-                daysUntilFri = (5 - day + 7) % 7;
-                if (daysUntilFri === 0) daysUntilFri = 7;
+                daysUntilSun = (0 - day + 7) % 7;
+                if (daysUntilSun === 0) daysUntilSun = 7;
             }
 
             const target = new Date(catNow);
-            target.setDate(target.getDate() + daysUntilFri);
+            target.setDate(target.getDate() + daysUntilSun);
             target.setHours(12, 0, 0, 0);
 
             // Convert back to real UTC
