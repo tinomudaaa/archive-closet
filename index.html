@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Archive Closet — Streetwear Archive</title>
   <meta name="description"
-    content="Rare finds for the bold. One-of-one streetwear pieces dropped weekly. Order on WhatsApp." />
+    content="Zimbabwe's vintage streetwear archive. Rare finds dropped weekly. Order on WhatsApp." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -279,8 +279,7 @@
       <span class="label inline-block bg-ink text-white px-3 py-1 mb-6">New Drop — Sunday</span>
       <h1 class="text-white font-semibold text-[28px] md:text-[48px] leading-[1.05] max-w-2xl">RARE FINDS FOR THE BOLD
       </h1>
-      <p class="text-white/80 text-sm md:text-base mt-4 max-w-md leading-relaxed">One-of-one pieces. Dropped weekly.
-        Ordered via WhatsApp.</p>
+      <p class="text-white/80 text-sm md:text-base mt-4 max-w-md leading-relaxed">One-of-one pieces. Dropped weekly. Based in Zimbabwe.</p>
       <div class="mt-8">
         <a href="#drops" class="btn-primary bg-white text-ink hover:!bg-accent hover:!text-white"
           style="background:#fff;color:#1A1A1A">Shop the Drop <span aria-hidden>→</span></a>
@@ -415,7 +414,7 @@
   <div class="footer-inner">
     <div class="footer-col">
       <h4>Archive Closet</h4>
-      <p>Rare finds for the bold.</p>
+      <p>Rare finds for the bold.<br>Based in Zimbabwe.</p>
     </div>
     <div class="footer-col">
       <h4>Shop</h4>
@@ -506,6 +505,28 @@
     }
 
     loadProducts();
+
+    async function loadCategoryCounts() {
+      try {
+        const { data, error } = await db.from('products').select('category').eq('sold_out', false);
+        if (error || !data) return;
+        const counts = {};
+        data.forEach(p => {
+          const cat = (p.category || '').toLowerCase();
+          counts[cat] = (counts[cat] || 0) + 1;
+        });
+        const map = {
+          'tops': document.querySelector('a[href="shop.html?category=tops"] .text-xs'),
+          'bottoms': document.querySelector('a[href="shop.html?category=bottoms"] .text-xs'),
+          'outerwear': document.querySelector('a[href="shop.html?category=outerwear"] .text-xs'),
+        };
+        Object.entries(map).forEach(([cat, el]) => {
+          if (el) el.textContent = `${counts[cat] || 0} piece${counts[cat] === 1 ? '' : 's'}`;
+        });
+      } catch(e) { console.error(e); }
+    }
+    loadCategoryCounts();
+
     document.getElementById('year').textContent = new Date().getFullYear();
 
     async function loadOutfits() {

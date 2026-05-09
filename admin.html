@@ -1559,6 +1559,7 @@ document.getElementById('outfitSaveBtn').onclick = async () => {
         description: document.getElementById('oDescription').value.trim(),
         image_url: imageUrl,
         items: selectedItems,
+        drop_date: document.getElementById('oDate').value || null,
     };
     if (editingOutfitId) {
         const { error } = await db.from('outfits').update(data).eq('id', editingOutfitId);
