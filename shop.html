@@ -3,6 +3,8 @@
 
 <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="archive-closet-logo-final.svg">
+    <link rel="shortcut icon" href="archive-closet-logo-final.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Shop — Archive Closet</title>
     <meta name="description" content="Shop the Archive Closet — menswear, womenswear, and crochet." />
@@ -67,6 +69,8 @@
 
         .navlink:hover {
             color: var(--accent);
+            text-decoration: underline;
+            text-underline-offset: 6px;
         }
 
         .navlink.active {
@@ -227,40 +231,15 @@
 @media (min-width: 768px) { .footer-bottom { padding: 24px 32px; } }
 
 
-        .header-left {
-            display: flex;
-            align-items: center;
-            padding-left: 32px;
-        }
-
-        .header-logo {
-            width: 140px;
-            height: auto;
-            display: block;
-            object-fit: contain;
-        }
-
-        @media (max-width: 767px) {
-            .header-logo {
-                width: 120px;
-            }
-            .header-left {
-                padding-left: 16px;
-            }
-        }
-    
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-            margin-left: 48px;
-        }
-
-        @media (max-width: 767px) {
-            .nav-links {
-                display: none;
-            }
-        }
+        .header-left { display: flex; align-items: center; padding-left: 0; }
+        .header-logo { width: 180px; height: auto; display: block; object-fit: contain; }
+        @media (max-width: 767px) { .header-logo { width: 140px; } .header-left { padding-left: 0; } }
+        .nav-links { display: flex; align-items: center; gap: 24px; margin-left: 48px; }
+        @media (max-width: 767px) { .nav-links { display: none; } }
+        .navlink { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; position: relative; }
+        .navlink:hover { color: #C45B3A; }
+        .navlink.active { color: #C45B3A; }
+        .navlink.active::after { content: ''; position: absolute; left: 0; right: 0; bottom: -6px; height: 1px; background: #C45B3A; }
 
     </style>
 </head>
@@ -272,60 +251,56 @@
 
     <!-- Nav -->
     <header class="border-b border-hairline sticky top-0 z-40 bg-white">
-        <div class="max-w-[1400px] mx-auto px-5 md:px-8 h-16 flex items-center justify-between">
-            <a href="index.html" class="header-left">
-  <img src="archive-closet-logo-final.svg" alt="Archive Closet" class="header-logo"/>
-</a>
-            <nav class="nav-links">
-                <a href="shop.html?gender=menswear" class="navlink" data-nav="menswear">Mens</a>
-                <a href="shop.html?gender=womenswear" class="navlink" data-nav="womenswear">Women</a>
-                <a href="shop.html?gender=crochet" class="navlink" data-nav="crochet">Crochet</a>
-                <a href="outfits.html" class="navlink">Outfits</a>
-                <a href="drops.html" class="navlink">Drops</a>
-                <a href="about.html" class="navlink">About</a>
-            </nav>
-            <div class="flex items-center gap-4 ml-auto">
-                <a href="https://wa.me/263718968489" aria-label="WhatsApp" class="hidden md:block">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="1.5">
-                        <path
-                            d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
-                    </svg>
-                </a>
-                <button id="mobileMenuBtn" class="md:hidden" aria-label="Menu">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="1.5">
-                        <line x1="3" y1="6" x2="21" y2="6" />
-                        <line x1="3" y1="12" x2="21" y2="12" />
-                        <line x1="3" y1="18" x2="21" y2="18" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <!-- Mobile menu -->
-        <div id="mobileMenu" class="hidden md:hidden border-t border-hairline px-5 py-4 space-y-1">
-            <details>
-                <summary class="py-3 navlink flex justify-between">Mens <span>+</span></summary>
-                <div class="pl-3 py-2 space-y-2 text-sm">
-                    <a href="shop.html?gender=menswear&category=tops" class="block">Tops</a>
-                    <a href="shop.html?gender=menswear&category=bottoms" class="block">Bottoms</a>
-                    <a href="shop.html?gender=menswear&category=outerwear" class="block">Outerwear</a>
-                </div>
-            </details>
-            <details>
-                <summary class="py-3 navlink flex justify-between">Women <span>+</span></summary>
-                <div class="pl-3 py-2 space-y-2 text-sm">
-                    <a href="shop.html?gender=womenswear&category=tops" class="block">Tops</a>
-                    <a href="shop.html?gender=womenswear&category=dresses" class="block">Dresses</a>
-                    <a href="shop.html?gender=womenswear&category=sets" class="block">Sets</a>
-                </div>
-            </details>
-            <a href="shop.html?gender=crochet" class="block py-3 navlink">Crochet</a>
-            <a href="outfits.html" class="block py-3 navlink">Outfits</a>
-            <a href="drops.html" class="block py-3 navlink">Drops</a>
-            <a href="about.html" class="block py-3 navlink">About</a>
-        </div>
-    </header>
+  <div class="max-w-[1400px] mx-auto px-5 md:px-8 h-16 flex items-center justify-between">
+    <a href="index.html" class="header-left">
+      <img src="archive-closet-logo-final.svg" alt="Archive Closet" class="header-logo"/>
+    </a>
+    <nav class="nav-links">
+      <a href="shop.html?gender=menswear" class="navlink">Mens</a>
+      <a href="shop.html?gender=womenswear" class="navlink">Women</a>
+      <a href="shop.html?gender=crochet" class="navlink">Crochet</a>
+      <a href="outfits.html" class="navlink">Outfits</a>
+      <a href="drops.html" class="navlink">Drops</a>
+      <a href="about.html" class="navlink">About</a>
+    </nav>
+    <div class="flex items-center gap-4 ml-auto">
+      <a href="https://wa.me/263718968489" aria-label="WhatsApp" class="hidden md:block">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+        </svg>
+      </a>
+      <button id="mobileMenuBtn" class="md:hidden" aria-label="Menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobileMenu" class="hidden md:hidden border-t border-hairline px-5 py-4 space-y-1">
+    <details>
+      <summary class="py-3 navlink flex justify-between">Mens <span>+</span></summary>
+      <div class="pl-3 py-2 space-y-2 text-sm">
+        <a href="shop.html?gender=menswear&category=tops" class="block">Tops</a>
+        <a href="shop.html?gender=menswear&category=bottoms" class="block">Bottoms</a>
+        <a href="shop.html?gender=menswear&category=outerwear" class="block">Outerwear</a>
+      </div>
+    </details>
+    <details>
+      <summary class="py-3 navlink flex justify-between">Women <span>+</span></summary>
+      <div class="pl-3 py-2 space-y-2 text-sm">
+        <a href="shop.html?gender=womenswear&category=tops" class="block">Tops</a>
+        <a href="shop.html?gender=womenswear&category=dresses" class="block">Dresses</a>
+        <a href="shop.html?gender=womenswear&category=sets" class="block">Sets</a>
+      </div>
+    </details>
+    <a href="shop.html?gender=crochet" class="block py-3 navlink">Crochet</a>
+    <a href="outfits.html" class="block py-3 navlink">Outfits</a>
+    <a href="drops.html" class="block py-3 navlink">Drops</a>
+    <a href="about.html" class="block py-3 navlink">About</a>
+  </div>
+</header>
 
     <!-- Page header -->
     <section class="max-w-[1400px] mx-auto px-5 md:px-8 pt-10 md:pt-14 pb-6">
@@ -364,11 +339,12 @@
                 </select>
                 <select id="eraFilter" class="filter-select">
                     <option value="">Era</option>
-                    <option value="90s">90s Vintage</option>
-                    <option value="Y2K">Y2K Era</option>
-                    <option value="00s">00s Designer</option>
-                    <option value="70s">70s Retro</option>
-                    <option value="80s">80s Street</option>
+                    <option value="70s">70s</option>
+                    <option value="80s">80s</option>
+                    <option value="90s">90s</option>
+                    <option value="2000s">2000s</option>
+                    <option value="2010s">2010s</option>
+                    <option value="Modern">Modern</option>
                 </select>
                 <select id="priceFilter" class="filter-select">
                     <option value="">Price</option>
@@ -489,11 +465,12 @@
                 <div class="label mb-3">Era</div>
                 <select id="eraFilterM" class="filter-select w-full">
                     <option value="">All</option>
-                    <option value="90s">90s Vintage</option>
-                    <option value="Y2K">Y2K Era</option>
-                    <option value="00s">00s Designer</option>
-                    <option value="70s">70s Retro</option>
-                    <option value="80s">80s Street</option>
+                    <option value="70s">70s</option>
+                    <option value="80s">80s</option>
+                    <option value="90s">90s</option>
+                    <option value="2000s">2000s</option>
+                    <option value="2010s">2010s</option>
+                    <option value="Modern">Modern</option>
                 </select>
             </div>
             <div>
@@ -597,7 +574,8 @@
         function applyFilters() {
             visible = PAGE_SIZE;
             let out = allProducts.slice();
-            if (state.gender) out = out.filter(p => p.gender === state.gender);
+            const unisexGenders = ['menswear', 'womenswear'];
+            if (state.gender) out = out.filter(p => p.gender === state.gender || (p.gender === 'unisex' && unisexGenders.includes(state.gender)));
             if (state.category) out = out.filter(p => p.category === state.category);
             if (state.size) out = out.filter(p => (p.size || '').toUpperCase() === state.size);
             if (state.era) out = out.filter(p => (p.era || '').toLowerCase().includes(state.era.toLowerCase()));

@@ -3,6 +3,8 @@
 
 <head>
         <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="archive-closet-logo-final.svg">
+        <link rel="shortcut icon" href="archive-closet-logo-final.svg">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>This Week's Looks | Archive Closet</title>
         <meta name="description"
@@ -10,8 +12,41 @@
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-        <style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    letterSpacing: { wider2: '0.1em' },
+                    colors: {
+                        ink: '#1A1A1A',
+                        muted: '#666666',
+                        hairline: '#E5E5E5',
+                        surface: '#F5F5F5',
+                        accent: '#C45B3A',
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        .header-left {
+            display: flex;
+            align-items: center;
+            padding-left: 0;
+        }
+        .header-logo {
+            width: 180px;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+        @media (max-width: 767px) {
+            .header-logo { width: 140px; }
+            .header-left { padding-left: 0; }
+        }
                 *,
                 *::before,
                 *::after {
@@ -54,76 +89,15 @@
                         --accent: #C45B3A;
                 }
 
-                /* ── Header ── */
-                .site-header {
-                        border-bottom: 1px solid var(--border);
-                }
-
-                .header-inner {
-                        max-width: 1280px;
-                        margin: 0 auto;
-                        display: flex;
-                        align-items: center;
-                        justify-content: flex-start;
-                        padding: 16px;
-                }
-
-                @media (min-width: 768px) {
-                        .header-inner {
-                                padding: 16px 32px;
-                        }
-                }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-            margin-left: 48px;
-        }
-
-        @media (max-width: 767px) {
-            .nav-links {
-                display: none;
-            }
-        }
-
-                .nav-links a {
-                        font-size: 11px;
-                        font-weight: 500;
-                        letter-spacing: 0.1em;
-                        text-transform: uppercase;
-                        color: var(--muted);
-                        transition: color 0.2s;
-                }
-
-                .nav-links a:hover {
-                        color: var(--fg);
-                }
-
-                .header-icons {
-                        display: flex;
-                        align-items: center;
-                        gap: 12px;
-            margin-left: auto;
-                }
-
-                .header-icons a,
-                .header-icons button {
-                        padding: 4px;
-                        color: var(--fg);
-                        transition: color 0.2s;
-                }
-
-                .header-icons a:hover,
-                .header-icons button:hover {
-                        color: var(--accent);
-                }
-
-                .header-icons svg {
-                        width: 18px;
-                        height: 18px;
-                        stroke-width: 1.5;
-                }
+        .header-left { display: flex; align-items: center; padding-left: 0; }
+        .header-logo { width: 180px; height: auto; display: block; object-fit: contain; }
+        @media (max-width: 767px) { .header-logo { width: 140px; } .header-left { padding-left: 0; } }
+        .nav-links { display: flex; align-items: center; gap: 24px; margin-left: 48px; }
+        @media (max-width: 767px) { .nav-links { display: none; } }
+        .navlink { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; position: relative; }
+        .navlink:hover { color: #C45B3A; }
+        .navlink.active { color: #C45B3A; }
+        .navlink.active::after { content: ''; position: absolute; left: 0; right: 0; bottom: -6px; height: 1px; background: #C45B3A; }
 
                 /* ── Page Header ── */
                 .page-header {
@@ -237,12 +211,22 @@
                         width: 100%;
                         height: 100%;
                         object-fit: cover;
+                        transition: transform 0.4s ease;
+                }
+
+                .outfit-card:hover img {
+                        transform: scale(1.04);
+                }
+
+                .outfit-card:hover {
+                        cursor: pointer;
                 }
 
                 .outfit-overlay {
                         position: absolute;
                         inset: 0;
                         background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.3) 40%, transparent 70%);
+                        z-index: 1;
                 }
 
                 .outfit-info {
@@ -254,6 +238,7 @@
                         display: flex;
                         flex-direction: column;
                         gap: 8px;
+                        z-index: 2;
                 }
 
                 @media (min-width: 768px) {
@@ -263,35 +248,46 @@
                 }
 
                 .outfit-vibe {
-                        font-size: 11px;
-                        font-weight: 500;
-                        letter-spacing: 0.1em;
+                        display: inline-block;
+                        font-size: 10px;
+                        font-weight: 600;
+                        letter-spacing: 0.15em;
                         text-transform: uppercase;
-                        color: rgba(255, 255, 255, 0.7);
+                        color: #1A1A1A;
+                        background: #fff;
+                        padding: 3px 10px;
+                        border-radius: 2px;
                 }
 
                 .outfit-name {
-                        font-size: 20px;
-                        line-height: 24px;
+                        font-size: 22px;
+                        line-height: 26px;
                         font-weight: 600;
                         color: #FFFFFF;
+                        text-transform: uppercase;
+                        letter-spacing: 0.03em;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
                 }
 
                 .outfit-items {
                         list-style: none;
-                        display: flex;
-                        flex-direction: column;
-                        gap: 2px;
+                        display: block;
                 }
 
                 .outfit-items li {
-                        font-size: 13px;
-                        color: rgba(255, 255, 255, 0.8);
+                        display: inline;
+                        font-size: 12px;
+                        color: rgba(255, 255, 255, 0.7);
                 }
 
-                .outfit-items li::before {
-                        content: "• ";
-                        opacity: 0.6;
+                .outfit-items li::after {
+                        content: ", ";
+                }
+
+                .outfit-items li:last-child::after {
+                        content: "";
                 }
 
                 .outfit-more {
@@ -301,20 +297,21 @@
                 }
 
                 .outfit-cta {
-                        margin-top: 8px;
+                        margin-top: 12px;
                         display: inline-block;
-                        font-size: 12px;
-                        font-weight: 500;
-                        letter-spacing: 0.1em;
+                        font-size: 11px;
+                        font-weight: 600;
+                        letter-spacing: 0.12em;
                         text-transform: uppercase;
-                        color: #FFFFFF;
-                        text-decoration: underline;
-                        text-underline-offset: 3px;
-                        transition: opacity 0.2s;
+                        color: #1A1A1A;
+                        background: #fff;
+                        padding: 10px 20px;
+                        transition: background 0.2s, color 0.2s;
                 }
 
                 .outfit-cta:hover {
-                        opacity: 0.8;
+                        background: #1A1A1A;
+                        color: #fff;
                 }
 
                 /* ── Placeholder card (no image) ── */
@@ -382,59 +379,63 @@
                 .footer-bottom { text-align: center; padding: 24px 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
                 @media (min-width: 768px) { .footer-bottom { padding: 24px 32px; } }
         
-        .header-left {
-            display: flex;
-            align-items: center;
-            padding-left: 32px;
-        }
 
-        .header-logo {
-            width: 140px;
-            height: auto;
-            display: block;
-            object-fit: contain;
-        }
-
-        @media (max-width: 767px) {
-            .header-logo {
-                width: 120px;
-            }
-            .header-left {
-                padding-left: 16px;
-            }
-        }
     </style>
 </head>
 
 <body>
 
-        <!-- ══════════ HEADER ══════════ -->
-        <header class="site-header">
-                <div class="header-inner">
-                        <a href="index.html" class="header-left">
-  <img src="archive-closet-logo-final.svg" alt="Archive Closet" class="header-logo"/>
-</a>
-                        <nav class="nav-links">
-                                <a href="shop.html?gender=menswear">Mens</a>
-                                <a href="shop.html?gender=womenswear">Women</a>
-                                <a href="shop.html?gender=crochet">Crochet</a>
-                                <a href="outfits.html">Outfits</a>
-                                <a href="drops.html">Drops</a>
-                                <a href="about.html">About</a>
-                        </nav>
-                        <div class="header-icons">
-
-                                <a href="https://wa.me/263718968489" target="_blank" rel="noopener noreferrer"
-                                        aria-label="WhatsApp">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
-                                        </svg>
-                                </a>
-                        </div>
-                </div>
-        </header>
+  <header class="border-b border-hairline sticky top-0 z-40 bg-white">
+    <div class="max-w-[1400px] mx-auto px-5 md:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="header-left">
+        <img src="archive-closet-logo-final.svg" alt="Archive Closet" class="header-logo"/>
+      </a>
+      <nav class="nav-links">
+        <a href="shop.html?gender=menswear" class="navlink">Mens</a>
+        <a href="shop.html?gender=womenswear" class="navlink">Women</a>
+        <a href="shop.html?gender=crochet" class="navlink">Crochet</a>
+        <a href="outfits.html" class="navlink active">Outfits</a>
+        <a href="drops.html" class="navlink">Drops</a>
+        <a href="about.html" class="navlink">About</a>
+      </nav>
+      <div class="flex items-center gap-4 ml-auto">
+        <a href="https://wa.me/263718968489" aria-label="WhatsApp" class="hidden md:block">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+          </svg>
+        </a>
+        <button id="mobileMenuBtn" class="md:hidden" aria-label="Menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobileMenu" class="hidden md:hidden border-t border-hairline px-5 py-4 space-y-1">
+      <details>
+        <summary class="py-3 navlink flex justify-between">Mens <span>+</span></summary>
+        <div class="pl-3 py-2 space-y-2 text-sm">
+          <a href="shop.html?gender=menswear&category=tops" class="block">Tops</a>
+          <a href="shop.html?gender=menswear&category=bottoms" class="block">Bottoms</a>
+          <a href="shop.html?gender=menswear&category=outerwear" class="block">Outerwear</a>
+        </div>
+      </details>
+      <details>
+        <summary class="py-3 navlink flex justify-between">Women <span>+</span></summary>
+        <div class="pl-3 py-2 space-y-2 text-sm">
+          <a href="shop.html?gender=womenswear&category=tops" class="block">Tops</a>
+          <a href="shop.html?gender=womenswear&category=dresses" class="block">Dresses</a>
+          <a href="shop.html?gender=womenswear&category=sets" class="block">Sets</a>
+        </div>
+      </details>
+      <a href="shop.html?gender=crochet" class="block py-3 navlink">Crochet</a>
+      <a href="outfits.html" class="block py-3 navlink active">Outfits</a>
+      <a href="drops.html" class="block py-3 navlink">Drops</a>
+      <a href="about.html" class="block py-3 navlink">About</a>
+    </div>
+  </header>
 
         <!-- ══════════ PAGE HEADER ══════════ -->
         <div class="page-header">
@@ -500,28 +501,22 @@
                 let activeVibe = "All";
 
                 async function fetchOutfits() {
-                        try {
-                                const { data: records, error } = await db
-                  .from('outfits')
-                  .select('*')
-                  .order('created_at', { ascending: false });
-                if (error) throw error;
-                outfits = (records || []).map(p => ({
-                    id: p.id,
-                    name: p.name,
-                    slug: p.slug,
-                    vibe: p.vibe || '',
-                    description: p.description || '',
-                    items: p.items || '',
-                    coverImage: [],
-                    coverImageUrl: p.image_url || ''
-                }));
-                } catch (e) {
-                                console.error('Failed to fetch outfits:', e);
-                                outfits = [];
-                        }
-                        renderFilters();
-                        renderOutfits();
+                  try {
+                    const { data: records, error } = await db.from('outfits').select('*').order('created_at', { ascending: false });
+                    if (error) throw error;
+                    const { data: products } = await db.from('products').select('id, name');
+                    const productMap = {};
+                    (products || []).forEach(p => { productMap[p.id] = p.name; });
+                    outfits = (records || []).map(o => ({
+                      id: o.id, name: o.name, slug: o.slug,
+                      vibe: o.vibe || '',
+                      description: o.description || '',
+                      items: Array.isArray(o.items) ? o.items.map(id => productMap[id] || '').filter(Boolean) : [],
+                      coverImageUrl: o.image_url || ''
+                    }));
+                  } catch(e) { console.error(e); outfits = []; }
+                  renderFilters();
+                  renderOutfits();
                 }
 
                 const VIBES = ["All", "Soft", "Street", "Going Out"];
@@ -539,7 +534,7 @@
                 }
 
                 function buildWhatsAppUrl(outfit) {
-                        const itemsList = outfit.items || '';
+                        const itemsList = Array.isArray(outfit.items) ? outfit.items.join(', ') : '';
                         const msg = `Hi! I want the '${outfit.name}' look. Items: ${itemsList}. Is everything available?`;
                         return `https://wa.me/263718968489?text=${encodeURIComponent(msg)}`;
                 }
@@ -570,7 +565,7 @@
                 // ══════════════════════════════════════════════
                 function renderOutfits() {
                         const grid = document.getElementById('outfitsGrid');
-                        const filtered = activeVibe === 'All' ? outfits : outfits.filter(o => o.vibe === activeVibe);
+                        const filtered = activeVibe === 'All' ? outfits : outfits.filter(o => o.vibe.toLowerCase() === activeVibe.toLowerCase());
 
                         if (filtered.length === 0) {
                                 grid.innerHTML = `
@@ -585,7 +580,7 @@
                         grid.className = 'outfits-grid';
                         grid.innerHTML = filtered.map(outfit => {
                                 const imgUrl = getImageUrl(outfit);
-                                const items = parseItems(outfit.items);
+                                const items = outfit.items;
                                 const maxVisible = window.innerWidth < 768 ? 3 : 4;
                                 const visibleItems = items.slice(0, maxVisible);
                                 const extra = items.length - maxVisible;
@@ -629,6 +624,10 @@
                 showSkeleton();
                 fetchOutfits();
                 document.getElementById('year').textContent = new Date().getFullYear();
+        // mobile menu
+        document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+                document.getElementById('mobileMenu').classList.toggle('hidden');
+        });
         </script>
 
 </body>

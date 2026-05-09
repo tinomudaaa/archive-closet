@@ -779,23 +779,17 @@
         .header-left {
             display: flex;
             align-items: center;
-            padding-left: 32px;
+            padding-left: 0;
         }
-
         .header-logo {
-            width: 140px;
+            width: 180px;
             height: auto;
             display: block;
             object-fit: contain;
         }
-
         @media (max-width: 767px) {
-            .header-logo {
-                width: 120px;
-            }
-            .header-left {
-                padding-left: 16px;
-            }
+            .header-logo { width: 140px; }
+            .header-left { padding-left: 0; }
         }
     </style>
 </head>
@@ -1133,7 +1127,7 @@
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlwZGFobHFsZ3VtenhqYXJreW9qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxNzYyMTgsImV4cCI6MjA5Mzc1MjIxOH0.WeiTB7CinagWcyfXb_BXsZWA0eRpnaDD6_UNr7psyfY';
         const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        const ADMIN_PASSWORD = 'archivecloset2024';
+        const ADMIN_HASH = 'cd1c114c7e9832de5f5fd7146a7fc494f39aebcde9620f4e3be3aa2883f8d157';
 
         const categoryMap = {
             Menswear: ['Tops', 'Bottoms', 'Outerwear', 'Footwear', 'Tailoring'],
@@ -1202,9 +1196,14 @@ let editingProductId = null;
 
         if (sessionStorage.getItem('ac_admin') === '1') { loginScreen.style.display = 'none'; mainContent.style.display = 'block'; loadAdminData(); }
 
-        document.getElementById('loginBtn').onclick = () => {
+        document.getElementById('loginBtn').onclick = async () => {
             const pw = document.getElementById('loginPassword').value;
-            if (pw === ADMIN_PASSWORD) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(pw);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashed = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            if (hashed === ADMIN_HASH) {
                 sessionStorage.setItem('ac_admin', '1');
                 loginScreen.style.display = 'none';
                 mainContent.style.display = 'block';
@@ -1435,10 +1434,10 @@ document.getElementById('productSaveBtn').onclick = async () => {
 };
 
         window.deleteProduct = function (id) {
-            showConfirm('Delete Product', 'This product will be permanently removed.', () => {
-                products = products.filter(p => p.id !== id);
-                outfits.forEach(o => { o.items = o.items.filter(i => i !== id); });
-                renderAll();
+            showConfirm('Delete Product', 'This product will be permanently removed.', async () => {
+                const { error } = await db.from('products').delete().eq('id', id);
+                if (error) { alert('Delete failed: ' + error.message); return; }
+                loadAdminData();
             });
         };
 
@@ -1446,15 +1445,17 @@ document.getElementById('productSaveBtn').onclick = async () => {
         // DROPS
         // ═══════════════════════════════════════════
 
-        window.removeDrop = function (id) {
-            const p = products.find(x => x.id === id);
-            if (p) { p.drop = false; renderAll(); }
+        window.removeDrop = async function (id) {
+            const { error } = await db.from('products').update({ drop_item: false }).eq('id', id);
+            if (error) { alert('Failed: ' + error.message); return; }
+            loadAdminData();
         };
 
         document.getElementById('clearDropBtn').onclick = () => {
-            showConfirm('Clear Entire Drop', 'All products will be removed from the current drop.', () => {
-                products.forEach(p => p.drop = false);
-                renderAll();
+            showConfirm('Clear Entire Drop', 'All products will be removed from the current drop.', async () => {
+                const { error } = await db.from('products').update({ drop_item: false }).eq('drop_item', true);
+                if (error) { alert('Failed: ' + error.message); return; }
+                loadAdminData();
             });
         };
 
@@ -1462,9 +1463,14 @@ document.getElementById('productSaveBtn').onclick = async () => {
         // SOLD OUT TOGGLE
         // ═══════════════════════════════════════════
 
-        window.toggleSoldOut = function (id) {
+        window.toggleSoldOut = async function (id) {
             const p = products.find(x => x.id === id);
-            if (p) { p.soldOut = !p.soldOut; renderAll(); }
+            if (!p) return;
+            const newVal = !p.soldOut;
+            const { error } = await db.from('products').update({ sold_out: newVal }).eq('id', id);
+            if (error) { alert('Failed to update: ' + error.message); return; }
+            p.soldOut = newVal;
+            renderAll();
         };
 
         // ═══════════════════════════════════════════
@@ -1549,24 +1555,27 @@ document.getElementById('outfitSaveBtn').onclick = async () => {
     const selectedItems = Array.from(document.querySelectorAll('#oItemsList input:checked')).map(i => i.value);
     const data = {
         slug, name,
-        vibe: document.getElementById('oVibe').value,
+        vibe: document.getElementById('oVibe').value.toLowerCase(),
         description: document.getElementById('oDescription').value.trim(),
         image_url: imageUrl,
         items: selectedItems,
     };
     if (editingOutfitId) {
-        await db.from('outfits').update(data).eq('id', editingOutfitId);
+        const { error } = await db.from('outfits').update(data).eq('id', editingOutfitId);
+        if (error) { alert('Save failed: ' + error.message); return; }
     } else {
-        await db.from('outfits').insert([data]);
+        const { error } = await db.from('outfits').insert([data]);
+        if (error) { alert('Save failed: ' + error.message); return; }
     }
     closeOutfitPanel();
     loadAdminData();
 };
 
         window.deleteOutfit = function (id) {
-            showConfirm('Delete Outfit', 'This outfit will be permanently removed.', () => {
-                outfits = outfits.filter(o => o.id !== id);
-                renderAll();
+            showConfirm('Delete Outfit', 'This outfit will be permanently removed.', async () => {
+                const { error } = await db.from('outfits').delete().eq('id', id);
+                if (error) { alert('Delete failed: ' + error.message); return; }
+                loadAdminData();
             });
         };
 

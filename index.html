@@ -3,6 +3,8 @@
 
 <head>
   <meta charset="utf-8" />
+  <link rel="icon" type="image/svg+xml" href="archive-closet-logo-final.svg">
+  <link rel="shortcut icon" href="archive-closet-logo-final.svg">
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Archive Closet — Streetwear Archive</title>
   <meta name="description"
@@ -54,12 +56,28 @@
       text-transform: uppercase;
       letter-spacing: .15em;
       font-weight: 500;
-      color: #1A1A1A
+      color: #1A1A1A;
+      position: relative;
     }
 
     .navlink:hover {
+      color: var(--accent);
       text-decoration: underline;
       text-underline-offset: 6px
+    }
+
+    .navlink.active {
+      color: var(--accent);
+    }
+
+    .navlink.active::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -6px;
+      height: 1px;
+      background: var(--accent);
     }
 
     .btn-primary {
@@ -182,52 +200,30 @@
   --accent: #C45B3A;
 }
 
-        .header-left {
-            display: flex;
-            align-items: center;
-            padding-left: 32px;
-        }
-
-        .header-logo {
-            width: 140px;
-            height: auto;
-            display: block;
-            object-fit: contain;
-        }
-
-        @media (max-width: 767px) {
-            .header-logo {
-                width: 120px;
-            }
-            .header-left {
-                padding-left: 16px;
-            }
-        }
-    
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-            margin-left: 48px;
-        }
-
-        @media (max-width: 767px) {
-            .nav-links {
-                display: none;
-            }
-        }
+        .header-left { display: flex; align-items: center; padding-left: 0; }
+        .header-logo { width: 180px; height: auto; display: block; object-fit: contain; }
+        @media (max-width: 767px) { .header-logo { width: 140px; } .header-left { padding-left: 0; } }
+        .nav-links { display: flex; align-items: center; gap: 24px; margin-left: 48px; }
+        @media (max-width: 767px) { .nav-links { display: none; } }
+        .navlink { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; position: relative; }
+        .navlink:hover { color: #C45B3A; }
+        .navlink.active { color: #C45B3A; }
+        .navlink.active::after { content: ''; position: absolute; left: 0; right: 0; bottom: -6px; height: 1px; background: #C45B3A; }
 
     </style>
 </head>
 
 <body class="bg-white text-ink">
 
-  <!-- NAV -->
-  <header class="border-b border-hairline sticky top-0 bg-white z-50">
-    <div class="max-w-[1400px] mx-auto px-4 md:px-8 xl:px-12 flex items-center justify-start h-16">
+  <!-- Announcement -->
+  <div class="bg-black text-white text-center py-2 label">NEW DROP EVERY SUNDAY</div>
+
+  <!-- Nav -->
+  <header class="border-b border-hairline sticky top-0 z-40 bg-white">
+    <div class="max-w-[1400px] mx-auto px-5 md:px-8 h-16 flex items-center justify-between">
       <a href="index.html" class="header-left">
-  <img src="archive-closet-logo-final.svg" alt="Archive Closet" class="header-logo"/>
-</a>
+        <img src="archive-closet-logo-final.svg" alt="Archive Closet" class="header-logo"/>
+      </a>
       <nav class="nav-links">
         <a href="shop.html?gender=menswear" class="navlink">Mens</a>
         <a href="shop.html?gender=womenswear" class="navlink">Women</a>
@@ -237,61 +233,41 @@
         <a href="about.html" class="navlink">About</a>
       </nav>
       <div class="flex items-center gap-4 ml-auto">
-
-        <a href="https://wa.me/263718968489?text=Hi%20Archive%20Closet%2C%20I%27m%20interested%20in%20a%20piece"
-          target="_blank" rel="noopener" aria-label="WhatsApp" class="p-2 hover:text-accent">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path
-              d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+        <a href="https://wa.me/263718968489" aria-label="WhatsApp" class="hidden md:block">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
           </svg>
         </a>
-        <button id="menuBtn" aria-label="Menu" class="lg:hidden p-2">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="3" y1="6" x2="21" y2="6" />
-            <line x1="3" y1="12" x2="21" y2="12" />
-            <line x1="3" y1="18" x2="21" y2="18" />
+        <button id="mobileMenuBtn" class="md:hidden" aria-label="Menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
           </svg>
         </button>
       </div>
     </div>
-
-    <!-- Mobile drawer -->
-    <div id="mobileMenu" class="lg:hidden hidden border-t border-hairline">
-      <div class="px-4 py-4 space-y-1">
-        <details class="accordion border-b border-hairline">
-          <summary class="navlink py-4 flex justify-between items-center cursor-pointer list-none">Mens<svg
-              width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              class="transition-transform">
-              <polyline points="6 9 12 15 18 9" />
-            </svg></summary>
-          <div class="pb-4 pl-2 space-y-2 text-sm text-muted">
-            <a class="block" href="shop.html?gender=menswear&category=tops">Tops</a><a class="block" href="shop.html?gender=menswear&category=bottoms">Bottoms</a><a class="block" href="shop.html?gender=menswear&category=outerwear">Outerwear</a><a class="block" href="shop.html?gender=menswear&category=footwear">Footwear</a><a class="block" href="shop.html?gender=menswear&category=tailoring">Tailoring</a>
-          </div>
-        </details>
-        <details class="accordion border-b border-hairline">
-          <summary class="navlink py-4 flex justify-between items-center cursor-pointer list-none">Women<svg
-              width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              class="transition-transform">
-              <polyline points="6 9 12 15 18 9" />
-            </svg></summary>
-          <div class="pb-4 pl-2 space-y-2 text-sm text-muted">
-            <a class="block" href="shop.html?gender=womenswear&category=tops">Tops</a><a class="block" href="shop.html?gender=womenswear&category=bottoms">Bottoms</a><a class="block" href="shop.html?gender=womenswear&category=dresses">Dresses</a><a class="block" href="shop.html?gender=womenswear&category=outerwear">Outerwear</a><a class="block" href="shop.html?gender=womenswear&category=sets">Sets</a>
-          </div>
-        </details>
-        <details class="accordion border-b border-hairline">
-          <summary class="navlink py-4 flex justify-between items-center cursor-pointer list-none">Crochet<svg
-              width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              class="transition-transform">
-              <polyline points="6 9 12 15 18 9" />
-            </svg></summary>
-          <div class="pb-4 pl-2 space-y-2 text-sm text-muted">
-            <a class="block" href="shop.html?gender=crochet&category=tops">Tops</a><a class="block" href="shop.html?gender=crochet&category=dresses">Dresses</a><a class="block" href="shop.html?gender=crochet&category=accessories">Accessories</a>
-          </div>
-        </details>
-        <a class="navlink block py-4 border-b border-hairline" href="outfits.html">Outfits</a>
-        <a class="navlink block py-4 border-b border-hairline" href="drops.html">Drops</a>
-        <a class="navlink block py-4" href="about.html">About</a>
-      </div>
+    <div id="mobileMenu" class="hidden md:hidden border-t border-hairline px-5 py-4 space-y-1">
+      <details>
+        <summary class="py-3 navlink flex justify-between">Mens <span>+</span></summary>
+        <div class="pl-3 py-2 space-y-2 text-sm">
+          <a href="shop.html?gender=menswear&category=tops" class="block">Tops</a>
+          <a href="shop.html?gender=menswear&category=bottoms" class="block">Bottoms</a>
+          <a href="shop.html?gender=menswear&category=outerwear" class="block">Outerwear</a>
+        </div>
+      </details>
+      <details>
+        <summary class="py-3 navlink flex justify-between">Women <span>+</span></summary>
+        <div class="pl-3 py-2 space-y-2 text-sm">
+          <a href="shop.html?gender=womenswear&category=tops" class="block">Tops</a>
+          <a href="shop.html?gender=womenswear&category=dresses" class="block">Dresses</a>
+          <a href="shop.html?gender=womenswear&category=sets" class="block">Sets</a>
+        </div>
+      </details>
+      <a href="shop.html?gender=crochet" class="block py-3 navlink">Crochet</a>
+      <a href="outfits.html" class="block py-3 navlink">Outfits</a>
+      <a href="drops.html" class="block py-3 navlink">Drops</a>
+      <a href="about.html" class="block py-3 navlink">About</a>
     </div>
   </header>
 
@@ -422,11 +398,7 @@
         <div class="bg-white p-4 w-72 rounded-sm" id="outfitCard">
           <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&auto=format&fit=crop&q=80" alt="" class="w-full aspect-[3/4] object-cover" id="outfitImg"/>
           <div class="mt-3">
-            <div class="text-sm font-medium" id="outfitProductName">Carhartt Detroit Jacket</div>
-            <div class="flex items-center justify-between mt-1 text-xs text-muted">
-              <span id="outfitPrice">$120 · Size L</span>
-              <span class="text-ink">★★★★★</span>
-            </div>
+            <p class="text-sm text-muted mt-2" id="outfitCardDesc"></p>
             <a href="#" class="mt-3 btn-primary w-full justify-center" id="outfitLink">Get the look <span aria-hidden>→</span></a>
           </div>
         </div>
@@ -480,10 +452,7 @@
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlwZGFobHFsZ3VtenhqYXJreW9qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxNzYyMTgsImV4cCI6MjA5Mzc1MjIxOH0.WeiTB7CinagWcyfXb_BXsZWA0eRpnaDD6_UNr7psyfY';
         const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    // Mobile menu
-    const menuBtn = document.getElementById('menuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    menuBtn?.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
 
 
 
@@ -539,48 +508,28 @@
     loadProducts();
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Drop outfits carousel
-    const dropOutfits = [
-      {
-        name: "Night Out",
-        desc: "Head-turning evening look. Corset top, mini skirt, boots.",
-        product: "Corset Top in Black",
-        price: "$45 · Size M",
-        image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&auto=format&fit=crop&q=80",
-        link: "outfits.html?slug=night-out"
-      },
-      {
-        name: "Downtown Fit",
-        desc: "Easy street look with an edge. Vintage tee, cargo pants, sneakers.",
-        product: "Vintage Tee in White",
-        price: "$38 · Size L",
-        image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&auto=format&fit=crop&q=80",
-        link: "outfits.html?slug=downtown-fit"
-      },
-      {
-        name: "Soft Hours",
-        desc: "Muted tones and flowing shapes. Linen blouse, wide-leg trousers.",
-        product: "Linen Blouse in Cream",
-        price: "$52 · Size S",
-        image: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=600&auto=format&fit=crop&q=80",
-        link: "outfits.html?slug=soft-hours"
-      }
-    ];
-
-    let outfitIdx = 0;
-    function cycleOutfit() {
-      const o = dropOutfits[outfitIdx];
-      document.getElementById('outfitName').textContent = o.name.toUpperCase();
-      document.getElementById('outfitDesc').textContent = o.desc;
-      document.getElementById('outfitProductName').textContent = o.product;
-      document.getElementById('outfitPrice').textContent = o.price;
-      document.getElementById('outfitImg').src = o.image;
-      document.getElementById('outfitLink').href = o.link;
-      outfitIdx = (outfitIdx + 1) % dropOutfits.length;
+    async function loadOutfits() {
+      try {
+        const { data, error } = await db.from('outfits').select('*').limit(5);
+        if (error || !data || data.length === 0) return;
+        let idx = 0;
+        function show() {
+          const o = data[idx];
+          document.getElementById('outfitName').textContent = (o.name || '').toUpperCase();
+          document.getElementById('outfitDesc').textContent = o.description || '';
+          if (o.image_url) document.getElementById('outfitImg').src = o.image_url;
+          const link = `outfits.html?slug=${o.slug}`;
+          document.getElementById('outfitLink').href = link;
+          document.getElementById('outfitCta').href = link;
+          const cardDesc = document.getElementById('outfitCardDesc');
+          if (cardDesc) cardDesc.textContent = o.description || '';
+          idx = (idx + 1) % data.length;
+        }
+        show();
+        setInterval(show, 5000);
+      } catch(e) { console.error(e); }
     }
-    setInterval(cycleOutfit, 5000);
-    cycleOutfit(); // Start immediately
+    loadOutfits();
   </script>
 </body>
-
 </html>

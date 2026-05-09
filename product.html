@@ -3,15 +3,58 @@
 
 <head>
         <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="archive-closet-logo-final.svg">
+        <link rel="shortcut icon" href="archive-closet-logo-final.svg">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Silk Blouse in Cream | Archive Closet</title>
+        <title>Archive Closet</title>
         <meta name="description"
                 content="Rare 90s silk blouse in cream. Soft hand feel, minimal wear. Pearl-tone buttons, relaxed fit. One-of-one." />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script>
+                tailwind.config = {
+                        theme: {
+                                extend: {
+                                        fontFamily: { sans: ['Inter', 'sans-serif'] },
+                                        letterSpacing: { wider2: '0.1em' },
+                                        colors: {
+                                                ink: '#1A1A1A',
+                                                muted: '#666666',
+                                                hairline: '#E5E5E5',
+                                                surface: '#F5F5F5',
+                                                accent: '#C45B3A',
+                                        },
+                                },
+                        },
+                };
+        </script>
         <style>
+                .header-left {
+                        display: flex;
+                        align-items: center;
+                        padding-left: 0;
+                }
+
+                .header-logo {
+                        width: 180px;
+                        height: auto;
+                        display: block;
+                        object-fit: contain;
+                }
+
+                @media (max-width: 767px) {
+                        .header-logo {
+                                width: 140px;
+                        }
+
+                        .header-left {
+                                padding-left: 0;
+                        }
+                }
+
                 *,
                 *::before,
                 *::after {
@@ -57,75 +100,66 @@
                         --destructive: #DC2626;
                 }
 
-                /* ── Header ── */
-                .site-header {
-                        border-bottom: 1px solid var(--border);
-                }
-
-                .header-inner {
-                        max-width: 1280px;
-                        margin: 0 auto;
+                .header-left {
                         display: flex;
                         align-items: center;
-                        justify-content: flex-start;
-                        padding: 16px 16px;
+                        padding-left: 0;
                 }
 
-                @media (min-width: 768px) {
-                        .header-inner {
-                                padding: 16px 32px;
+                .header-logo {
+                        width: 180px;
+                        height: auto;
+                        display: block;
+                        object-fit: contain;
+                }
+
+                @media (max-width: 767px) {
+                        .header-logo {
+                                width: 140px;
+                        }
+
+                        .header-left {
+                                padding-left: 0;
                         }
                 }
 
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-            margin-left: 48px;
-        }
-
-        @media (max-width: 767px) {
-            .nav-links {
-                display: none;
-            }
-        }
-
-                .nav-links a {
-                        font-size: 11px;
-                        font-weight: 500;
-                        letter-spacing: 0.1em;
-                        text-transform: uppercase;
-                        color: var(--muted);
-                        transition: color 0.2s;
-                }
-
-                .nav-links a:hover {
-                        color: var(--fg);
-                }
-
-                .header-icons {
+                .nav-links {
                         display: flex;
                         align-items: center;
-                        gap: 12px;
-            margin-left: auto;
+                        gap: 24px;
+                        margin-left: 48px;
                 }
 
-                .header-icons a,
-                .header-icons button {
-                        padding: 4px;
-                        color: var(--fg);
-                        transition: color 0.2s;
+                @media (max-width: 767px) {
+                        .nav-links {
+                                display: none;
+                        }
                 }
 
-                .header-icons a:hover,
-                .header-icons button:hover {
-                        color: var(--accent);
+                .navlink {
+                        font-size: 12px;
+                        text-transform: uppercase;
+                        letter-spacing: 0.1em;
+                        font-weight: 500;
+                        position: relative;
                 }
 
-                .header-icons svg {
-                        width: 18px;
-                        height: 18px;
-                        stroke-width: 1.5;
+                .navlink:hover {
+                        color: #C45B3A;
+                }
+
+                .navlink.active {
+                        color: #C45B3A;
+                }
+
+                .navlink.active::after {
+                        content: '';
+                        position: absolute;
+                        left: 0;
+                        right: 0;
+                        bottom: -6px;
+                        height: 1px;
+                        background: #C45B3A;
                 }
 
                 /* ── Breadcrumb ── */
@@ -624,15 +658,66 @@
                 }
 
                 /* ── Footer ── */
-                .site-footer { border-top: 1px solid var(--border); }
-                .footer-inner { max-width: 1280px; margin: 0 auto; padding: 48px 16px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; font-size: 12px; color: var(--muted); }
-                @media (min-width: 768px) { .footer-inner { grid-template-columns: repeat(4, 1fr); padding: 48px 32px; } }
-                .footer-col h4 { font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 16px; color: var(--fg); }
-                .footer-col ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
-                .footer-col a { color: var(--muted); transition: color 0.2s; }
-                .footer-col a:hover { color: var(--accent); }
-                .footer-bottom { text-align: center; padding: 24px 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
-                @media (min-width: 768px) { .footer-bottom { padding: 24px 32px; } }
+                .site-footer {
+                        border-top: 1px solid var(--border);
+                }
+
+                .footer-inner {
+                        max-width: 1280px;
+                        margin: 0 auto;
+                        padding: 48px 16px;
+                        display: grid;
+                        grid-template-columns: repeat(2, 1fr);
+                        gap: 40px;
+                        font-size: 12px;
+                        color: var(--muted);
+                }
+
+                @media (min-width: 768px) {
+                        .footer-inner {
+                                grid-template-columns: repeat(4, 1fr);
+                                padding: 48px 32px;
+                        }
+                }
+
+                .footer-col h4 {
+                        font-weight: 600;
+                        letter-spacing: 0.15em;
+                        text-transform: uppercase;
+                        margin-bottom: 16px;
+                        color: var(--fg);
+                }
+
+                .footer-col ul {
+                        list-style: none;
+                        padding: 0;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 8px;
+                }
+
+                .footer-col a {
+                        color: var(--muted);
+                        transition: color 0.2s;
+                }
+
+                .footer-col a:hover {
+                        color: var(--accent);
+                }
+
+                .footer-bottom {
+                        text-align: center;
+                        padding: 24px 16px;
+                        border-top: 1px solid var(--border);
+                        font-size: 12px;
+                        color: var(--muted);
+                }
+
+                @media (min-width: 768px) {
+                        .footer-bottom {
+                                padding: 24px 32px;
+                        }
+                }
 
                 /* ── Not Found ── */
                 .not-found {
@@ -677,58 +762,64 @@
                 .not-found .nf-cta:hover {
                         background: rgba(26, 26, 26, 0.8);
                 }
-        
-        .header-left {
-            display: flex;
-            align-items: center;
-            padding-left: 32px;
-        }
-
-        .header-logo {
-            width: 140px;
-            height: auto;
-            display: block;
-            object-fit: contain;
-        }
-
-        @media (max-width: 767px) {
-            .header-logo {
-                width: 120px;
-            }
-            .header-left {
-                padding-left: 16px;
-            }
-        }
-    </style>
+        </style>
 </head>
 
 <body>
 
-        <!-- ════ HEADER ════ -->
-        <header class="site-header">
-                <div class="header-inner">
+        <header class="border-b border-hairline sticky top-0 z-40 bg-white">
+                <div class="max-w-[1400px] mx-auto px-5 md:px-8 h-16 flex items-center justify-between">
                         <a href="index.html" class="header-left">
-  <img src="archive-closet-logo-final.svg" alt="Archive Closet" class="header-logo"/>
-</a>
+                                <img src="archive-closet-logo-final.svg" alt="Archive Closet" class="header-logo" />
+                        </a>
                         <nav class="nav-links">
-                                <a href="shop.html?gender=menswear">Mens</a>
-                                <a href="shop.html?gender=womenswear">Women</a>
-                                <a href="shop.html?gender=crochet">Crochet</a>
-                                <a href="outfits.html">Outfits</a>
-                                <a href="drops.html">Drops</a>
-                                <a href="about.html">About</a>
+                                <a href="shop.html?gender=menswear" class="navlink">Mens</a>
+                                <a href="shop.html?gender=womenswear" class="navlink">Women</a>
+                                <a href="shop.html?gender=crochet" class="navlink">Crochet</a>
+                                <a href="outfits.html" class="navlink">Outfits</a>
+                                <a href="drops.html" class="navlink">Drops</a>
+                                <a href="about.html" class="navlink">About</a>
                         </nav>
-                        <div class="header-icons">
-
-                                <a href="https://wa.me/263718968489" target="_blank" rel="noopener noreferrer"
-                                        aria-label="WhatsApp">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke="currentColor">
-                                                <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22l5.9-2Z" stroke-linecap="round"
-                                                        stroke-linejoin="round" />
+                        <div class="flex items-center gap-4 ml-auto">
+                                <a href="https://wa.me/263718968489" aria-label="WhatsApp" class="hidden md:block">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="1.5">
+                                                <path
+                                                        d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
                                         </svg>
                                 </a>
+                                <button id="mobileMenuBtn" class="md:hidden" aria-label="Menu">
+                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="1.5">
+                                                <line x1="3" y1="6" x2="21" y2="6" />
+                                                <line x1="3" y1="12" x2="21" y2="12" />
+                                                <line x1="3" y1="18" x2="21" y2="18" />
+                                        </svg>
+                                </button>
                         </div>
+                </div>
+                <div id="mobileMenu" class="hidden md:hidden border-t border-hairline px-5 py-4 space-y-1">
+                        <details>
+                                <summary class="py-3 navlink flex justify-between">Mens <span>+</span></summary>
+                                <div class="pl-3 py-2 space-y-2 text-sm">
+                                        <a href="shop.html?gender=menswear&category=tops" class="block">Tops</a>
+                                        <a href="shop.html?gender=menswear&category=bottoms" class="block">Bottoms</a>
+                                        <a href="shop.html?gender=menswear&category=outerwear"
+                                                class="block">Outerwear</a>
+                                </div>
+                        </details>
+                        <details>
+                                <summary class="py-3 navlink flex justify-between">Women <span>+</span></summary>
+                                <div class="pl-3 py-2 space-y-2 text-sm">
+                                        <a href="shop.html?gender=womenswear&category=tops" class="block">Tops</a>
+                                        <a href="shop.html?gender=womenswear&category=dresses" class="block">Dresses</a>
+                                        <a href="shop.html?gender=womenswear&category=sets" class="block">Sets</a>
+                                </div>
+                        </details>
+                        <a href="shop.html?gender=crochet" class="block py-3 navlink">Crochet</a>
+                        <a href="outfits.html" class="block py-3 navlink">Outfits</a>
+                        <a href="drops.html" class="block py-3 navlink">Drops</a>
+                        <a href="about.html" class="block py-3 navlink">About</a>
                 </div>
         </header>
 
@@ -846,40 +937,43 @@
 
         <!-- ════ FOOTER ════ -->
         <footer class="site-footer">
-  <div class="footer-inner">
-    <div class="footer-col">
-      <h4>Archive Closet</h4>
-      <p>Rare finds for the bold.</p>
-    </div>
-    <div class="footer-col">
-      <h4>Shop</h4>
-      <ul>
-        <li><a href="shop.html?gender=menswear">Mens</a></li>
-        <li><a href="shop.html?gender=womenswear">Women</a></li>
-        <li><a href="shop.html?gender=crochet">Crochet</a></li>
-        <li><a href="drops.html">Drops</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Help</h4>
-      <ul>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Follow</h4>
-      <ul>
-        <li><a href="https://www.instagram.com/archivecloset.zw" target="_blank" rel="noopener">Instagram</a></li>
-        <li><a href="https://www.tiktok.com/@archivecloset.zw" target="_blank" rel="noopener">TikTok</a></li>
-        <li><a href="https://wa.me/263718968489" target="_blank" rel="noopener">WhatsApp</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    &copy; <span id="year"></span> Archive Closet. All rights reserved.
-  </div>
-</footer>
+                <div class="footer-inner">
+                        <div class="footer-col">
+                                <h4>Archive Closet</h4>
+                                <p>Rare finds for the bold.</p>
+                        </div>
+                        <div class="footer-col">
+                                <h4>Shop</h4>
+                                <ul>
+                                        <li><a href="shop.html?gender=menswear">Mens</a></li>
+                                        <li><a href="shop.html?gender=womenswear">Women</a></li>
+                                        <li><a href="shop.html?gender=crochet">Crochet</a></li>
+                                        <li><a href="drops.html">Drops</a></li>
+                                </ul>
+                        </div>
+                        <div class="footer-col">
+                                <h4>Help</h4>
+                                <ul>
+                                        <li><a href="about.html">About</a></li>
+                                        <li><a href="contact.html">Contact</a></li>
+                                </ul>
+                        </div>
+                        <div class="footer-col">
+                                <h4>Follow</h4>
+                                <ul>
+                                        <li><a href="https://www.instagram.com/archivecloset.zw" target="_blank"
+                                                        rel="noopener">Instagram</a></li>
+                                        <li><a href="https://www.tiktok.com/@archivecloset.zw" target="_blank"
+                                                        rel="noopener">TikTok</a></li>
+                                        <li><a href="https://wa.me/263718968489" target="_blank"
+                                                        rel="noopener">WhatsApp</a></li>
+                                </ul>
+                        </div>
+                </div>
+                <div class="footer-bottom">
+                        &copy; <span id="year"></span> Archive Closet. All rights reserved.
+                </div>
+        </footer>
         <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 
         <!-- ════ LIGHTBOX ════ -->
@@ -908,129 +1002,137 @@
         </div>
 
         <script>
-        const SUPABASE_URL = 'https://ypdahlqlgumzxjarkyoj.supabase.co';
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlwZGFobHFsZ3VtenhqYXJreW9qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxNzYyMTgsImV4cCI6MjA5Mzc1MjIxOH0.WeiTB7CinagWcyfXb_BXsZWA0eRpnaDD6_UNr7psyfY';
-        const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+                const SUPABASE_URL = 'https://ypdahlqlgumzxjarkyoj.supabase.co';
+                const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlwZGFobHFsZ3VtenhqYXJreW9qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxNzYyMTgsImV4cCI6MjA5Mzc1MjIxOH0.WeiTB7CinagWcyfXb_BXsZWA0eRpnaDD6_UNr7psyfY';
+                const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        let activeIndex = 0;
-        let product = null;
-        let relatedProducts = [];
+                let activeIndex = 0;
+                let product = null;
+                let relatedProducts = [];
 
-        async function fetchProduct() {
-          const params = new URLSearchParams(window.location.search);
-          const slug = params.get('slug');
-          if (!slug) { showNotFound(); return; }
-          try {
-            const { data: records, error } = await db.from('products').select('*').eq('slug', slug).limit(1);
-            if (error) throw error;
-            if (!records || records.length === 0) { showNotFound(); return; }
-            const p = records[0];
-            product = {
-              id: p.id, name: p.name, slug: p.slug,
-              price: Number(p.price || 0), size: p.size || '',
-              gender: p.gender || '', category: p.category || '',
-              condition: p.condition || '', era: p.era || '',
-              description: p.description || '',
-              images: p.image_url ? [p.image_url] : [],
-              soldOut: !!p.sold_out
-            };
-            const { data: rel } = await db.from('products').select('*').eq('gender', product.gender).eq('sold_out', false).neq('slug', slug).limit(8);
-            if (rel) {
-              relatedProducts = rel.map(r => ({ slug: r.slug, name: r.name, price: Number(r.price || 0), images: r.image_url ? [r.image_url] : [], soldOut: !!r.sold_out })).sort(() => Math.random() - 0.5).slice(0, 4);
-            }
-            renderAll();
-          } catch (e) { console.error(e); showNotFound(); }
-        }
+                async function fetchProduct() {
+                        const params = new URLSearchParams(window.location.search);
+                        const slug = params.get('slug');
+                        if (!slug) { showNotFound(); return; }
+                        try {
+                                const { data: records, error } = await db.from('products').select('*').eq('slug', slug).limit(1);
+                                if (error) throw error;
+                                if (!records || records.length === 0) { showNotFound(); return; }
+                                const p = records[0];
+                                product = {
+                                        id: p.id, name: p.name, slug: p.slug,
+                                        price: Number(p.price || 0), size: p.size || '',
+                                        gender: p.gender || '', category: p.category || '',
+                                        condition: p.condition || '', era: p.era || '',
+                                        description: p.description || '',
+                                        images: p.image_url ? [p.image_url] : [],
+                                        soldOut: !!p.sold_out
+                                };
+                                const { data: rel } = await db.from('products').select('*').eq('gender', product.gender).eq('sold_out', false).neq('slug', slug).limit(8);
+                                if (rel) {
+                                        relatedProducts = rel.map(r => ({ slug: r.slug, name: r.name, price: Number(r.price || 0), images: r.image_url ? [r.image_url] : [], soldOut: !!r.sold_out })).sort(() => Math.random() - 0.5).slice(0, 4);
+                                }
+                                renderAll();
+                        } catch (e) { console.error(e); showNotFound(); }
+                }
 
-        function showNotFound() {
-          document.querySelector('.product-section').style.display = 'none';
-          document.querySelector('.related-section').style.display = 'none';
-          const notFound = document.createElement('div');
-          notFound.className = 'not-found';
-          notFound.innerHTML = `<div class="nf-icon">🔍</div><h2>This piece isn't in the archive anymore.</h2><p>It may have sold out or been moved.</p><a href="shop.html" class="nf-cta">Shop Current Drop →</a>`;
-          document.body.insertBefore(notFound, document.querySelector('.related-section'));
-        }
+                function showNotFound() {
+                        document.querySelector('.product-section').style.display = 'none';
+                        document.querySelector('.related-section').style.display = 'none';
+                        const notFound = document.createElement('div');
+                        notFound.className = 'not-found';
+                        notFound.innerHTML = `<div class="nf-icon">🔍</div><h2>This piece isn't in the archive anymore.</h2><p>It may have sold out or been moved.</p><a href="shop.html" class="nf-cta">Shop Current Drop →</a>`;
+                        document.body.insertBefore(notFound, document.querySelector('.related-section'));
+                }
 
-        function renderAll() { renderGallery(); renderProductInfo(); renderRelated(); updateBreadcrumb(); }
+                function renderAll() { renderGallery(); renderProductInfo(); renderRelated(); updateBreadcrumb(); }
 
-        function updateBreadcrumb() {
-          const bc = document.querySelector('.breadcrumb');
-          const gender = product.gender || '';
-          const category = product.category || '';
-          const genderParam = gender ? `?gender=${encodeURIComponent(gender.toLowerCase())}` : '';
-          const categoryParam = category ? `&category=${encodeURIComponent(category.toLowerCase())}` : '';
-          bc.innerHTML = `<a href="shop.html">Shop</a><span>/</span>${gender ? `<a href="shop.html${genderParam}">${gender}</a><span>/</span>` : ''}${category ? `<a href="shop.html${genderParam}${categoryParam}">${category}</a><span>/</span>` : ''}<span class="current">${product.name}</span>`;
-        }
+                function updateBreadcrumb() {
+                        const bc = document.querySelector('.breadcrumb');
+                        const gender = product.gender || '';
+                        const category = product.category || '';
+                        const genderParam = gender ? `?gender=${encodeURIComponent(gender.toLowerCase())}` : '';
+                        const categoryParam = category ? `&category=${encodeURIComponent(category.toLowerCase())}` : '';
+                        bc.innerHTML = `<a href="shop.html">Shop</a><span>/</span>${gender ? `<a href="shop.html${genderParam}">${gender}</a><span>/</span>` : ''}${category ? `<a href="shop.html${genderParam}${categoryParam}">${category}</a><span>/</span>` : ''}<span class="current">${product.name}</span>`;
+                }
 
-        function renderGallery() {
-          if (!product) return;
-          const imgs = product.images;
-          const mainImage = document.getElementById('mainImage');
-          const mainImg = document.getElementById('mainImg');
-          const dots = document.getElementById('dots');
-          const thumbs = document.getElementById('thumbnails');
-          if (imgs.length === 0) { if (!mainImage) return; mainImage.innerHTML = '<div class="no-image">No image</div>' + (product.soldOut ? '<span class="sold-badge">Sold Out</span>' : ''); return; }
-          if (mainImg) mainImg.src = imgs[0];
-          if (product.soldOut) mainImage.insertAdjacentHTML('beforeend', '<span class="sold-badge">Sold Out</span>');
-          if (imgs.length > 1) {
-            dots.innerHTML = imgs.map((_, i) => `<button class="dot ${i === 0 ? 'active' : ''}" onclick="goTo(${i})" aria-label="Image ${i + 1}"></button>`).join('');
-            thumbs.innerHTML = imgs.map((src, i) => `<button class="thumb ${i === 0 ? 'active' : ''}" onclick="goTo(${i})"><img src="${src}" alt="Thumbnail ${i + 1}"></button>`).join('');
-          }
-        }
+                function renderGallery() {
+                        if (!product) return;
+                        const imgs = product.images;
+                        const mainImage = document.getElementById('mainImage');
+                        const mainImg = document.getElementById('mainImg');
+                        const dots = document.getElementById('dots');
+                        const thumbs = document.getElementById('thumbnails');
+                        if (imgs.length === 0) { if (!mainImage) return; mainImage.innerHTML = '<div class="no-image">No image</div>' + (product.soldOut ? '<span class="sold-badge">Sold Out</span>' : ''); return; }
+                        if (mainImg) mainImg.src = imgs[0];
+                        if (product.soldOut) mainImage.insertAdjacentHTML('beforeend', '<span class="sold-badge">Sold Out</span>');
+                        if (imgs.length > 1) {
+                                dots.innerHTML = imgs.map((_, i) => `<button class="dot ${i === 0 ? 'active' : ''}" onclick="goTo(${i})" aria-label="Image ${i + 1}"></button>`).join('');
+                                thumbs.innerHTML = imgs.map((src, i) => `<button class="thumb ${i === 0 ? 'active' : ''}" onclick="goTo(${i})"><img src="${src}" alt="Thumbnail ${i + 1}"></button>`).join('');
+                        }
+                }
 
-        function goTo(i) {
-          const imgs = product.images;
-          if (i < 0 || i >= imgs.length) return;
-          activeIndex = i;
-          document.getElementById('mainImg').src = imgs[i];
-          document.querySelectorAll('.dot').forEach((d, idx) => d.classList.toggle('active', idx === i));
-          document.querySelectorAll('.thumb').forEach((t, idx) => t.classList.toggle('active', idx === i));
-        }
+                function goTo(i) {
+                        const imgs = product.images;
+                        if (i < 0 || i >= imgs.length) return;
+                        activeIndex = i;
+                        document.getElementById('mainImg').src = imgs[i];
+                        document.querySelectorAll('.dot').forEach((d, idx) => d.classList.toggle('active', idx === i));
+                        document.querySelectorAll('.thumb').forEach((t, idx) => t.classList.toggle('active', idx === i));
+                }
 
-        let touchStartX = 0;
-        document.getElementById('mainImage').addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
-        document.getElementById('mainImage').addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - touchStartX; if (Math.abs(dx) > 50) goTo(activeIndex + (dx < 0 ? 1 : -1)); });
+                let touchStartX = 0;
+                document.getElementById('mainImage').addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+                document.getElementById('mainImage').addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - touchStartX; if (Math.abs(dx) > 50) goTo(activeIndex + (dx < 0 ? 1 : -1)); });
 
-        function openLightbox() {
-          const imgs = product.images;
-          if (imgs.length === 0) return;
-          document.getElementById('lightboxImg').src = imgs[activeIndex];
-          document.getElementById('lightbox').classList.add('open');
-          document.body.style.overflow = 'hidden';
-        }
-        function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); document.body.style.overflow = ''; }
-        function changeImage(dir) { const imgs = product.images; const next = activeIndex + dir; if (next < 0 || next >= imgs.length) return; goTo(next); document.getElementById('lightboxImg').src = imgs[next]; }
-        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+                function openLightbox() {
+                        const imgs = product.images;
+                        if (imgs.length === 0) return;
+                        document.getElementById('lightboxImg').src = imgs[activeIndex];
+                        document.getElementById('lightbox').classList.add('open');
+                        document.body.style.overflow = 'hidden';
+                }
+                function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); document.body.style.overflow = ''; }
+                function changeImage(dir) { const imgs = product.images; const next = activeIndex + dir; if (next < 0 || next >= imgs.length) return; goTo(next); document.getElementById('lightboxImg').src = imgs[next]; }
+                document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
-        function renderProductInfo() {
-          if (!product) return;
-          document.title = `${product.name} | Archive Closet`;
-          document.getElementById('productName').textContent = product.name;
-          document.getElementById('productPrice').textContent = `$${product.price}`;
-          document.getElementById('sizeValue').textContent = product.size;
-          const eraBadge = document.getElementById('eraBadge');
-          if (product.era) { eraBadge.textContent = product.era; eraBadge.style.display = 'inline-block'; } else { eraBadge.style.display = 'none'; }
-          const conditions = ["Excellent", "Good", "Fair"];
-          document.getElementById('conditionRow').innerHTML = conditions.map(c => `<div class="condition-item"><span class="condition-radio ${c.toLowerCase() === (product.condition || '').toLowerCase() ? 'active' : ''}"><span class="radio-dot"></span></span><span class="condition-label ${c.toLowerCase() === (product.condition || '').toLowerCase() ? 'active' : ''}">${c}</span></div>`).join('');
-          const descBlock = document.getElementById('descriptionBlock');
-          if (product.description) { descBlock.style.display = 'block'; document.getElementById('descriptionText').textContent = product.description; } else { descBlock.style.display = 'none'; }
-          const cta = document.getElementById('ctaBtn');
-          if (product.soldOut) { cta.className = 'cta-btn sold-out'; cta.textContent = 'Sold Out'; cta.removeAttribute('href'); cta.removeAttribute('target'); }
-          else { const msg = `Hi! I'm interested in the ${product.name} (Size ${product.size}) — $${product.price}. Is it still available?`; cta.href = `https://wa.me/263718968489?text=${encodeURIComponent(msg)}`; }
-        }
+                function renderProductInfo() {
+                        if (!product) return;
+                        document.title = `${product.name} | Archive Closet`;
+                        document.getElementById('productName').textContent = product.name;
+                        document.getElementById('productPrice').textContent = `$${product.price}`;
+                        document.getElementById('sizeValue').textContent = product.size;
+                        const eraBadge = document.getElementById('eraBadge');
+                        if (product.era) { eraBadge.textContent = product.era; eraBadge.style.display = 'inline-block'; } else { eraBadge.style.display = 'none'; }
+                        const conditions = ["Excellent", "Good", "Fair"];
+                        document.getElementById('conditionRow').innerHTML = conditions.map(c => `<div class="condition-item"><span class="condition-radio ${c.toLowerCase() === (product.condition || '').toLowerCase() ? 'active' : ''}"><span class="radio-dot"></span></span><span class="condition-label ${c.toLowerCase() === (product.condition || '').toLowerCase() ? 'active' : ''}">${c}</span></div>`).join('');
+                        const descBlock = document.getElementById('descriptionBlock');
+                        if (product.description) { descBlock.style.display = 'block'; document.getElementById('descriptionText').textContent = product.description; } else { descBlock.style.display = 'none'; }
+                        const cta = document.getElementById('ctaBtn');
+                        if (product.soldOut) { cta.className = 'cta-btn sold-out'; cta.textContent = 'Sold Out'; cta.removeAttribute('href'); cta.removeAttribute('target'); }
+                        else { const msg = `Hi! I'm interested in the ${product.name} (Size ${product.size}) — $${product.price}. Is it still available?`; cta.href = `https://wa.me/263718968489?text=${encodeURIComponent(msg)}`; }
+                }
 
-        function renderRelated() {
-          if (!product || relatedProducts.length === 0) { document.querySelector('.related-section').style.display = 'none'; return; }
-          document.querySelector('.related-section').style.display = 'block';
-          document.getElementById('relatedScroll').innerHTML = relatedProducts.map(p => `<a href="product.html?slug=${p.slug}" class="related-card"><div class="card-img">${p.images[0] ? `<img src="${p.images[0]}" alt="${p.name}">` : '<div class="no-image" style="height:100%">No image</div>'}${p.soldOut ? '<span class="sold-badge">Sold Out</span>' : ''}</div><div class="card-info"><p class="card-name">${p.name}</p><p class="card-price">$${p.price}</p></div></a>`).join('');
-        }
+                function renderRelated() {
+                        if (!product || relatedProducts.length === 0) { document.querySelector('.related-section').style.display = 'none'; return; }
+                        document.querySelector('.related-section').style.display = 'block';
+                        document.getElementById('relatedScroll').innerHTML = relatedProducts.map(p => `<a href="product.html?slug=${p.slug}" class="related-card"><div class="card-img">${p.images[0] ? `<img src="${p.images[0]}" alt="${p.name}">` : '<div class="no-image" style="height:100%">No image</div>'}${p.soldOut ? '<span class="sold-badge">Sold Out</span>' : ''}</div><div class="card-info"><p class="card-name">${p.name}</p><p class="card-price">$${p.price}</p></div></a>`).join('');
+                }
 
-        function scrollRelated(dir) { document.getElementById('relatedScroll').scrollBy({ left: dir * 280, behavior: 'smooth' }); }
+                function scrollRelated(dir) { document.getElementById('relatedScroll').scrollBy({ left: dir * 280, behavior: 'smooth' }); }
 
-        fetchProduct();
-        document.getElementById('year').textContent = new Date().getFullYear();
-        </script>
-
-</body>
-
+                fetchProduct();
+                document.getElementById('year').textContent = new Date().getFullYear();
+                // mobile menu
+                document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+                        document.getElementById('mobileMenu').classList.toggle('hidden');
+                });
+        </script>
+
+
+
+</body>
+
+
+
 </html>
