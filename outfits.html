@@ -10,6 +10,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
         <style>
                 *,
                 *::before,
@@ -488,33 +489,34 @@
         <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 
         <script>
+        const SUPABASE_URL = 'https://ypdahlqlgumzxjarkyoj.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlwZGFobHFsZ3VtenhqYXJreW9qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxNzYyMTgsImV4cCI6MjA5Mzc1MjIxOH0.WeiTB7CinagWcyfXb_BXsZWA0eRpnaDD6_UNr7psyfY';
+        const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
                 // ══════════════════════════════════════════════
-                // AIRTABLE CONFIG
                 // ══════════════════════════════════════════════
-                const AIRTABLE_TOKEN = 'REPLACE_WITH_YOUR_FULL_AIRTABLE_TOKEN_HERE';
-                const AIRTABLE_BASE = 'appHABJu0gWFOkDUH';
-                const AIRTABLE_TABLE = 'Outfits';
 
                 let outfits = [];
                 let activeVibe = "All";
 
                 async function fetchOutfits() {
                         try {
-                                const url = `https://api.airtable.com/v0/${AIRTABLE_BASE}/${AIRTABLE_TABLE}?sort%5B0%5D%5Bfield%5D=Created%20Time&sort%5B0%5D%5Bdirection%5D=desc&pageSize=100`;
-                                const res = await fetch(url, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` }});
-                                if (!res.ok) throw new Error('Fetch failed');
-                                const data = await res.json();
-                                outfits = (data.records || []).map(r => ({
-                                        id: r.id,
-                                        name: r.fields.Name || 'Untitled',
-                                        slug: r.fields.Slug || r.id,
-                                        vibe: r.fields.Vibe || '',
-                                        description: r.fields.Description || '',
-                                        items: r.fields.Items || '',
-                                        coverImage: r.fields['Cover Image'] || [],
-                                        coverImageUrl: r.fields['Cover Image URL'] || ''
-                                }));
-                        } catch (e) {
+                                const { data: records, error } = await db
+                  .from('outfits')
+                  .select('*')
+                  .order('created_at', { ascending: false });
+                if (error) throw error;
+                outfits = (records || []).map(p => ({
+                    id: p.id,
+                    name: p.name,
+                    slug: p.slug,
+                    vibe: p.vibe || '',
+                    description: p.description || '',
+                    items: p.items || '',
+                    coverImage: [],
+                    coverImageUrl: p.image_url || ''
+                }));
+                } catch (e) {
                                 console.error('Failed to fetch outfits:', e);
                                 outfits = [];
                         }
@@ -527,18 +529,11 @@
                 // ══════════════════════════════════════════════
                 // HELPERS
                 // ══════════════════════════════════════════════
-                function convertGDriveUrl(url) {
-                        if (!url) return '';
-                        const m = url.match(/\/d\/([a-zA-Z0-9_-]{25,})/) || url.match(/id=([a-zA-Z0-9_-]{25,})/);
-                        return m ? `https://drive.google.com/thumbnail?id=${m[1]}&sz=w800` : url;
-                }
+
 
                 function getImageUrl(outfit) {
-                        if (outfit.coverImage && outfit.coverImage.length > 0) {
-                                return outfit.coverImage[0].url || outfit.coverImage[0];
-                        }
                         if (outfit.coverImageUrl) {
-                                return convertGDriveUrl(outfit.coverImageUrl);
+                                return outfit.coverImageUrl;
                         }
                         return '';
                 }

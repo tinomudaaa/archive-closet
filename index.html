@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -475,38 +476,38 @@
 </footer>
 
   <script>
+        const SUPABASE_URL = 'https://ypdahlqlgumzxjarkyoj.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlwZGFobHFsZ3VtenhqYXJreW9qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxNzYyMTgsImV4cCI6MjA5Mzc1MjIxOH0.WeiTB7CinagWcyfXb_BXsZWA0eRpnaDD6_UNr7psyfY';
+        const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
     // Mobile menu
     const menuBtn = document.getElementById('menuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
     menuBtn?.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
 
-    // Google Drive URL converter
-    function convertGDriveUrl(url) {
-      if (!url) return '';
-      const m = url.match(/\/d\/([a-zA-Z0-9_-]{25,})/) || url.match(/id=([a-zA-Z0-9_-]{25,})/);
-      return m ? `https://drive.google.com/thumbnail?id=${m[1]}&sz=w800` : url;
-    }
+
 
     // Airtable
-    const AIRTABLE_TOKEN = 'REPLACE_WITH_YOUR_FULL_AIRTABLE_TOKEN_HERE'; // Paste your full Airtable token here
-    const AIRTABLE_BASE = 'appHABJu0gWFOkDUH';
-    const AIRTABLE_TABLE = 'Products';
     const WHATSAPP_NUM = '263718968489';
 
     async function loadProducts() {
       const grid = document.getElementById('productGrid');
       try {
-        const url = `https://api.airtable.com/v0/${AIRTABLE_BASE}/${AIRTABLE_TABLE}?filterByFormula=%7BFeatured%7D%3D1&maxRecords=8`;
-        const res = await fetch(url, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } });
-        if (!res.ok) throw new Error('airtable');
-        const { records } = await res.json();
-        renderProducts(records.map(r => ({
-          name: r.fields.Name || 'Untitled',
-          price: r.fields.Price || '—',
-          size: r.fields.Size || '',
-          slug: r.fields.Slug || r.id,
-          sold: !!r.fields.SoldOut,
-          img: convertGDriveUrl(r.fields.ImageURL || (r.fields.Image && r.fields.Image[0]?.url) || ''),
+        const { data: records, error } = await db
+          .from('products')
+          .select('*')
+          .eq('featured', true)
+          .eq('sold_out', false)
+          .order('created_at', { ascending: false })
+          .limit(8);
+        if (error) throw error;
+        renderProducts(records.map(p => ({
+          name: p.name,
+          price: p.price,
+          size: p.size,
+          slug: p.slug,
+          sold: p.sold_out,
+          img: p.image_url,
         })));
       } catch (e) {
         renderProducts(fallbackProducts());
@@ -514,7 +515,7 @@
     }
 
     function fallbackProducts() {
-      return []; // No mock data — show empty state if Airtable fails
+      return []; // No mock data — show empty state if Supabase fails
     }
 
     function renderProducts(items) {

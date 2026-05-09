@@ -7,6 +7,7 @@
     <title>Shop — Archive Closet</title>
     <meta name="description" content="Shop the Archive Closet — menswear, womenswear, and crochet." />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -514,10 +515,10 @@
     </div>
 
     <script>
-        // ====== Airtable config ======
-        const AIRTABLE_TOKEN = 'REPLACE_WITH_YOUR_FULL_AIRTABLE_TOKEN_HERE'; // Paste your full Airtable token here
-        const AIRTABLE_BASE = 'appHABJu0gWFOkDUH';
-        const AIRTABLE_TABLE = 'Products';
+        const SUPABASE_URL = 'https://ypdahlqlgumzxjarkyoj.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlwZGFobHFsZ3VtenhqYXJreW9qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxNzYyMTgsImV4cCI6MjA5Mzc1MjIxOH0.WeiTB7CinagWcyfXb_BXsZWA0eRpnaDD6_UNr7psyfY';
+        const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
         const WHATSAPP = '263718968489';
 
         // ====== Category map per gender ======
@@ -541,12 +542,7 @@
         let visible = PAGE_SIZE;
         const state = { gender: '', category: '', size: '', era: '', price: '', sort: 'newest' };
 
-        function convertGDriveUrl(url) {
-            if (!url) return '';
-            const m = url.match(/\/d\/([^\/]+)/) || url.match(/id=([^&]+)/);
-            if (m) return `https://drive.google.com/thumbnail?id=${m[1]}&sz=w800`;
-            return url;
-        }
+
 
         // ====== URL sync ======
         function readURL() {
@@ -569,30 +565,29 @@
         async function fetchProducts() {
             showSkeletons();
             try {
-                const url = `https://api.airtable.com/v0/${AIRTABLE_BASE}/${AIRTABLE_TABLE}?pageSize=100`;
-                const res = await fetch(url, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } });
-                const data = await res.json();
-                allProducts = (data.records || []).map(r => {
-                    const f = r.fields || {};
-                    return {
-                        id: r.id,
-                        name: f.Name || 'Untitled',
-                        price: Number(f.Price || 0),
-                        size: f.Size || '',
-                        era: f.Era || '',
-                        gender: (f.Gender || '').toLowerCase(),
-                        category: (f.Category || '').toLowerCase(),
-                        subcategory: f.Subcategory || '',
-                        slug: f.Slug || r.id,
-                        image: convertGDriveUrl(f['Image URL'] || (f.Image && f.Image[0] && f.Image[0].url) || ''),
-                        sold: !!f['Sold Out'],
-                        featured: !!f.Featured,
-                        drop: !!f.Drop,
-                        createdTime: r.createdTime,
-                    };
-                });
+                const { data: records, error } = await db
+                    .from('products')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+                if (error) throw error;
+                allProducts = (records || []).map(p => ({
+                    id: p.id,
+                    name: p.name,
+                    price: Number(p.price || 0),
+                    size: p.size || '',
+                    era: p.era || '',
+                    gender: (p.gender || '').toLowerCase(),
+                    category: (p.category || '').toLowerCase(),
+                    subcategory: p.subcategory || '',
+                    slug: p.slug,
+                    image: p.image_url || '',
+                    sold: !!p.sold_out,
+                    featured: !!p.featured,
+                    drop: false,
+                    createdTime: p.created_at,
+                }));
             } catch (e) {
-                console.error('Airtable fetch failed', e);
+                console.error('Supabase fetch failed', e);
                 allProducts = [];
             }
             applyFilters();
@@ -649,9 +644,8 @@
 
             const slice = filtered.slice(0, visible);
             grid.innerHTML = slice.map(p => {
-                const msg = encodeURIComponent(`Hi! I'm interested in "${p.name}" ($${p.price})`);
                 return `
-      <a href="https://wa.me/${WHATSAPP}?text=${msg}" target="_blank" rel="noopener" class="card block group ${p.sold ? 'sold' : ''}">
+      <a href="product.html?slug=${encodeURIComponent(p.slug)}" class="card block group ${p.sold ? 'sold' : ''}">
         <div class="relative aspect-[3/4] overflow-hidden bg-surface">
           <img src="${p.image}" alt="${p.name}" loading="lazy" class="product-img w-full h-full object-cover" onerror="this.style.display='none'"/>
           ${p.sold ? `<div class="absolute inset-0 bg-black/50 flex items-center justify-center"><span class="text-white label">Sold Out</span></div>` : ''}

@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         *,
         *::before,
@@ -593,6 +594,10 @@
     <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 
     <script>
+        const SUPABASE_URL = 'https://ypdahlqlgumzxjarkyoj.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlwZGFobHFsZ3VtenhqYXJreW9qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxNzYyMTgsImV4cCI6MjA5Mzc1MjIxOH0.WeiTB7CinagWcyfXb_BXsZWA0eRpnaDD6_UNr7psyfY';
+        const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
         // ══════════════════════════════════════════════
         // COUNTDOWN — Next Sunday 12:00 PM CAT (UTC+2)
         // ══════════════════════════════════════════════
@@ -653,11 +658,7 @@
         setInterval(updateCountdown, 1000);
 
         // ══════════════════════════════════════════════
-        // AIRTABLE CONFIG
         // ══════════════════════════════════════════════
-        const AIRTABLE_TOKEN = 'REPLACE_WITH_YOUR_FULL_AIRTABLE_TOKEN_HERE';
-        const AIRTABLE_BASE = 'appHABJu0gWFOkDUH';
-        const AIRTABLE_TABLE = 'Products';
 
         let currentDrop = [];
         let pastDrops = [];
@@ -665,40 +666,37 @@
 
         async function fetchDrops() {
             try {
-                const currentUrl = `https://api.airtable.com/v0/${AIRTABLE_BASE}/${AIRTABLE_TABLE}?filterByFormula=%7BDrop%7D%3D1&sort%5B0%5D%5Bfield%5D=Created%20Time&sort%5B0%5D%5Bdirection%5D=desc&pageSize=100`;
-                const currentRes = await fetch(currentUrl, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` }});
-                if (currentRes.ok) {
-                    const currentData = await currentRes.json();
-                    currentDrop = (currentData.records || []).map(r => ({
-                        slug: r.fields.Slug || r.id,
-                        name: r.fields.Name || 'Untitled',
-                        price: Number(r.fields.Price || 0),
-                        size: r.fields.Size || '',
-                        images: (r.fields['Image URL'] ? [r.fields['Image URL']] : []).concat((r.fields.Images || []).map(img => img.url || img)),
-                        soldOut: !!r.fields['Sold Out']
-                    }));
-                }
+                const { data: currentRecords } = await db
+                  .from('products')
+                  .select('*')
+                  .eq('sold_out', false)
+                  .order('created_at', { ascending: false })
+                  .limit(8);
+                currentDrop = (currentRecords || []).map(p => ({
+                    slug: p.slug,
+                    name: p.name,
+                    price: Number(p.price || 0),
+                    size: p.size || '',
+                    images: p.image_url ? [p.image_url] : [],
+                    soldOut: !!p.sold_out
+                }));
 
-                const pastUrl = `https://api.airtable.com/v0/${AIRTABLE_BASE}/${AIRTABLE_TABLE}?filterByFormula=OR(%7BDrop%7D%3D0%2C%7BSold%20Out%7D%3D1)&sort%5B0%5D%5Bfield%5D=Created%20Time&sort%5B0%5D%5Bdirection%5D=desc&maxRecords=8`;
-                const pastRes = await fetch(pastUrl, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` }});
-                if (pastRes.ok) {
-                    const pastData = await pastRes.json();
-                    pastDrops = (pastData.records || []).map(r => ({
-                        slug: r.fields.Slug || r.id,
-                        name: r.fields.Name || 'Untitled',
-                        price: Number(r.fields.Price || 0),
-                        size: r.fields.Size || '',
-                        images: (r.fields['Image URL'] ? [r.fields['Image URL']] : []).concat((r.fields.Images || []).map(img => img.url || img)),
-                        soldOut: !!r.fields['Sold Out']
-                    }));
-                }
+                const { data: pastRecords } = await db
+                  .from('products')
+                  .select('*')
+                  .eq('sold_out', true)
+                  .order('created_at', { ascending: false })
+                  .limit(8);
+                pastDrops = (pastRecords || []).map(p => ({
+                    slug: p.slug,
+                    name: p.name,
+                    price: Number(p.price || 0),
+                    size: p.size || '',
+                    images: p.image_url ? [p.image_url] : [],
+                    soldOut: true
+                }));
 
-                const countUrl = `https://api.airtable.com/v0/${AIRTABLE_BASE}/${AIRTABLE_TABLE}?filterByFormula=%7BDrop%7D%3D1`;
-                const countRes = await fetch(countUrl, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` }});
-                if (countRes.ok) {
-                    const countData = await countRes.json();
-                    dropNumber = countData.records ? Math.ceil(countData.records.length / 4) : 1;
-                }
+                dropNumber = 1;
 
                 renderAll();
             } catch (e) {
@@ -752,14 +750,10 @@
         // ══════════════════════════════════════════════
         // RENDER HELPERS
         // ══════════════════════════════════════════════
-        function convertGDriveUrl(url) {
-            if (!url) return '';
-            const m = url.match(/\/d\/([a-zA-Z0-9_-]{25,})/) || url.match(/id=([a-zA-Z0-9_-]{25,})/);
-            return m ? `https://drive.google.com/thumbnail?id=${m[1]}&sz=w800` : url;
-        }
+
 
         function renderCard(p) {
-            const img = p.images && p.images[0] ? convertGDriveUrl(p.images[0]) : '';
+            const img = p.images && p.images[0] ? p.images[0] : '';
             const soldClass = p.soldOut ? ' sold-out' : '';
             return `
         <a href="product.html?slug=${p.slug}" class="product-card">

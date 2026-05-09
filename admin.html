@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Archive Closet — Admin</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         *,
         *::before,
@@ -773,24 +774,7 @@
             }
         }
     
-.site-footer { border-top: 1px solid var(--border); }
-.footer-inner { max-width: 1280px; margin: 0 auto; padding: 48px 16px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; font-size: 12px; color: var(--muted); }
-@media (min-width: 768px) { .footer-inner { grid-template-columns: repeat(4, 1fr); padding: 48px 32px; } }
-.footer-col h4 { font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 16px; color: var(--fg); }
-.footer-col ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
-.footer-col a { color: var(--muted); transition: color 0.2s; }
-.footer-col a:hover { color: var(--accent); }
-.footer-bottom { text-align: center; padding: 24px 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
-@media (min-width: 768px) { .footer-bottom { padding: 24px 32px; } }
 
-:root {
-  --bg: #FFFFFF;
-  --fg: #1A1A1A;
-  --muted: #666666;
-  --border: #E5E5E5;
-  --surface: #F5F5F5;
-  --accent: #C45B3A;
-}
 
         .header-left {
             display: flex;
@@ -1049,12 +1033,12 @@
                     </select>
                 </div>
             </div>
-            <div class="form-section">
-                <div class="form-section-title">Media</div>
-                <div class="form-group"><label>Product Image URL</label><input type="url" id="pImage"
-                        placeholder="Paste Google Drive or image link"></div>
-                <img class="img-preview" id="pImagePreview" alt="Preview">
-            </div>
+<div class="form-section">
+    <div class="form-section-title">Media</div>
+    <div class="form-group"><label>Product Image</label><input type="file" id="pImageFile" accept="image/jpeg,image/png,image/webp"></div>
+    <img class="img-preview" id="pImagePreview" alt="Preview">
+    <input type="hidden" id="pImageUrl">
+</div>
             <div class="form-section">
                 <div class="form-section-title">Description</div>
                 <div class="form-group"><textarea id="pDescription" placeholder="Short product description"></textarea>
@@ -1102,11 +1086,12 @@
                 <div class="form-group"><textarea id="oDescription" placeholder="Short outfit description"></textarea>
                 </div>
             </div>
-            <div class="form-section">
-                <div class="form-section-title">Cover Image</div>
-                <div class="form-group"><input type="url" id="oImage" placeholder="Paste image URL"></div>
-                <img class="img-preview" id="oImagePreview" alt="Preview">
-            </div>
+<div class="form-section">
+    <div class="form-section-title">Cover Image</div>
+    <div class="form-group"><input type="file" id="oImageFile" accept="image/jpeg,image/png,image/webp"></div>
+    <img class="img-preview" id="oImagePreview" alt="Preview">
+    <input type="hidden" id="oImageUrl">
+</div>
             <div class="form-section">
                 <div class="form-section-title">Drop Date</div>
                 <div class="form-group"><input type="date" id="oDate"></div>
@@ -1143,10 +1128,10 @@
         // TODO: Replace with Supabase when migrating
         // Current admin uses in-memory mock data
         // For Airtable integration, add:
-        // const AIRTABLE_TOKEN = 'REPLACE_WITH_YOUR_FULL_AIRTABLE_TOKEN_HERE';
-        // const AIRTABLE_BASE = 'appHABJu0gWFOkDUH';
-        // const AIRTABLE_TABLE = 'Products';
-        // const AIRTABLE_OUTFITS_TABLE = 'Outfits';
+        //        //        //        //
+        const SUPABASE_URL = 'https://ypdahlqlgumzxjarkyoj.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlwZGFobHFsZ3VtenhqYXJreW9qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxNzYyMTgsImV4cCI6MjA5Mzc1MjIxOH0.WeiTB7CinagWcyfXb_BXsZWA0eRpnaDD6_UNr7psyfY';
+        const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
         const ADMIN_PASSWORD = 'archivecloset2024';
 
@@ -1168,34 +1153,41 @@
             Accessories: []
         };
 
-        function convertGDriveUrl(url) {
-            if (!url) return '';
-            const m = url.match(/\/d\/([a-zA-Z0-9_-]{25,})/) || url.match(/id=([a-zA-Z0-9_-]{25,})/);
-            return m ? 'https://drive.google.com/thumbnail?id=' + m[1] + '&sz=w800' : url;
-        }
-
         function slugify(str) {
             return str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
         }
 
         function uid() { return 'id_' + Math.random().toString(36).substr(2, 9); }
 
-        // MOCK DATA — Replace with Supabase fetch
-        // const { data: products } = await supabase.from('products').select('*');
-        let products = [
-            { id: uid(), name: 'Silk Blouse in Cream', slug: 'silk-blouse-cream', price: 45, size: 'M', gender: 'Womenswear', category: 'Tops', subcategory: 'Corsets & Tops', era: '90s', condition: 'Excellent', description: 'Rare 90s silk blouse in cream.', image: '', drop: true, featured: true, soldOut: false },
-            { id: uid(), name: 'Cargo Pants Olive', slug: 'cargo-pants-olive', price: 55, size: 'L', gender: 'Menswear', category: 'Bottoms', subcategory: 'Cargo & Utility', era: '2000s', condition: 'Good', description: 'Y2K cargo pants.', image: '', drop: true, featured: false, soldOut: false },
-            { id: uid(), name: 'Crochet Halter Top', slug: 'crochet-halter-top', price: 38, size: 'S', gender: 'Crochet', category: 'Tops', subcategory: 'Crochet Tops', era: 'Modern', condition: 'Excellent', description: 'Handmade crochet halter.', image: '', drop: false, featured: false, soldOut: true },
-            { id: uid(), name: 'Denim Mini Skirt', slug: 'denim-mini-skirt', price: 32, size: 'S', gender: 'Womenswear', category: 'Bottoms', subcategory: 'Mini Skirts', era: '90s', condition: 'Good', description: 'Classic denim mini.', image: '', drop: true, featured: true, soldOut: false },
-        ];
+        let products = [];
+        let outfits = [];
 
-        // MOCK DATA — Replace with Supabase fetch
-        // const { data: outfits } = await supabase.from('outfits').select('*');
-        let outfits = [
-            { id: uid(), name: 'Night Out', slug: 'night-out', vibe: 'Going Out', date: '2024-12-20', description: 'Head-turning evening look.', image: '', items: [products[0].id, products[3].id] },
-        ];
+        async function uploadProductImage(file, slug) {
+          const fileExt = file.name.split('.').pop();
+          const fileName = `${slug}/${Date.now()}.${fileExt}`;
+          const { error } = await db.storage.from('product-images').upload(fileName, file, { cacheControl: '3600', upsert: false });
+          if (error) { alert('Upload failed: ' + error.message); return null; }
+          const { data: { publicUrl } } = db.storage.from('product-images').getPublicUrl(fileName);
+          return publicUrl;
+        }
 
-        let editingProductId = null;
+        async function loadAdminData() {
+          const { data: p } = await db.from('products').select('*').order('created_at', { ascending: false });
+          const { data: o } = await db.from('outfits').select('*').order('created_at', { ascending: false });
+          products = (p || []).map(x => ({
+            id: x.id, name: x.name, slug: x.slug, price: x.price, size: x.size,
+            gender: x.gender, category: x.category, subcategory: x.subcategory || '',
+            era: x.era, condition: x.condition || '', description: x.description,
+            image: x.image_url || '', drop: false, featured: !!x.featured, soldOut: !!x.sold_out
+          }));
+          outfits = (o || []).map(x => ({
+            id: x.id, name: x.name, slug: x.slug, vibe: x.vibe || '',
+            date: x.created_at, description: x.description, image: x.image_url || '', items: x.items || ''
+          }));
+          renderAll();
+        }
+
+let editingProductId = null;
         let editingOutfitId = null;
         let confirmCallback = null;
 
@@ -1206,7 +1198,7 @@
         const loginScreen = document.getElementById('loginScreen');
         const mainContent = document.getElementById('mainContent');
 
-        if (sessionStorage.getItem('ac_admin') === '1') { loginScreen.style.display = 'none'; mainContent.style.display = 'block'; renderAll(); }
+        if (sessionStorage.getItem('ac_admin') === '1') { loginScreen.style.display = 'none'; mainContent.style.display = 'block'; loadAdminData(); }
 
         document.getElementById('loginBtn').onclick = () => {
             const pw = document.getElementById('loginPassword').value;
@@ -1214,7 +1206,7 @@
                 sessionStorage.setItem('ac_admin', '1');
                 loginScreen.style.display = 'none';
                 mainContent.style.display = 'block';
-                renderAll();
+                loadAdminData();
             } else {
                 const err = document.getElementById('loginError');
                 err.style.display = 'block';
@@ -1256,15 +1248,6 @@
         // RENDER
         // ═══════════════════════════════════════════
 
-        // TODO: Fetch from Supabase instead of using mock data
-        // async function loadData() {
-        //   const { data: p } = await supabase.from('products').select('*');
-        //   const { data: o } = await supabase.from('outfits').select('*');
-        //   products = p || [];
-        //   outfits = o || [];
-        //   renderAll();
-        // }
-
         function renderAll() { renderStats(); renderProducts(); renderDrops(); renderOutfits(); renderSoldOut(); }
 
         function renderStats() {
@@ -1281,7 +1264,7 @@
             const tbody = document.getElementById('productsBody');
             tbody.innerHTML = products.map(p => `
     <tr>
-      <td><div class="product-cell">${p.image ? '<img class="product-thumb" src="' + convertGDriveUrl(p.image) + '" alt="">' : '<div class="product-thumb"></div>'}<span class="product-name">${p.name}</span></div></td>
+      <td><div class="product-cell">${p.image ? '<img class="product-thumb" src="' + p.image + '" alt="">' : '<div class="product-thumb"></div>'}<span class="product-name">${p.name}</span></div></td>
       <td>$${p.price}</td>
       <td>${p.size}</td>
       <td style="font-size:13px;color:#6B7280">${categoryDisplay(p)}</td>
@@ -1300,7 +1283,7 @@
             const dropProducts = products.filter(p => p.drop);
             document.getElementById('dropsBody').innerHTML = dropProducts.length ? dropProducts.map(p => `
     <tr>
-      <td><div class="product-cell">${p.image ? '<img class="product-thumb" src="' + convertGDriveUrl(p.image) + '" alt="">' : '<div class="product-thumb"></div>'}<span class="product-name">${p.name}</span></div></td>
+      <td><div class="product-cell">${p.image ? '<img class="product-thumb" src="' + p.image + '" alt="">' : '<div class="product-thumb"></div>'}<span class="product-name">${p.name}</span></div></td>
       <td>${p.size}</td>
       <td>$${p.price}</td>
       <td><button class="btn-secondary" style="font-size:11px;padding:5px 12px" onclick="removeDrop('${p.id}')">Remove</button></td>
@@ -1326,7 +1309,7 @@
         function renderSoldOut() {
             document.getElementById('soldoutBody').innerHTML = products.map(p => `
     <tr class="${p.soldOut ? 'row-sold-out' : ''}">
-      <td><div class="product-cell">${p.image ? '<img class="product-thumb" src="' + convertGDriveUrl(p.image) + '" alt="">' : '<div class="product-thumb"></div>'}<span class="product-name">${p.name}</span></div></td>
+      <td><div class="product-cell">${p.image ? '<img class="product-thumb" src="' + p.image + '" alt="">' : '<div class="product-thumb"></div>'}<span class="product-name">${p.name}</span></div></td>
       <td>${p.size}</td>
       <td>$${p.price}</td>
       <td><button class="toggle ${p.soldOut ? 'on' : ''}" onclick="toggleSoldOut('${p.id}')"></button></td>
@@ -1370,15 +1353,12 @@
             if (!editingProductId) document.getElementById('pSlug').value = slugify(document.getElementById('pName').value);
         };
 
-        // Image preview
-        document.getElementById('pImage').oninput = () => {
-            const url = convertGDriveUrl(document.getElementById('pImage').value);
-            const prev = document.getElementById('pImagePreview');
-            if (url) { prev.src = url; prev.style.display = 'block'; } else { prev.style.display = 'none'; }
-        };
+
 
         function resetProductForm() {
-            ['pName', 'pSlug', 'pPrice', 'pImage', 'pDescription'].forEach(id => document.getElementById(id).value = '');
+            ['pName', 'pSlug', 'pPrice', 'pDescription'].forEach(id => document.getElementById(id).value = '');
+document.getElementById('pImageFile').value = '';
+document.getElementById('pImageUrl').value = '';
             ['pSize', 'pGender', 'pEra', 'pCondition'].forEach(id => document.getElementById(id).selectedIndex = 0);
             document.getElementById('pCategory').innerHTML = '<option value="">Select gender first</option>';
             document.getElementById('pSubcategory').innerHTML = '<option value="">Select category first</option>';
@@ -1403,8 +1383,10 @@
             if (p.subcategory) document.getElementById('pSubcategory').value = p.subcategory;
             document.getElementById('pEra').value = p.era || '';
             document.getElementById('pCondition').value = p.condition || '';
-            document.getElementById('pImage').value = p.image || '';
-            document.getElementById('pImage').oninput();
+            document.getElementById('pImageUrl').value = p.image || '';
+document.getElementById('pImageFile').value = '';
+document.getElementById('pImagePreview').style.display = p.image ? 'block' : 'none';
+if (p.image) document.getElementById('pImagePreview').src = p.image;
             document.getElementById('pDescription').value = p.description || '';
             document.getElementById('pDrop').checked = p.drop;
             document.getElementById('pFeatured').checked = p.featured;
@@ -1413,35 +1395,39 @@
         };
 
         // TODO: Replace with Supabase insert/update
-        // const { data, error } = await supabase.from('products').insert([data]).select();
-        document.getElementById('productSaveBtn').onclick = () => {
-            const name = document.getElementById('pName').value.trim();
-            if (!name) { alert('Product name is required'); return; }
-            const data = {
-                name,
-                slug: document.getElementById('pSlug').value.trim() || slugify(name),
-                price: parseInt(document.getElementById('pPrice').value) || 0,
-                size: document.getElementById('pSize').value,
-                gender: document.getElementById('pGender').value,
-                category: document.getElementById('pCategory').value,
-                subcategory: document.getElementById('pSubcategory').value,
-                era: document.getElementById('pEra').value,
-                condition: document.getElementById('pCondition').value,
-                image: document.getElementById('pImage').value.trim(),
-                description: document.getElementById('pDescription').value.trim(),
-                drop: document.getElementById('pDrop').checked,
-                featured: document.getElementById('pFeatured').checked,
-                soldOut: document.getElementById('pSoldOut').checked,
-            };
-            if (editingProductId) {
-                const idx = products.findIndex(p => p.id === editingProductId);
-                if (idx > -1) products[idx] = { ...products[idx], ...data };
-            } else {
-                products.push({ id: uid(), ...data });
-            }
-            closeProductPanel();
-            renderAll();
-        };
+        // const { data, error } = await db.from('products').insert([data]).select();
+document.getElementById('productSaveBtn').onclick = async () => {
+    const name = document.getElementById('pName').value.trim();
+    if (!name) { alert('Product name is required'); return; }
+    const slug = document.getElementById('pSlug').value.trim() || slugify(name);
+    let imageUrl = document.getElementById('pImageUrl').value;
+    const fileInput = document.getElementById('pImageFile');
+    if (fileInput.files && fileInput.files[0]) {
+        const uploadedUrl = await uploadProductImage(fileInput.files[0], slug);
+        if (uploadedUrl) imageUrl = uploadedUrl;
+    }
+    const data = {
+        slug, name,
+        price: parseInt(document.getElementById('pPrice').value) || 0,
+        size: document.getElementById('pSize').value,
+        gender: document.getElementById('pGender').value.toLowerCase(),
+        category: document.getElementById('pCategory').value.toLowerCase(),
+        era: document.getElementById('pEra').value,
+        description: document.getElementById('pDescription').value.trim(),
+        image_url: imageUrl,
+        featured: document.getElementById('pFeatured').checked,
+        sold_out: document.getElementById('pSoldOut').checked,
+    };
+    if (editingProductId) {
+        const { error } = await db.from('products').update(data).eq('id', editingProductId);
+        if (error) { alert('Save failed: ' + error.message); return; }
+    } else {
+        const { error } = await db.from('products').insert([data]);
+        if (error) { alert('Save failed: ' + error.message); return; }
+    }
+    closeProductPanel();
+    loadAdminData();
+};
 
         window.deleteProduct = function (id) {
             showConfirm('Delete Product', 'This product will be permanently removed.', () => {
@@ -1495,11 +1481,13 @@
             if (!editingOutfitId) document.getElementById('oSlug').value = slugify(document.getElementById('oName').value);
         };
 
-        document.getElementById('oImage').oninput = () => {
-            const url = convertGDriveUrl(document.getElementById('oImage').value);
-            const prev = document.getElementById('oImagePreview');
-            if (url) { prev.src = url; prev.style.display = 'block'; } else { prev.style.display = 'none'; }
-        };
+document.getElementById('oImageFile').onchange = () => {
+    const file = document.getElementById('oImageFile').files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => { const prev = document.getElementById('oImagePreview'); prev.src = e.target.result; prev.style.display = 'block'; };
+    reader.readAsDataURL(file);
+};
 
         function renderOutfitItems(selectedIds = [], filter = '') {
             const list = document.getElementById('oItemsList');
@@ -1515,7 +1503,9 @@
         };
 
         function resetOutfitForm() {
-            ['oName', 'oSlug', 'oDescription', 'oImage', 'oDate', 'oItemsSearch'].forEach(id => document.getElementById(id).value = '');
+            ['oName', 'oSlug', 'oDescription', 'oDate', 'oItemsSearch'].forEach(id => document.getElementById(id).value = '');
+document.getElementById('oImageFile').value = '';
+document.getElementById('oImageUrl').value = '';
             document.getElementById('oVibe').selectedIndex = 0;
             document.getElementById('oImagePreview').style.display = 'none';
             editingOutfitId = null;
@@ -1530,37 +1520,43 @@
             document.getElementById('oSlug').value = o.slug;
             document.getElementById('oVibe').value = o.vibe || '';
             document.getElementById('oDescription').value = o.description || '';
-            document.getElementById('oImage').value = o.image || '';
-            document.getElementById('oImage').oninput();
+            document.getElementById('oImageUrl').value = o.image || '';
+document.getElementById('oImageFile').value = '';
+document.getElementById('oImagePreview').style.display = o.image ? 'block' : 'none';
+if (o.image) document.getElementById('oImagePreview').src = o.image;
             document.getElementById('oDate').value = o.date || '';
             openOutfitPanel();
             renderOutfitItems(o.items);
         };
 
         // TODO: Replace with Supabase insert/update
-        // const { data, error } = await supabase.from('outfits').insert([data]).select();
-        document.getElementById('outfitSaveBtn').onclick = () => {
-            const name = document.getElementById('oName').value.trim();
-            if (!name) { alert('Outfit name is required'); return; }
-            const selectedItems = Array.from(document.querySelectorAll('#oItemsList input:checked')).map(i => i.value);
-            const data = {
-                name,
-                slug: document.getElementById('oSlug').value.trim() || slugify(name),
-                vibe: document.getElementById('oVibe').value,
-                description: document.getElementById('oDescription').value.trim(),
-                image: document.getElementById('oImage').value.trim(),
-                date: document.getElementById('oDate').value,
-                items: selectedItems,
-            };
-            if (editingOutfitId) {
-                const idx = outfits.findIndex(o => o.id === editingOutfitId);
-                if (idx > -1) outfits[idx] = { ...outfits[idx], ...data };
-            } else {
-                outfits.push({ id: uid(), ...data });
-            }
-            closeOutfitPanel();
-            renderAll();
-        };
+        // const { data, error } = await db.from('outfits').insert([data]).select();
+document.getElementById('outfitSaveBtn').onclick = async () => {
+    const name = document.getElementById('oName').value.trim();
+    if (!name) { alert('Outfit name is required'); return; }
+    const slug = document.getElementById('oSlug').value.trim() || slugify(name);
+    let imageUrl = document.getElementById('oImageUrl').value;
+    const fileInput = document.getElementById('oImageFile');
+    if (fileInput.files && fileInput.files[0]) {
+        const uploadedUrl = await uploadProductImage(fileInput.files[0], slug);
+        if (uploadedUrl) imageUrl = uploadedUrl;
+    }
+    const selectedItems = Array.from(document.querySelectorAll('#oItemsList input:checked')).map(i => i.value);
+    const data = {
+        slug, name,
+        vibe: document.getElementById('oVibe').value,
+        description: document.getElementById('oDescription').value.trim(),
+        image_url: imageUrl,
+        items: selectedItems,
+    };
+    if (editingOutfitId) {
+        await db.from('outfits').update(data).eq('id', editingOutfitId);
+    } else {
+        await db.from('outfits').insert([data]);
+    }
+    closeOutfitPanel();
+    loadAdminData();
+};
 
         window.deleteOutfit = function (id) {
             showConfirm('Delete Outfit', 'This outfit will be permanently removed.', () => {
@@ -1584,43 +1580,7 @@
         document.getElementById('confirmOk').onclick = () => { document.getElementById('confirmDialog').classList.remove('show'); if (confirmCallback) confirmCallback(); confirmCallback = null; };
 
     </script>
-<footer class="site-footer">
-  <div class="footer-inner">
-    <div class="footer-col">
-      <h4>Archive Closet</h4>
-      <p>Rare finds for the bold.</p>
-    </div>
-    <div class="footer-col">
-      <h4>Shop</h4>
-      <ul>
-        <li><a href="shop.html?gender=menswear">Mens</a></li>
-        <li><a href="shop.html?gender=womenswear">Women</a></li>
-        <li><a href="shop.html?gender=crochet">Crochet</a></li>
-        <li><a href="drops.html">Drops</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Help</h4>
-      <ul>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Follow</h4>
-      <ul>
-        <li><a href="https://www.instagram.com/archivecloset.zw" target="_blank" rel="noopener">Instagram</a></li>
-        <li><a href="https://www.tiktok.com/@archivecloset.zw" target="_blank" rel="noopener">TikTok</a></li>
-        <li><a href="https://wa.me/263718968489" target="_blank" rel="noopener">WhatsApp</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    &copy; <span id="year"></span> Archive Closet. All rights reserved.
-  </div>
-</footer>
 
-<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 
 </html>

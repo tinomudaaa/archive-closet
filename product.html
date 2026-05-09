@@ -10,6 +10,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
         <style>
                 *,
                 *::before,
@@ -734,9 +735,7 @@
         <!-- ════ BREADCRUMB ════ -->
         <div class="breadcrumb">
                 <a href="shop.html">Shop</a><span>/</span>
-                <a href="shop.html?gender=womenswear">Womenswear</a><span>/</span>
-                <span>Tops</span><span>/</span>
-                <span class="current">Silk Blouse in Cream</span>
+                <span class="current"></span>
         </div>
 
         <!-- ════ PRODUCT ════ -->
@@ -747,8 +746,7 @@
                         <div class="gallery" id="gallery">
                                 <div class="main-image" id="mainImage" onclick="openLightbox()">
                                         <!-- Replace src with your product images -->
-                                        <img id="mainImg" src="" alt="Silk Blouse in Cream — image 1"
-                                                onerror="this.parentElement.innerHTML='<div class=no-image>No image</div>'" />
+                                        <img id="mainImg" src="" alt="" />
                                         <!-- Uncomment for sold out: <span class="sold-badge">Sold Out</span> -->
                                 </div>
 
@@ -761,11 +759,11 @@
 
                         <!-- Right — Info -->
                         <div class="product-info">
-                                <span class="era-badge" id="eraBadge">90s</span>
+                                <span class="era-badge" id="eraBadge" style="display:none"></span>
 
                                 <div>
-                                        <h1 class="product-name" id="productName">Silk Blouse in Cream</h1>
-                                        <p class="product-price" id="productPrice">$45</p>
+                                        <h1 class="product-name" id="productName"></h1>
+                                        <p class="product-price" id="productPrice"></p>
                                 </div>
 
                                 <div class="divider"></div>
@@ -801,9 +799,7 @@
                                 <!-- Description -->
                                 <div id="descriptionBlock">
                                         <p class="section-label">About This Piece</p>
-                                        <p class="description" id="descriptionText">Rare 90s silk blouse in cream. Soft
-                                                hand feel, minimal wear. Pearl-tone buttons, relaxed fit. One-of-one.
-                                        </p>
+                                        <p class="description" id="descriptionText"></p>
                                 </div>
 
                                 <!-- CTA -->
@@ -912,286 +908,129 @@
         </div>
 
         <script>
-                // ══════════════════════════════════════════════
-                // GALLERY
-                // ══════════════════════════════════════════════
-                let activeIndex = 0;
+        const SUPABASE_URL = 'https://ypdahlqlgumzxjarkyoj.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlwZGFobHFsZ3VtenhqYXJreW9qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxNzYyMTgsImV4cCI6MjA5Mzc1MjIxOH0.WeiTB7CinagWcyfXb_BXsZWA0eRpnaDD6_UNr7psyfY';
+        const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-                function convertGDriveUrl(url) {
-                        const match = url.match(/\/d\/([^/]+)/);
-                        return match ? `https://drive.google.com/thumbnail?id=${match[1]}&sz=w800` : url;
-                }
+        let activeIndex = 0;
+        let product = null;
+        let relatedProducts = [];
 
-                const AIRTABLE_TOKEN = 'REPLACE_WITH_YOUR_FULL_AIRTABLE_TOKEN_HERE';
-                const AIRTABLE_BASE = 'appHABJu0gWFOkDUH';
-                const AIRTABLE_TABLE = 'Products';
+        async function fetchProduct() {
+          const params = new URLSearchParams(window.location.search);
+          const slug = params.get('slug');
+          if (!slug) { showNotFound(); return; }
+          try {
+            const { data: records, error } = await db.from('products').select('*').eq('slug', slug).limit(1);
+            if (error) throw error;
+            if (!records || records.length === 0) { showNotFound(); return; }
+            const p = records[0];
+            product = {
+              id: p.id, name: p.name, slug: p.slug,
+              price: Number(p.price || 0), size: p.size || '',
+              gender: p.gender || '', category: p.category || '',
+              condition: p.condition || '', era: p.era || '',
+              description: p.description || '',
+              images: p.image_url ? [p.image_url] : [],
+              soldOut: !!p.sold_out
+            };
+            const { data: rel } = await db.from('products').select('*').eq('gender', product.gender).eq('sold_out', false).neq('slug', slug).limit(8);
+            if (rel) {
+              relatedProducts = rel.map(r => ({ slug: r.slug, name: r.name, price: Number(r.price || 0), images: r.image_url ? [r.image_url] : [], soldOut: !!r.sold_out })).sort(() => Math.random() - 0.5).slice(0, 4);
+            }
+            renderAll();
+          } catch (e) { console.error(e); showNotFound(); }
+        }
 
-                let product = null;
-                let relatedProducts = [];
+        function showNotFound() {
+          document.querySelector('.product-section').style.display = 'none';
+          document.querySelector('.related-section').style.display = 'none';
+          const notFound = document.createElement('div');
+          notFound.className = 'not-found';
+          notFound.innerHTML = `<div class="nf-icon">🔍</div><h2>This piece isn't in the archive anymore.</h2><p>It may have sold out or been moved.</p><a href="shop.html" class="nf-cta">Shop Current Drop →</a>`;
+          document.body.insertBefore(notFound, document.querySelector('.related-section'));
+        }
 
-                async function fetchProduct() {
-                  const params = new URLSearchParams(window.location.search);
-                  const slug = params.get('slug');
-                  const gender = params.get('gender') || '';
-                  
-                  if (!slug) {
-                    showNotFound();
-                    return;
-                  }
-                  
-                  try {
-                    // Fetch product by slug
-                    const url = `https://api.airtable.com/v0/${AIRTABLE_BASE}/${AIRTABLE_TABLE}?filterByFormula=%7BSlug%7D%3D%22${encodeURIComponent(slug)}%22&maxRecords=1`;
-                    const res = await fetch(url, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` }});
-                    if (!res.ok) throw new Error('Fetch failed');
-                    const data = await res.json();
-                    
-                    if (!data.records || data.records.length === 0) {
-                      showNotFound();
-                      return;
-                    }
-                    
-                    const r = data.records[0];
-                    const f = r.fields || {};
-                    product = {
-                      id: r.id,
-                      name: f.Name || 'Untitled',
-                      slug: f.Slug || r.id,
-                      price: Number(f.Price || 0),
-                      size: f.Size || '',
-                      gender: f.Gender || '',
-                      category: f.Category || '',
-                      condition: f.Condition || '',
-                      era: f.Era || '',
-                      description: f.Description || '',
-                      images: (f['Image URL'] ? [f['Image URL']] : []).concat((f.Images || []).map(img => img.url || img)),
-                      soldOut: !!f['Sold Out']
-                    };
-                    
-                    // Fetch related products (same gender, exclude current, random 4)
-                    const relatedUrl = `https://api.airtable.com/v0/${AIRTABLE_BASE}/${AIRTABLE_TABLE}?filterByFormula=AND(%7BGender%7D%3D%22${encodeURIComponent(product.gender)}%22%2C%7BSlug%7D!%3D%22${encodeURIComponent(slug)}%22%2C%7BSold%20Out%7D%3D0)&maxRecords=8`;
-                    const relatedRes = await fetch(relatedUrl, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` }});
-                    if (relatedRes.ok) {
-                      const relatedData = await relatedRes.json();
-                      // Shuffle and pick 4
-                      relatedProducts = (relatedData.records || [])
-                        .map(r => ({
-                          slug: r.fields.Slug || r.id,
-                          name: r.fields.Name || 'Untitled',
-                          price: Number(r.fields.Price || 0),
-                          images: (r.fields['Image URL'] ? [r.fields['Image URL']] : []).concat((r.fields.Images || []).map(img => img.url || img)),
-                          soldOut: !!r.fields['Sold Out']
-                        }))
-                        .sort(() => Math.random() - 0.5)
-                        .slice(0, 4);
-                    }
-                    
-                    renderAll();
-                    
-                  } catch (e) {
-                    console.error(e);
-                    showNotFound();
-                  }
-                }
+        function renderAll() { renderGallery(); renderProductInfo(); renderRelated(); updateBreadcrumb(); }
 
-                function showNotFound() {
-                  document.querySelector('.product-section').style.display = 'none';
-                  document.querySelector('.related-section').style.display = 'none';
-                  
-                  const notFound = document.createElement('div');
-                  notFound.className = 'not-found';
-                  notFound.innerHTML = `
-                    <div class="nf-icon">🔍</div>
-                    <h2>This piece isn't in the archive anymore.</h2>
-                    <p>It may have sold out or been moved.</p>
-                    <a href="shop.html" class="nf-cta">Shop Current Drop →</a>
-                  `;
-                  document.body.insertBefore(notFound, document.querySelector('.related-section'));
-                }
+        function updateBreadcrumb() {
+          const bc = document.querySelector('.breadcrumb');
+          const gender = product.gender || '';
+          const category = product.category || '';
+          const genderParam = gender ? `?gender=${encodeURIComponent(gender.toLowerCase())}` : '';
+          const categoryParam = category ? `&category=${encodeURIComponent(category.toLowerCase())}` : '';
+          bc.innerHTML = `<a href="shop.html">Shop</a><span>/</span>${gender ? `<a href="shop.html${genderParam}">${gender}</a><span>/</span>` : ''}${category ? `<a href="shop.html${genderParam}${categoryParam}">${category}</a><span>/</span>` : ''}<span class="current">${product.name}</span>`;
+        }
 
-                function renderAll() {
-                  renderGallery();
-                  renderProductInfo();
-                  renderRelated();
-                  updateBreadcrumb();
-                }
+        function renderGallery() {
+          if (!product) return;
+          const imgs = product.images;
+          const mainImage = document.getElementById('mainImage');
+          const mainImg = document.getElementById('mainImg');
+          const dots = document.getElementById('dots');
+          const thumbs = document.getElementById('thumbnails');
+          if (imgs.length === 0) { if (!mainImage) return; mainImage.innerHTML = '<div class="no-image">No image</div>' + (product.soldOut ? '<span class="sold-badge">Sold Out</span>' : ''); return; }
+          if (mainImg) mainImg.src = imgs[0];
+          if (product.soldOut) mainImage.insertAdjacentHTML('beforeend', '<span class="sold-badge">Sold Out</span>');
+          if (imgs.length > 1) {
+            dots.innerHTML = imgs.map((_, i) => `<button class="dot ${i === 0 ? 'active' : ''}" onclick="goTo(${i})" aria-label="Image ${i + 1}"></button>`).join('');
+            thumbs.innerHTML = imgs.map((src, i) => `<button class="thumb ${i === 0 ? 'active' : ''}" onclick="goTo(${i})"><img src="${src}" alt="Thumbnail ${i + 1}"></button>`).join('');
+          }
+        }
 
-                function updateBreadcrumb() {
-                  const bc = document.querySelector('.breadcrumb');
-                  const gender = product.gender || '';
-                  const category = product.category || '';
-                  const genderParam = gender ? `?gender=${encodeURIComponent(gender.toLowerCase())}` : '';
-                  const categoryParam = category ? `&category=${encodeURIComponent(category.toLowerCase())}` : '';
-                  
-                  bc.innerHTML = `
-                    <a href="shop.html">Shop</a><span>/</span>
-                    ${gender ? `<a href="shop.html${genderParam}">${gender}</a><span>/</span>` : ''}
-                    ${category ? `<a href="shop.html${genderParam}${categoryParam}">${category}</a><span>/</span>` : ''}
-                    <span class="current">${product.name}</span>
-                  `;
-                }
+        function goTo(i) {
+          const imgs = product.images;
+          if (i < 0 || i >= imgs.length) return;
+          activeIndex = i;
+          document.getElementById('mainImg').src = imgs[i];
+          document.querySelectorAll('.dot').forEach((d, idx) => d.classList.toggle('active', idx === i));
+          document.querySelectorAll('.thumb').forEach((t, idx) => t.classList.toggle('active', idx === i));
+        }
 
-                function renderGallery() {
-                        if (!product) return;
-                        const imgs = product.images.map(convertGDriveUrl);
-                        const mainImage = document.getElementById('mainImage');
-                        const mainImg = document.getElementById('mainImg');
-                        const dots = document.getElementById('dots');
-                        const thumbs = document.getElementById('thumbnails');
+        let touchStartX = 0;
+        document.getElementById('mainImage').addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+        document.getElementById('mainImage').addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - touchStartX; if (Math.abs(dx) > 50) goTo(activeIndex + (dx < 0 ? 1 : -1)); });
 
-                        if (imgs.length === 0) {
-                                mainImage.innerHTML = '<div class="no-image">No image</div>' +
-                                        (product.soldOut ? '<span class="sold-badge">Sold Out</span>' : '');
-                                return;
-                        }
+        function openLightbox() {
+          const imgs = product.images;
+          if (imgs.length === 0) return;
+          document.getElementById('lightboxImg').src = imgs[activeIndex];
+          document.getElementById('lightbox').classList.add('open');
+          document.body.style.overflow = 'hidden';
+        }
+        function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); document.body.style.overflow = ''; }
+        function changeImage(dir) { const imgs = product.images; const next = activeIndex + dir; if (next < 0 || next >= imgs.length) return; goTo(next); document.getElementById('lightboxImg').src = imgs[next]; }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
-                        mainImg.src = imgs[0];
-                        if (product.soldOut) {
-                                mainImage.insertAdjacentHTML('beforeend', '<span class="sold-badge">Sold Out</span>');
-                        }
+        function renderProductInfo() {
+          if (!product) return;
+          document.title = `${product.name} | Archive Closet`;
+          document.getElementById('productName').textContent = product.name;
+          document.getElementById('productPrice').textContent = `$${product.price}`;
+          document.getElementById('sizeValue').textContent = product.size;
+          const eraBadge = document.getElementById('eraBadge');
+          if (product.era) { eraBadge.textContent = product.era; eraBadge.style.display = 'inline-block'; } else { eraBadge.style.display = 'none'; }
+          const conditions = ["Excellent", "Good", "Fair"];
+          document.getElementById('conditionRow').innerHTML = conditions.map(c => `<div class="condition-item"><span class="condition-radio ${c === product.condition ? 'active' : ''}"><span class="radio-dot"></span></span><span class="condition-label ${c === product.condition ? 'active' : ''}">${c}</span></div>`).join('');
+          const descBlock = document.getElementById('descriptionBlock');
+          if (product.description) { descBlock.style.display = 'block'; document.getElementById('descriptionText').textContent = product.description; } else { descBlock.style.display = 'none'; }
+          const cta = document.getElementById('ctaBtn');
+          if (product.soldOut) { cta.className = 'cta-btn sold-out'; cta.textContent = 'Sold Out'; cta.removeAttribute('href'); cta.removeAttribute('target'); }
+          else { const msg = `Hi! I'm interested in the ${product.name} (Size ${product.size}) — $${product.price}. Is it still available?`; cta.href = `https://wa.me/263718968489?text=${encodeURIComponent(msg)}`; }
+        }
 
-                        if (imgs.length > 1) {
-                                dots.innerHTML = imgs.map((_, i) =>
-                                        `<button class="dot ${i === 0 ? 'active' : ''}" onclick="goTo(${i})" aria-label="Image ${i + 1}"></button>`
-                                ).join('');
+        function renderRelated() {
+          if (!product || relatedProducts.length === 0) { document.querySelector('.related-section').style.display = 'none'; return; }
+          document.querySelector('.related-section').style.display = 'block';
+          document.getElementById('relatedScroll').innerHTML = relatedProducts.map(p => `<a href="product.html?slug=${p.slug}" class="related-card"><div class="card-img">${p.images[0] ? `<img src="${p.images[0]}" alt="${p.name}">` : '<div class="no-image" style="height:100%">No image</div>'}${p.soldOut ? '<span class="sold-badge">Sold Out</span>' : ''}</div><div class="card-info"><p class="card-name">${p.name}</p><p class="card-price">$${p.price}</p></div></a>`).join('');
+        }
 
-                                thumbs.innerHTML = imgs.map((src, i) =>
-                                        `<button class="thumb ${i === 0 ? 'active' : ''}" onclick="goTo(${i})"><img src="${src}" alt="Thumbnail ${i + 1}"></button>`
-                                ).join('');
-                        }
-                }
+        function scrollRelated(dir) { document.getElementById('relatedScroll').scrollBy({ left: dir * 280, behavior: 'smooth' }); }
 
-                function goTo(i) {
-                        const imgs = product.images.map(convertGDriveUrl);
-                        if (i < 0 || i >= imgs.length) return;
-                        activeIndex = i;
-                        document.getElementById('mainImg').src = imgs[i];
-
-                        document.querySelectorAll('.dot').forEach((d, idx) => d.classList.toggle('active', idx === i));
-                        document.querySelectorAll('.thumb').forEach((t, idx) => t.classList.toggle('active', idx === i));
-                }
-
-                // Touch swipe on main image
-                let touchStartX = 0;
-                document.getElementById('mainImage').addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
-                document.getElementById('mainImage').addEventListener('touchend', e => {
-                        const dx = e.changedTouches[0].clientX - touchStartX;
-                        if (Math.abs(dx) > 50) goTo(activeIndex + (dx < 0 ? 1 : -1));
-                });
-
-                // ══════════════════════════════════════════════
-                // LIGHTBOX
-                // ══════════════════════════════════════════════
-                function openLightbox() {
-                        const imgs = product.images.map(convertGDriveUrl);
-                        if (imgs.length === 0) return;
-                        document.getElementById('lightboxImg').src = imgs[activeIndex];
-                        document.getElementById('lightbox').classList.add('open');
-                        document.body.style.overflow = 'hidden';
-                }
-
-                function closeLightbox() {
-                        document.getElementById('lightbox').classList.remove('open');
-                        document.body.style.overflow = '';
-                }
-
-                function changeImage(dir) {
-                        const imgs = product.images.map(convertGDriveUrl);
-                        const next = activeIndex + dir;
-                        if (next < 0 || next >= imgs.length) return;
-                        goTo(next);
-                        document.getElementById('lightboxImg').src = imgs[next];
-                }
-
-                // Escape key
-                document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
-
-                // ══════════════════════════════════════════════
-                // PRODUCT INFO (dynamic)
-                // ══════════════════════════════════════════════
-                function renderProductInfo() {
-                        if (!product) return;
-                        document.title = `${product.name} | Archive Closet`;
-                        document.getElementById('productName').textContent = product.name;
-                        document.getElementById('productPrice').textContent = `$${product.price}`;
-                        document.getElementById('sizeValue').textContent = product.size;
-
-                        // Era
-                        const eraBadge = document.getElementById('eraBadge');
-                        if (product.era) { eraBadge.textContent = product.era; eraBadge.style.display = 'inline-block'; }
-                        else { eraBadge.style.display = 'none'; }
-
-                        // Condition
-                        const conditions = ["Excellent", "Good", "Fair"];
-                        document.getElementById('conditionRow').innerHTML = conditions.map(c => `
-        <div class="condition-item">
-          <span class="condition-radio ${c === product.condition ? 'active' : ''}"><span class="radio-dot"></span></span>
-          <span class="condition-label ${c === product.condition ? 'active' : ''}">${c}</span>
-        </div>
-      `).join('');
-
-                        // Description
-                        const descBlock = document.getElementById('descriptionBlock');
-                        if (product.description) {
-                                descBlock.style.display = 'block';
-                                document.getElementById('descriptionText').textContent = product.description;
-                        } else {
-                                descBlock.style.display = 'none';
-                        }
-
-                        // CTA
-                        const cta = document.getElementById('ctaBtn');
-                        if (product.soldOut) {
-                                cta.className = 'cta-btn sold-out';
-                                cta.textContent = 'Sold Out';
-                                cta.removeAttribute('href');
-                                cta.removeAttribute('target');
-                        } else {
-                                const msg = `Hi! I'm interested in the ${product.name} (Size ${product.size}) — $${product.price}. Is it still available?`;
-                                cta.href = `https://wa.me/263718968489?text=${encodeURIComponent(msg)}`;
-                        }
-                }
-
-                // ══════════════════════════════════════════════
-                // RELATED PRODUCTS
-                // ══════════════════════════════════════════════
-                function renderRelated() {
-                        if (!product) return;
-                        if (relatedProducts.length === 0) {
-                                document.querySelector('.related-section').style.display = 'none';
-                                return;
-                        } else {
-                                document.querySelector('.related-section').style.display = 'block';
-                        }
-                        const container = document.getElementById('relatedScroll');
-                        container.innerHTML = relatedProducts.map(p => {
-                                const img = p.images[0] ? convertGDriveUrl(p.images[0]) : '';
-                                return `
-          <a href="product.html?slug=${p.slug}" class="related-card">
-            <div class="card-img">
-              ${img ? `<img src="${img}" alt="${p.name}">` : '<div class="no-image" style="height:100%">No image</div>'}
-              ${p.soldOut ? '<span class="sold-badge">Sold Out</span>' : ''}
-            </div>
-            <div class="card-info">
-              <p class="card-name">${p.name}</p>
-              <p class="card-price">$${p.price}</p>
-            </div>
-          </a>
-        `;
-                        }).join('');
-                }
-
-                function scrollRelated(dir) {
-                        document.getElementById('relatedScroll').scrollBy({ left: dir * 280, behavior: 'smooth' });
-                }
-
-                // ══════════════════════════════════════════════
-                // INIT
-                // ══════════════════════════════════════════════
-                fetchProduct();
-                document.getElementById('year').textContent = new Date().getFullYear();
-        </script>
-
-</body>
-
+        fetchProduct();
+        document.getElementById('year').textContent = new Date().getFullYear();
+        </script>
+
+</body>
+
 </html>
