@@ -597,7 +597,7 @@
         function applyFilters() {
             visible = PAGE_SIZE;
             let out = allProducts.slice();
-            if (state.gender) out = out.filter(p => p.gender === state.gender || p.gender === 'unisex');
+            if (state.gender) out = out.filter(p => p.gender === state.gender);
             if (state.category) out = out.filter(p => p.category === state.category);
             if (state.size) out = out.filter(p => (p.size || '').toUpperCase() === state.size);
             if (state.era) out = out.filter(p => (p.era || '').toLowerCase().includes(state.era.toLowerCase()));
