@@ -551,6 +551,10 @@
       } catch(e) { console.error(e); }
     }
     loadOutfits();
+
+    document.getElementById('mobileMenuBtn')?.addEventListener('click', () => {
+        document.getElementById('mobileMenu').classList.toggle('hidden');
+    });
   </script>
 </body>
 </html>
