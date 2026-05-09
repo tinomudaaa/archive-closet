@@ -24,6 +24,13 @@
         }
 
         :root {
+  --bg: #FFFFFF;
+  --fg: #1A1A1A;
+  --muted: #666666;
+  --border: #E5E5E5;
+  --surface: #F5F5F5;
+  --accent: #C45B3A;
+
             --bg: #FFFFFF;
             --text: #1A1A1A;
             --muted: #666666;
@@ -76,13 +83,15 @@
         }
 
         .nav-links {
-            display: none;
-            gap: 32px
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-left: 48px;
         }
 
-        @media(min-width:768px) {
+        @media (max-width: 767px) {
             .nav-links {
-                display: flex
+                display: none;
             }
         }
 
@@ -313,6 +322,39 @@
             font-size: 12px;
             color: var(--muted)
         }
+    
+.site-footer { border-top: 1px solid var(--border); }
+.footer-inner { max-width: 1280px; margin: 0 auto; padding: 48px 16px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; font-size: 12px; color: var(--muted); }
+@media (min-width: 768px) { .footer-inner { grid-template-columns: repeat(4, 1fr); padding: 48px 32px; } }
+.footer-col h4 { font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 16px; color: var(--fg); }
+.footer-col ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.footer-col a { color: var(--muted); transition: color 0.2s; }
+.footer-col a:hover { color: var(--accent); }
+.footer-bottom { text-align: center; padding: 24px 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
+@media (min-width: 768px) { .footer-bottom { padding: 24px 32px; } }
+
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            padding-left: 32px;
+        }
+
+        .header-logo {
+            width: 140px;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        @media (max-width: 767px) {
+            .header-logo {
+                width: 120px;
+            }
+            .header-left {
+                padding-left: 16px;
+            }
+        }
     </style>
 </head>
 
@@ -320,7 +362,9 @@
 
     <header class="nav">
         <div class="container nav-inner">
-            <a href="index.html" class="brand">ARCHIVE CLOSET</a>
+            <a href="index.html" class="header-left">
+  <img src="archive-closet-logo-final.svg" alt="Archive Closet" class="header-logo"/>
+</a>
             <nav class="nav-links">
                 <a href="shop.html?gender=menswear">MENS</a>
                 <a href="shop.html?gender=womenswear">WOMEN</a>
@@ -392,43 +436,41 @@
         </section>
     </main>
 
-    <footer>
-        <div class="container footer-grid">
-            <div>
-                <h4>ARCHIVE CLOSET</h4>
-                <p>Pieces worth keeping. Shipped from Harare.</p>
-            </div>
-            <div>
-                <h5>Shop</h5>
-                <ul>
-                    <li><a href="shop.html?gender=menswear">Menswear</a></li>
-                    <li><a href="shop.html?gender=womenswear">Womenswear</a></li>
-                    <li><a href="shop.html?gender=crochet">Crochet</a></li>
-                    <li><a href="drops.html">Drops</a></li>
-                </ul>
-            </div>
-            <div>
-                <h5>Help</h5>
-                <ul>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="about.html">Shipping</a></li>
-                    <li><a href="about.html">Returns</a></li>
-                </ul>
-            </div>
-            <div>
-                <h5>Follow</h5>
-                <ul>
-                    <li><a href="https://www.instagram.com/archivecloset.zw" target="_blank"
-                            rel="noopener">Instagram</a></li>
-                    <li><a href="https://wa.me/263718968489" target="_blank" rel="noopener">WhatsApp</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <div class="container">&copy; <span id="year"></span> Archive Closet. All rights reserved.</div>
-        </div>
-    </footer>
+    <footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>Archive Closet</h4>
+      <p>Rare finds for the bold.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="shop.html?gender=menswear">Mens</a></li>
+        <li><a href="shop.html?gender=womenswear">Women</a></li>
+        <li><a href="shop.html?gender=crochet">Crochet</a></li>
+        <li><a href="drops.html">Drops</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Help</h4>
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Follow</h4>
+      <ul>
+        <li><a href="https://www.instagram.com/archivecloset.zw" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://www.tiktok.com/@archivecloset.zw" target="_blank" rel="noopener">TikTok</a></li>
+        <li><a href="https://wa.me/263718968489" target="_blank" rel="noopener">WhatsApp</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; <span id="year"></span> Archive Closet. All rights reserved.
+  </div>
+</footer>
     <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 
 </body>

@@ -161,16 +161,73 @@
       outline: none;
       border-color: #fff
     }
-  </style>
+  
+.site-footer { border-top: 1px solid var(--border); }
+.footer-inner { max-width: 1280px; margin: 0 auto; padding: 48px 16px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; font-size: 12px; color: var(--muted); }
+@media (min-width: 768px) { .footer-inner { grid-template-columns: repeat(4, 1fr); padding: 48px 32px; } }
+.footer-col h4 { font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 16px; color: var(--fg); }
+.footer-col ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.footer-col a { color: var(--muted); transition: color 0.2s; }
+.footer-col a:hover { color: var(--accent); }
+.footer-bottom { text-align: center; padding: 24px 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
+@media (min-width: 768px) { .footer-bottom { padding: 24px 32px; } }
+
+:root {
+  --bg: #FFFFFF;
+  --fg: #1A1A1A;
+  --muted: #666666;
+  --border: #E5E5E5;
+  --surface: #F5F5F5;
+  --accent: #C45B3A;
+}
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            padding-left: 32px;
+        }
+
+        .header-logo {
+            width: 140px;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        @media (max-width: 767px) {
+            .header-logo {
+                width: 120px;
+            }
+            .header-left {
+                padding-left: 16px;
+            }
+        }
+    
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-left: 48px;
+        }
+
+        @media (max-width: 767px) {
+            .nav-links {
+                display: none;
+            }
+        }
+
+    </style>
 </head>
 
 <body class="bg-white text-ink">
 
   <!-- NAV -->
   <header class="border-b border-hairline sticky top-0 bg-white z-50">
-    <div class="max-w-[1400px] mx-auto px-4 md:px-8 xl:px-12 flex items-center justify-between h-16">
-      <a href="/" class="font-semibold text-[18px] tracking-tight">ARCHIVE CLOSET</a>
-      <nav class="hidden lg:flex items-center gap-8">
+    <div class="max-w-[1400px] mx-auto px-4 md:px-8 xl:px-12 flex items-center justify-start h-16">
+      <a href="index.html" class="header-left">
+  <img src="archive-closet-logo-final.svg" alt="Archive Closet" class="header-logo"/>
+</a>
+      <nav class="nav-links">
         <a href="shop.html?gender=menswear" class="navlink">Mens</a>
         <a href="shop.html?gender=womenswear" class="navlink">Women</a>
         <a href="shop.html?gender=crochet" class="navlink">Crochet</a>
@@ -178,7 +235,7 @@
         <a href="drops.html" class="navlink">Drops</a>
         <a href="about.html" class="navlink">About</a>
       </nav>
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-4 ml-auto">
 
         <a href="https://wa.me/263718968489?text=Hi%20Archive%20Closet%2C%20I%27m%20interested%20in%20a%20piece"
           target="_blank" rel="noopener" aria-label="WhatsApp" class="p-2 hover:text-accent">
@@ -274,7 +331,7 @@
       <h2 class="text-[24px] md:text-[32px] font-semibold mb-8 md:mb-12">SHOP BY CATEGORY</h2>
       <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
         <a href="shop.html?category=tops" class="cat-card relative block aspect-[3/4] overflow-hidden bg-surface group">
-          <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=900&auto=format&fit=crop&q=80"
+          <img src="images/t-shirts.png"
             alt="Tops" class="w-full h-full object-cover" loading="lazy" />
           <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
           <div class="absolute bottom-0 left-0 right-0 p-4 md:p-6 flex items-end justify-between text-white">
@@ -286,7 +343,7 @@
           </div>
         </a>
         <a href="shop.html?category=bottoms" class="cat-card relative block aspect-[3/4] overflow-hidden bg-surface group">
-          <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=900&auto=format&fit=crop&q=80"
+          <img src="images/bottom.png"
             alt="Bottoms" class="w-full h-full object-cover" loading="lazy" />
           <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
           <div class="absolute bottom-0 left-0 right-0 p-4 md:p-6 flex items-end justify-between text-white">
@@ -299,7 +356,7 @@
         </a>
         <a href="shop.html?category=outerwear"
           class="cat-card relative block aspect-[3/4] overflow-hidden bg-surface group col-span-2 md:col-span-1">
-          <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=900&auto=format&fit=crop&q=80"
+          <img src="images/outwear.png"
             alt="Outerwear" class="w-full h-full object-cover" loading="lazy" />
           <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
           <div class="absolute bottom-0 left-0 right-0 p-4 md:p-6 flex items-end justify-between text-white">
@@ -381,49 +438,41 @@
 
 
   <!-- FOOTER -->
-  <footer class="bg-white border-t border-hairline">
-    <div class="max-w-[1400px] mx-auto px-4 md:px-8 xl:px-12 py-16 grid grid-cols-2 md:grid-cols-4 gap-10">
-      <div>
-        <div class="label mb-5">Pages</div>
-        <ul class="space-y-3 text-sm">
-          <li><a href="shop.html" class="hover:text-accent">Shop</a></li>
-          <li><a href="drops.html" class="hover:text-accent">Drops</a></li>
-          <li><a href="about.html" class="hover:text-accent">About</a></li>
-          <li><a href="contact.html" class="hover:text-accent">Contact</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="label mb-5">Category</div>
-        <ul class="space-y-3 text-sm">
-          <li><a href="shop.html?category=tops" class="hover:text-accent">Tops</a></li>
-          <li><a href="shop.html?category=bottoms" class="hover:text-accent">Bottoms</a></li>
-          <li><a href="shop.html?category=outerwear" class="hover:text-accent">Outerwear</a></li>
-          <li><a href="shop.html?category=dresses" class="hover:text-accent">Dresses</a></li>
-          <li><a href="shop.html?category=sets" class="hover:text-accent">Sets</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="label mb-5">Brand</div>
-        <ul class="space-y-3 text-sm">
-          <li><a href="shop.html?brand=levis" class="hover:text-accent">Levi's</a></li>
-          <li><a href="shop.html?brand=carhartt" class="hover:text-accent">Carhartt</a></li>
-          <li><a href="shop.html?brand=dickies" class="hover:text-accent">Dickies</a></li>
-          <li><a href="shop.html?brand=nike" class="hover:text-accent">Nike</a></li>
-          <li><a href="shop.html?brand=adidas" class="hover:text-accent">Adidas</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="label mb-5">Follow Us</div>
-        <ul class="space-y-3 text-sm">
-          <li><a href="https://www.instagram.com/archivecloset.zw" target="_blank" rel="noopener" class="hover:text-accent">Instagram</a></li>
-          <li><a href="https://www.tiktok.com/@archivecloset.zw" target="_blank" rel="noopener" class="hover:text-accent">TikTok</a></li>
-          <li><a href="https://www.pinterest.com/archivecloset" target="_blank" rel="noopener" class="hover:text-accent">Pinterest</a></li>
-          <li><a href="https://wa.me/263718968489" target="_blank" rel="noopener" class="hover:text-accent">WhatsApp</a></li>
-        </ul>
-      </div>
+  <footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>Archive Closet</h4>
+      <p>Rare finds for the bold.</p>
     </div>
-    <div class="border-t border-hairline py-6 text-center text-xs text-muted">© <span id="footerYear"></span> Archive Closet. All rights reserved.</div>
-  </footer>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="shop.html?gender=menswear">Mens</a></li>
+        <li><a href="shop.html?gender=womenswear">Women</a></li>
+        <li><a href="shop.html?gender=crochet">Crochet</a></li>
+        <li><a href="drops.html">Drops</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Help</h4>
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Follow</h4>
+      <ul>
+        <li><a href="https://www.instagram.com/archivecloset.zw" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://www.tiktok.com/@archivecloset.zw" target="_blank" rel="noopener">TikTok</a></li>
+        <li><a href="https://wa.me/263718968489" target="_blank" rel="noopener">WhatsApp</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; <span id="year"></span> Archive Closet. All rights reserved.
+  </div>
+</footer>
 
   <script>
     // Mobile menu
@@ -465,20 +514,15 @@
     }
 
     function fallbackProducts() {
-      const imgs = [
-        'photo-1521572163474-6864f9cf17ab', 'photo-1542272604-787c3835535d', 'photo-1591047139829-d91aecb6caea',
-        'photo-1490481651871-ab68de25d43d', 'photo-1551028719-00167b16eac5', 'photo-1529139574466-a303027c1d8b',
-        'photo-1483985988355-763728e1935b', 'photo-1485125639709-a60c3a500bf1'
-      ];
-      const names = ['Carhartt Detroit Jacket', 'Levi\'s 501 Vintage', 'Dickies Work Pant', 'Nike Windrunner 90s', 'Champion Reverse Weave', 'Adidas Track Top', 'Vintage Wool Cardigan', 'Crochet Tank — One-of-One'];
-      return imgs.map((id, i) => ({
-        name: names[i], price: 30 + i * 8, size: ['S', 'M', 'L', 'XL'][i % 4], slug: 'item-' + i, sold: i === 4,
-        img: `https://images.unsplash.com/${id}?w=800&auto=format&fit=crop&q=80`
-      }));
+      return []; // No mock data — show empty state if Airtable fails
     }
 
     function renderProducts(items) {
       const grid = document.getElementById('productGrid');
+      if (items.length === 0) {
+        grid.innerHTML = '<div class="col-span-full text-center py-12 text-muted">No pieces in this drop yet. Check back Sunday.</div>';
+        return;
+      }
       grid.innerHTML = items.map(p => `
       <a href="product.html?slug=${encodeURIComponent(p.slug)}" class="group block ${p.sold ? 'sold' : ''}">
         <div class="relative overflow-hidden">
@@ -492,7 +536,7 @@
     }
 
     loadProducts();
-    document.getElementById('footerYear').textContent = new Date().getFullYear();
+    document.getElementById('year').textContent = new Date().getFullYear();
 
     // Drop outfits carousel
     const dropOutfits = [

@@ -1,0 +1,31 @@
+<svg width="100%" viewBox="0 0 320 90" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>Archive Closet logo</title>
+  <desc>Archive Closet elegant serif wordmark with 4-point sparkle star</desc>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400&amp;display=swap');
+  </style>
+
+  <text
+    x="148"
+    y="42"
+    text-anchor="middle"
+    font-family="'Cormorant Garamond', Georgia, serif"
+    font-size="38"
+    font-weight="300"
+    fill="#111111"
+    letter-spacing="0.5">Archive</text>
+
+  <text
+    x="155"
+    y="78"
+    text-anchor="middle"
+    font-family="'Cormorant Garamond', Georgia, serif"
+    font-size="38"
+    font-weight="300"
+    fill="#111111"
+    letter-spacing="0.5">Closet</text>
+
+  <path d="M228,18 L229.8,26 L238,27.8 L229.8,29.6 L228,37.5 L226.2,29.6 L218,27.8 L226.2,26 Z" fill="#111111"/>
+
+</svg>
