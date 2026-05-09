@@ -1171,13 +1171,15 @@
           return publicUrl;
         }
 
+        function cap(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : ''; }
+
         async function loadAdminData() {
           const { data: p } = await db.from('products').select('*').order('created_at', { ascending: false });
           const { data: o } = await db.from('outfits').select('*').order('created_at', { ascending: false });
           products = (p || []).map(x => ({
             id: x.id, name: x.name, slug: x.slug, price: x.price, size: x.size,
-            gender: x.gender, category: x.category, subcategory: x.subcategory || '',
-            era: x.era, condition: x.condition || '', description: x.description,
+            gender: cap(x.gender), category: cap(x.category), subcategory: cap(x.subcategory || ''),
+            era: x.era || '', condition: cap(x.condition || ''), description: x.description,
             image: x.image_url || '', drop: false, featured: !!x.featured, soldOut: !!x.sold_out
           }));
           outfits = (o || []).map(x => ({
@@ -1414,7 +1416,7 @@ document.getElementById('productSaveBtn').onclick = async () => {
         category: document.getElementById('pCategory').value.toLowerCase(),
         subcategory: document.getElementById('pSubcategory').value,
         era: document.getElementById('pEra').value,
-        condition: document.getElementById('pCondition').value,
+        condition: document.getElementById('pCondition').value.toLowerCase(),
         description: document.getElementById('pDescription').value.trim(),
         image_url: imageUrl,
         featured: document.getElementById('pFeatured').checked,

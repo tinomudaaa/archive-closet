@@ -1011,7 +1011,7 @@
           const eraBadge = document.getElementById('eraBadge');
           if (product.era) { eraBadge.textContent = product.era; eraBadge.style.display = 'inline-block'; } else { eraBadge.style.display = 'none'; }
           const conditions = ["Excellent", "Good", "Fair"];
-          document.getElementById('conditionRow').innerHTML = conditions.map(c => `<div class="condition-item"><span class="condition-radio ${c === product.condition ? 'active' : ''}"><span class="radio-dot"></span></span><span class="condition-label ${c === product.condition ? 'active' : ''}">${c}</span></div>`).join('');
+          document.getElementById('conditionRow').innerHTML = conditions.map(c => `<div class="condition-item"><span class="condition-radio ${c.toLowerCase() === (product.condition || '').toLowerCase() ? 'active' : ''}"><span class="radio-dot"></span></span><span class="condition-label ${c.toLowerCase() === (product.condition || '').toLowerCase() ? 'active' : ''}">${c}</span></div>`).join('');
           const descBlock = document.getElementById('descriptionBlock');
           if (product.description) { descBlock.style.display = 'block'; document.getElementById('descriptionText').textContent = product.description; } else { descBlock.style.display = 'none'; }
           const cta = document.getElementById('ctaBtn');
