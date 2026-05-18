@@ -833,7 +833,7 @@
         <main class="product-section">
                 <div class="product-grid">
 
-                        <!-- Left â€” Gallery -->
+                        <!-- Left — Gallery -->
                         <div class="gallery" id="gallery">
                                 <div class="main-image" id="mainImage" onclick="openLightbox()">
                                         <!-- Replace src with your product images -->
@@ -848,7 +848,7 @@
                                 <div class="thumbnails" id="thumbnails"></div>
                         </div>
 
-                        <!-- Right â€” Info -->
+                        <!-- Right — Info -->
                         <div class="product-info">
                                 <span class="era-badge" id="eraBadge" style="display:none"></span>
 
@@ -897,7 +897,7 @@
                                 <a id="ctaBtn" class="cta-btn"
                                         href="https://wa.me/263718968489?text=Hi!%20I'm%20interested%20in%20the%20Silk%20Blouse%20in%20Cream%20(Size%20M)%20%E2%80%94%20%2445.%20Is%20it%20still%20available%3F"
                                         target="_blank" rel="noopener noreferrer">
-                                        Order on WhatsApp â†’
+                                        Order on WhatsApp →
                                 </a>
 
                                 <a href="shop.html" class="back-link">â† Back to Shop</a>
@@ -1046,7 +1046,7 @@
                         document.querySelector('.related-section').style.display = 'none';
                         const notFound = document.createElement('div');
                         notFound.className = 'not-found';
-                        notFound.innerHTML = `<div class="nf-icon">ðŸ”</div><h2>This piece isn't in the archive anymore.</h2><p>It may have sold out or been moved.</p><a href="shop.html" class="nf-cta">Shop Current Drop â†’</a>`;
+                        notFound.innerHTML = `<div class="nf-icon">ðŸ”</div><h2>This piece isn't in the archive anymore.</h2><p>It may have sold out or been moved.</p><a href="shop.html" class="nf-cta">Shop Current Drop →</a>`;
                         document.body.insertBefore(notFound, document.querySelector('.related-section'));
                 }
 
@@ -1115,7 +1115,7 @@
                         if (product.description) { descBlock.style.display = 'block'; document.getElementById('descriptionText').textContent = product.description; } else { descBlock.style.display = 'none'; }
                         const cta = document.getElementById('ctaBtn');
                         if (product.soldOut) { cta.className = 'cta-btn sold-out'; cta.textContent = 'Sold Out'; cta.removeAttribute('href'); cta.removeAttribute('target'); }
-                        else { const msg = `Hi! I'm interested in the ${product.name} (Size ${product.size}) â€” $${product.price}. Is it still available?`; cta.href = `https://wa.me/263718968489?text=${encodeURIComponent(msg)}`; }
+                        else { const msg = `Hi! I'm interested in the ${product.name} (Size ${product.size}) — $${product.price}. Is it still available?`; cta.href = `https://wa.me/263718968489?text=${encodeURIComponent(msg)}`; }
                 }
 
                 function renderRelated() {
