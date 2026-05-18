@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -529,10 +529,26 @@
 
     document.getElementById('year').textContent = new Date().getFullYear();
 
+    let fallbackInterval;
+    const fallbackImages = ['images/Fallback image.png', 'images/Fallback image2.png', 'images/Fallback image3.png'];
+    let fallbackIdx = 0;
+    
+    function startFallback() {
+      fallbackInterval = setInterval(() => {
+        fallbackIdx = (fallbackIdx + 1) % fallbackImages.length;
+        const imgEl = document.getElementById('outfitImg');
+        if (imgEl) imgEl.src = fallbackImages[fallbackIdx];
+      }, 5000);
+    }
+    startFallback();
+
     async function loadOutfits() {
       try {
         const { data, error } = await db.from('outfits').select('*').limit(5);
         if (error || !data || data.length === 0) return;
+        
+        clearInterval(fallbackInterval);
+        
         let idx = 0;
         function show() {
           const o = data[idx];
