@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,8 +6,8 @@
     <link rel="icon" type="image/svg+xml" href="archive-closet-logo-final.svg">
     <link rel="shortcut icon" href="archive-closet-logo-final.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shop — Archive Closet</title>
-    <meta name="description" content="Shop the Archive Closet — menswear, womenswear, and crochet." />
+    <title>Shop â€” Archive Closet</title>
+    <meta name="description" content="Shop the Archive Closet â€” menswear, womenswear, and crochet." />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -251,7 +251,7 @@
 
     <!-- Nav -->
     <header class="border-b border-hairline sticky top-0 z-40 bg-white">
-  <div class="max-w-[1400px] mx-auto px-5 md:px-8 h-16 flex items-center justify-between">
+  <div class="max-w-[1400px] px-5 md:px-8 h-16 flex items-center justify-between">
     <a href="index.html" class="header-left">
       <img src="archive-closet-logo-final.svg" alt="Archive Closet" class="header-logo"/>
     </a>
@@ -349,16 +349,16 @@
                 <select id="priceFilter" class="filter-select">
                     <option value="">Price</option>
                     <option value="0-10">Under $10</option>
-                    <option value="10-20">$10–$20</option>
-                    <option value="20-30">$20–$30</option>
-                    <option value="30-50">$30–$50</option>
+                    <option value="10-20">$10â€“$20</option>
+                    <option value="20-30">$20â€“$30</option>
+                    <option value="30-50">$30â€“$50</option>
                     <option value="50-9999">Over $50</option>
                 </select>
                 <div class="ml-auto">
                     <select id="sortFilter" class="sort-select">
                         <option value="newest">Sort: Newest</option>
-                        <option value="price-asc">Price Low–High</option>
-                        <option value="price-desc">Price High–Low</option>
+                        <option value="price-asc">Price Lowâ€“High</option>
+                        <option value="price-desc">Price Highâ€“Low</option>
                     </select>
                 </div>
             </div>
@@ -391,7 +391,7 @@
             <button id="clearFiltersBtn" class="mt-5 underline text-sm">Clear all filters</button>
         </div>
         <div id="loadMoreWrap" class="hidden text-center mt-12">
-            <button id="loadMoreBtn" class="btn-primary">Load more <span>→</span></button>
+            <button id="loadMoreBtn" class="btn-primary">Load more <span>â†’</span></button>
         </div>
     </main>
 
@@ -478,9 +478,9 @@
                 <select id="priceFilterM" class="filter-select w-full">
                     <option value="">All</option>
                     <option value="0-10">Under $10</option>
-                    <option value="10-20">$10–$20</option>
-                    <option value="20-30">$20–$30</option>
-                    <option value="30-50">$30–$50</option>
+                    <option value="10-20">$10â€“$20</option>
+                    <option value="20-30">$20â€“$30</option>
+                    <option value="30-50">$30â€“$50</option>
                     <option value="50-9999">Over $50</option>
                 </select>
             </div>
@@ -630,7 +630,7 @@
         </div>
         <div class="mt-2">
           <div class="text-sm font-medium truncate">${p.name}</div>
-          <div class="text-xs text-muted mt-1">$${p.price}${p.size ? ` · Size ${p.size}` : ''}</div>
+          <div class="text-xs text-muted mt-1">$${p.price}${p.size ? ` Â· Size ${p.size}` : ''}</div>
         </div>
       </a>`;
             }).join('');

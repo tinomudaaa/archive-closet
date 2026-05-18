@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -88,7 +88,7 @@
                         max-width: 100%;
                 }
 
-                /* ── Tokens ── */
+                /* â”€â”€ Tokens â”€â”€ */
                 :root {
                         --bg: #FFFFFF;
                         --fg: #1A1A1A;
@@ -162,7 +162,7 @@
                         background: #C45B3A;
                 }
 
-                /* ── Breadcrumb ── */
+                /* â”€â”€ Breadcrumb â”€â”€ */
                 .breadcrumb {
                         max-width: 1280px;
                         margin: 0 auto;
@@ -195,7 +195,7 @@
                         color: var(--fg);
                 }
 
-                /* ── Product Grid ── */
+                /* â”€â”€ Product Grid â”€â”€ */
                 .product-section {
                         max-width: 1280px;
                         margin: 0 auto;
@@ -226,7 +226,7 @@
                         }
                 }
 
-                /* ── Gallery ── */
+                /* â”€â”€ Gallery â”€â”€ */
                 .gallery {
                         display: flex;
                         flex-direction: column;
@@ -334,7 +334,7 @@
                         color: var(--muted);
                 }
 
-                /* ── Lightbox ── */
+                /* â”€â”€ Lightbox â”€â”€ */
                 .lightbox {
                         position: fixed;
                         inset: 0;
@@ -387,7 +387,7 @@
                         right: 16px;
                 }
 
-                /* ── Product Info ── */
+                /* â”€â”€ Product Info â”€â”€ */
                 .product-info {
                         display: flex;
                         flex-direction: column;
@@ -535,7 +535,7 @@
                         text-decoration: underline;
                 }
 
-                /* ── Related ── */
+                /* â”€â”€ Related â”€â”€ */
                 .related-section {
                         border-top: 1px solid var(--border);
                         padding: 48px 0;
@@ -657,7 +657,7 @@
                         margin-top: 4px;
                 }
 
-                /* ── Footer ── */
+                /* â”€â”€ Footer â”€â”€ */
                 .site-footer {
                         border-top: 1px solid var(--border);
                 }
@@ -719,7 +719,7 @@
                         }
                 }
 
-                /* ── Not Found ── */
+                /* â”€â”€ Not Found â”€â”€ */
                 .not-found {
                         display: flex;
                         flex-direction: column;
@@ -768,7 +768,7 @@
 <body>
 
         <header class="border-b border-hairline sticky top-0 z-40 bg-white">
-                <div class="max-w-[1400px] mx-auto px-5 md:px-8 h-16 flex items-center justify-between">
+                <div class="max-w-[1400px] px-5 md:px-8 h-16 flex items-center justify-between">
                         <a href="index.html" class="header-left">
                                 <img src="archive-closet-logo-final.svg" alt="Archive Closet" class="header-logo" />
                         </a>
@@ -823,17 +823,17 @@
                 </div>
         </header>
 
-        <!-- ════ BREADCRUMB ════ -->
+        <!-- â•â•â•â• BREADCRUMB â•â•â•â• -->
         <div class="breadcrumb">
                 <a href="shop.html">Shop</a><span>/</span>
                 <span class="current"></span>
         </div>
 
-        <!-- ════ PRODUCT ════ -->
+        <!-- â•â•â•â• PRODUCT â•â•â•â• -->
         <main class="product-section">
                 <div class="product-grid">
 
-                        <!-- Left — Gallery -->
+                        <!-- Left â€” Gallery -->
                         <div class="gallery" id="gallery">
                                 <div class="main-image" id="mainImage" onclick="openLightbox()">
                                         <!-- Replace src with your product images -->
@@ -848,7 +848,7 @@
                                 <div class="thumbnails" id="thumbnails"></div>
                         </div>
 
-                        <!-- Right — Info -->
+                        <!-- Right â€” Info -->
                         <div class="product-info">
                                 <span class="era-badge" id="eraBadge" style="display:none"></span>
 
@@ -897,15 +897,15 @@
                                 <a id="ctaBtn" class="cta-btn"
                                         href="https://wa.me/263718968489?text=Hi!%20I'm%20interested%20in%20the%20Silk%20Blouse%20in%20Cream%20(Size%20M)%20%E2%80%94%20%2445.%20Is%20it%20still%20available%3F"
                                         target="_blank" rel="noopener noreferrer">
-                                        Order on WhatsApp →
+                                        Order on WhatsApp â†’
                                 </a>
 
-                                <a href="shop.html" class="back-link">← Back to Shop</a>
+                                <a href="shop.html" class="back-link">â† Back to Shop</a>
                         </div>
                 </div>
         </main>
 
-        <!-- ════ RELATED PRODUCTS ════ -->
+        <!-- â•â•â•â• RELATED PRODUCTS â•â•â•â• -->
         <section class="related-section">
                 <div class="related-inner">
                         <div class="related-header">
@@ -935,7 +935,7 @@
                 </div>
         </section>
 
-        <!-- ════ FOOTER ════ -->
+        <!-- â•â•â•â• FOOTER â•â•â•â• -->
         <footer class="site-footer">
                 <div class="footer-inner">
                         <div class="footer-col">
@@ -976,7 +976,7 @@
         </footer>
         <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 
-        <!-- ════ LIGHTBOX ════ -->
+        <!-- â•â•â•â• LIGHTBOX â•â•â•â• -->
         <div class="lightbox" id="lightbox" onclick="closeLightbox()">
                 <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"
@@ -1046,7 +1046,7 @@
                         document.querySelector('.related-section').style.display = 'none';
                         const notFound = document.createElement('div');
                         notFound.className = 'not-found';
-                        notFound.innerHTML = `<div class="nf-icon">🔍</div><h2>This piece isn't in the archive anymore.</h2><p>It may have sold out or been moved.</p><a href="shop.html" class="nf-cta">Shop Current Drop →</a>`;
+                        notFound.innerHTML = `<div class="nf-icon">ðŸ”</div><h2>This piece isn't in the archive anymore.</h2><p>It may have sold out or been moved.</p><a href="shop.html" class="nf-cta">Shop Current Drop â†’</a>`;
                         document.body.insertBefore(notFound, document.querySelector('.related-section'));
                 }
 
@@ -1115,7 +1115,7 @@
                         if (product.description) { descBlock.style.display = 'block'; document.getElementById('descriptionText').textContent = product.description; } else { descBlock.style.display = 'none'; }
                         const cta = document.getElementById('ctaBtn');
                         if (product.soldOut) { cta.className = 'cta-btn sold-out'; cta.textContent = 'Sold Out'; cta.removeAttribute('href'); cta.removeAttribute('target'); }
-                        else { const msg = `Hi! I'm interested in the ${product.name} (Size ${product.size}) — $${product.price}. Is it still available?`; cta.href = `https://wa.me/263718968489?text=${encodeURIComponent(msg)}`; }
+                        else { const msg = `Hi! I'm interested in the ${product.name} (Size ${product.size}) â€” $${product.price}. Is it still available?`; cta.href = `https://wa.me/263718968489?text=${encodeURIComponent(msg)}`; }
                 }
 
                 function renderRelated() {

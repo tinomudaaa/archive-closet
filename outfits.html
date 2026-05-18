@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -99,7 +99,7 @@
         .navlink.active { color: #C45B3A; }
         .navlink.active::after { content: ''; position: absolute; left: 0; right: 0; bottom: -6px; height: 1px; background: #C45B3A; }
 
-                /* ── Page Header ── */
+                /* â”€â”€ Page Header â”€â”€ */
                 .page-header {
                         max-width: 1280px;
                         margin: 0 auto;
@@ -126,7 +126,7 @@
                         color: var(--muted);
                 }
 
-                /* ── Filter Bar ── */
+                /* â”€â”€ Filter Bar â”€â”€ */
                 .filter-bar {
                         max-width: 1280px;
                         margin: 0 auto;
@@ -173,7 +173,7 @@
                         border-color: var(--fg);
                 }
 
-                /* ── Outfits Grid ── */
+                /* â”€â”€ Outfits Grid â”€â”€ */
                 .outfits-section {
                         max-width: 1280px;
                         margin: 0 auto;
@@ -199,7 +199,7 @@
                         }
                 }
 
-                /* ── Outfit Card ── */
+                /* â”€â”€ Outfit Card â”€â”€ */
                 .outfit-card {
                         position: relative;
                         aspect-ratio: 3/4;
@@ -314,12 +314,12 @@
                         color: #fff;
                 }
 
-                /* ── Placeholder card (no image) ── */
+                /* â”€â”€ Placeholder card (no image) â”€â”€ */
                 .outfit-placeholder {
                         background: linear-gradient(135deg, var(--fg) 0%, #333 100%);
                 }
 
-                /* ── Empty State ── */
+                /* â”€â”€ Empty State â”€â”€ */
                 .empty-state {
                         text-align: center;
                         padding: 80px 16px;
@@ -336,7 +336,7 @@
                         margin-top: 8px;
                 }
 
-                /* ── Loading Skeleton ── */
+                /* â”€â”€ Loading Skeleton â”€â”€ */
                 .skeleton-grid {
                         display: grid;
                         grid-template-columns: 1fr;
@@ -368,7 +368,7 @@
                         }
                 }
 
-                /* ── Footer ── */
+                /* â”€â”€ Footer â”€â”€ */
                 .site-footer { border-top: 1px solid var(--border); }
                 .footer-inner { max-width: 1280px; margin: 0 auto; padding: 48px 16px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; font-size: 12px; color: var(--muted); }
                 @media (min-width: 768px) { .footer-inner { grid-template-columns: repeat(4, 1fr); padding: 48px 32px; } }
@@ -386,7 +386,7 @@
 <body>
 
   <header class="border-b border-hairline sticky top-0 z-40 bg-white">
-    <div class="max-w-[1400px] mx-auto px-5 md:px-8 h-16 flex items-center justify-between">
+    <div class="max-w-[1400px] px-5 md:px-8 h-16 flex items-center justify-between">
       <a href="index.html" class="header-left">
         <img src="archive-closet-logo-final.svg" alt="Archive Closet" class="header-logo"/>
       </a>
@@ -437,21 +437,21 @@
     </div>
   </header>
 
-        <!-- ══════════ PAGE HEADER ══════════ -->
+        <!-- â•â•â•â•â•â•â•â•â•â• PAGE HEADER â•â•â•â•â•â•â•â•â•â• -->
         <div class="page-header">
                 <h1>This Week's Looks</h1>
                 <p>Styled fits. Shoppable pieces.</p>
         </div>
 
-        <!-- ══════════ VIBE FILTER BAR ══════════ -->
+        <!-- â•â•â•â•â•â•â•â•â•â• VIBE FILTER BAR â•â•â•â•â•â•â•â•â•â• -->
         <div class="filter-bar" id="filterBar"></div>
 
-        <!-- ══════════ OUTFITS GRID ══════════ -->
+        <!-- â•â•â•â•â•â•â•â•â•â• OUTFITS GRID â•â•â•â•â•â•â•â•â•â• -->
         <section class="outfits-section">
                 <div id="outfitsGrid"></div>
         </section>
 
-        <!-- ══════════ FOOTER ══════════ -->
+        <!-- â•â•â•â•â•â•â•â•â•â• FOOTER â•â•â•â•â•â•â•â•â•â• -->
         <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-col">
@@ -494,8 +494,8 @@
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlwZGFobHFsZ3VtenhqYXJreW9qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxNzYyMTgsImV4cCI6MjA5Mzc1MjIxOH0.WeiTB7CinagWcyfXb_BXsZWA0eRpnaDD6_UNr7psyfY';
         const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-                // ══════════════════════════════════════════════
-                // ══════════════════════════════════════════════
+                // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+                // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
                 let outfits = [];
                 let activeVibe = "All";
@@ -521,9 +521,9 @@
 
                 const VIBES = ["All", "Baddie", "Soft", "Street", "Going Out", "Casual"];
 
-                // ══════════════════════════════════════════════
+                // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
                 // HELPERS
-                // ══════════════════════════════════════════════
+                // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 
                 function getImageUrl(outfit) {
@@ -544,9 +544,9 @@
                         return itemsStr.split(',').map(s => s.trim()).filter(Boolean);
                 }
 
-                // ══════════════════════════════════════════════
+                // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
                 // RENDER FILTERS
-                // ══════════════════════════════════════════════
+                // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
                 function renderFilters() {
                         const bar = document.getElementById('filterBar');
                         bar.innerHTML = VIBES.map(v =>
@@ -560,9 +560,9 @@
                         renderOutfits();
                 }
 
-                // ══════════════════════════════════════════════
+                // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
                 // RENDER OUTFITS
-                // ══════════════════════════════════════════════
+                // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
                 function renderOutfits() {
                         const grid = document.getElementById('outfitsGrid');
                         const filtered = activeVibe === 'All' ? outfits : outfits.filter(o => o.vibe.toLowerCase() === activeVibe.toLowerCase());
@@ -609,18 +609,18 @@
                         }).join('');
                 }
 
-                // ══════════════════════════════════════════════
+                // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
                 // LOADING SKELETON
-                // ══════════════════════════════════════════════
+                // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
                 function showSkeleton() {
                         const grid = document.getElementById('outfitsGrid');
                         grid.className = 'skeleton-grid';
                         grid.innerHTML = Array(4).fill('<div class="skeleton-card"></div>').join('');
                 }
 
-                // ══════════════════════════════════════════════
+                // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
                 // INIT
-                // ══════════════════════════════════════════════
+                // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
                 showSkeleton();
                 fetchOutfits();
                 document.getElementById('year').textContent = new Date().getFullYear();

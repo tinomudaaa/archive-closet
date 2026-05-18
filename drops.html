@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -107,7 +107,7 @@
         .navlink.active { color: #C45B3A; }
         .navlink.active::after { content: ''; position: absolute; left: 0; right: 0; bottom: -6px; height: 1px; background: #C45B3A; }
 
-        /* ── Hero ── */
+        /* â”€â”€ Hero â”€â”€ */
         .hero {
             text-align: center;
             padding: 64px 16px;
@@ -168,7 +168,7 @@
             background: rgba(26, 26, 26, 0.8);
         }
 
-        /* ── Countdown ── */
+        /* â”€â”€ Countdown â”€â”€ */
         .countdown-section {
             background: var(--surface);
             padding: 48px 16px;
@@ -265,7 +265,7 @@
             color: #a34a2e;
         }
 
-        /* ── Section Header ── */
+        /* â”€â”€ Section Header â”€â”€ */
         .section-header {
             display: flex;
             align-items: baseline;
@@ -301,7 +301,7 @@
             color: var(--fg);
         }
 
-        /* ── Product Grid ── */
+        /* â”€â”€ Product Grid â”€â”€ */
         .drop-section {
             max-width: 1280px;
             margin: 0 auto;
@@ -398,7 +398,7 @@
             color: var(--muted);
         }
 
-        /* ── Empty State ── */
+        /* â”€â”€ Empty State â”€â”€ */
         .empty-state {
             text-align: center;
             padding: 48px 16px;
@@ -410,7 +410,7 @@
             line-height: 1.6;
         }
 
-        /* ── Footer ── */
+        /* â”€â”€ Footer â”€â”€ */
         .site-footer { border-top: 1px solid var(--border); }
         .footer-inner { max-width: 1280px; margin: 0 auto; padding: 48px 16px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; font-size: 12px; color: var(--muted); }
         @media (min-width: 768px) { .footer-inner { grid-template-columns: repeat(4, 1fr); padding: 48px 32px; } }
@@ -431,7 +431,7 @@
     <div class="bg-black text-white text-center py-2 label">NEW DROP EVERY SUNDAY</div>
 
     <header class="border-b border-hairline sticky top-0 z-40 bg-white">
-  <div class="max-w-[1400px] mx-auto px-5 md:px-8 h-16 flex items-center justify-between">
+  <div class="max-w-[1400px] px-5 md:px-8 h-16 flex items-center justify-between">
     <a href="index.html" class="header-left">
       <img src="archive-closet-logo-final.svg" alt="Archive Closet" class="header-logo"/>
     </a>
@@ -482,16 +482,16 @@
   </div>
 </header>
 
-    <!-- ════ HERO ════ -->
+    <!-- â•â•â•â• HERO â•â•â•â• -->
     <section class="hero">
         <h1 class="drop-number" id="dropNumber">THE LATEST DROP</h1>
         <div class="hero-divider"></div>
         <p class="hero-subtitle">The latest pieces, available now.</p>
         <p class="hero-tagline">Once they're gone, they're gone.</p>
-        <a href="#drop-grid" class="hero-cta">Shop This Drop →</a>
+        <a href="#drop-grid" class="hero-cta">Shop This Drop â†’</a>
     </section>
 
-    <!-- ════ COUNTDOWN ════ -->
+    <!-- â•â•â•â• COUNTDOWN â•â•â•â• -->
     <section class="countdown-section">
         <p class="countdown-label">Next Drop In</p>
         <div id="countdown" class="countdown-grid">
@@ -519,7 +519,7 @@
         </a>
     </section>
 
-    <!-- ════ THIS DROP ════ -->
+    <!-- â•â•â•â• THIS DROP â•â•â•â• -->
     <section class="drop-section" id="drop-grid">
         <div class="section-header">
             <h2 class="section-title">THIS DROP</h2>
@@ -531,16 +531,16 @@
         </div>
     </section>
 
-    <!-- ════ PAST DROPS ════ -->
+    <!-- â•â•â•â• PAST DROPS â•â•â•â• -->
     <section class="drop-section" id="pastDropsSection" style="display:none;">
         <div class="section-header">
             <h2 class="section-title">PAST DROPS</h2>
-            <a href="shop.html" class="section-link">View All →</a>
+            <a href="shop.html" class="section-link">View All â†’</a>
         </div>
         <div class="product-grid" id="pastDropsGrid"></div>
     </section>
 
-    <!-- ════ FOOTER ════ -->
+    <!-- â•â•â•â• FOOTER â•â•â•â• -->
     <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-col">
@@ -582,9 +582,9 @@
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlwZGFobHFsZ3VtenhqYXJreW9qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxNzYyMTgsImV4cCI6MjA5Mzc1MjIxOH0.WeiTB7CinagWcyfXb_BXsZWA0eRpnaDD6_UNr7psyfY';
         const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        // ══════════════════════════════════════════════
-        // COUNTDOWN — Next Sunday 12:00 PM CAT (UTC+2)
-        // ══════════════════════════════════════════════
+        // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+        // COUNTDOWN â€” Next Sunday 12:00 PM CAT (UTC+2)
+        // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
         function getNextDropDate() {
             const now = new Date();
             // Work in UTC+2 (CAT)
@@ -641,8 +641,8 @@
         updateCountdown();
         setInterval(updateCountdown, 1000);
 
-        // ══════════════════════════════════════════════
-        // ══════════════════════════════════════════════
+        // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+        // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
         let currentDrop = [];
         let pastDrops = [];
@@ -732,9 +732,9 @@
             }
         }
 
-        // ══════════════════════════════════════════════
+        // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
         // RENDER HELPERS
-        // ══════════════════════════════════════════════
+        // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 
         function renderCard(p) {
