@@ -1019,13 +1019,18 @@
                                 if (error) throw error;
                                 if (!records || records.length === 0) { showNotFound(); return; }
                                 const p = records[0];
+                                let images = p.image_url ? [p.image_url] : [];
+                                const { data: imgRecords } = await db.from('product_images').select('*').eq('product_id', p.id).order('position', { ascending: true });
+                                if (imgRecords && imgRecords.length > 0) {
+                                        images = imgRecords.map(r => r.image_url);
+                                }
                                 product = {
                                         id: p.id, name: p.name, slug: p.slug,
                                         price: Number(p.price || 0), size: p.size || '',
                                         gender: p.gender || '', category: p.category || '',
                                         condition: p.condition || '', era: p.era || '',
                                         description: p.description || '',
-                                        images: p.image_url ? [p.image_url] : [],
+                                        images: images,
                                         soldOut: !!p.sold_out
                                 };
                                 const { data: rel } = await db.from('products').select('*').eq('gender', product.gender).eq('sold_out', false).neq('slug', slug).limit(8);

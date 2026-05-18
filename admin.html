@@ -1029,9 +1029,8 @@
             </div>
 <div class="form-section">
     <div class="form-section-title">Media</div>
-    <div class="form-group"><label>Product Image</label><input type="file" id="pImageFile" accept="image/jpeg,image/png,image/webp"></div>
-    <img class="img-preview" id="pImagePreview" alt="Preview">
-    <input type="hidden" id="pImageUrl">
+    <div class="form-group"><label>Product Images</label><input type="file" id="pImageFile" accept="image/jpeg,image/png,image/webp" multiple></div>
+    <div id="pImagesContainer" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;"></div>
 </div>
             <div class="form-section">
                 <div class="form-section-title">Description</div>
@@ -1183,6 +1182,7 @@
           renderAll();
         }
 
+let productImages = [];
 let editingProductId = null;
         let editingOutfitId = null;
         let confirmCallback = null;
@@ -1354,21 +1354,67 @@ let editingProductId = null;
             if (!editingProductId) document.getElementById('pSlug').value = slugify(document.getElementById('pName').value);
         };
 
+        document.getElementById('pImageFile').onchange = (e) => {
+            const files = Array.from(e.target.files);
+            for (const file of files) {
+                const tempUrl = URL.createObjectURL(file);
+                productImages.push({ image_url: tempUrl, file: file, position: productImages.length + 1 });
+            }
+            document.getElementById('pImageFile').value = '';
+            renderProductImages();
+        };
+
+        function renderProductImages() {
+            const container = document.getElementById('pImagesContainer');
+            if (!container) return;
+            const activeImages = productImages.filter(img => !img.deleted).sort((a, b) => a.position - b.position);
+            activeImages.forEach((img, idx) => img.position = idx + 1);
+            container.innerHTML = activeImages.map((img, idx) => `
+                <div style="position:relative;width:100px;height:130px;border:1px solid #E5E7EB;border-radius:4px;overflow:hidden;background:#f9fafb;">
+                    <img src="${img.image_url}" style="width:100%;height:100px;object-fit:cover;">
+                    ${img.position === 1 ? '<div style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.7);color:#fff;font-size:10px;padding:2px 4px;border-radius:2px;">Main</div>' : ''}
+                    <button type="button" onclick="deleteProductImage(${idx})" style="position:absolute;top:4px;right:4px;background:#ef4444;color:#fff;border:none;border-radius:50%;width:20px;height:20px;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
+                    <div style="display:flex;justify-content:space-between;padding:4px;background:#fff;border-top:1px solid #E5E7EB;">
+                        <button type="button" onclick="moveProductImage(${idx}, -1)" ${idx === 0 ? 'disabled' : ''} style="background:#fff;border:1px solid #ddd;cursor:pointer;border-radius:2px;padding:2px 6px;font-size:10px;">◀</button>
+                        <button type="button" onclick="moveProductImage(${idx}, 1)" ${idx === activeImages.length - 1 ? 'disabled' : ''} style="background:#fff;border:1px solid #ddd;cursor:pointer;border-radius:2px;padding:2px 6px;font-size:10px;">▶</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        window.deleteProductImage = function(idx) {
+            const activeImages = productImages.filter(img => !img.deleted).sort((a, b) => a.position - b.position);
+            const img = activeImages[idx];
+            if (img.id) img.deleted = true;
+            else productImages = productImages.filter(x => x !== img);
+            renderProductImages();
+        };
+
+        window.moveProductImage = function(idx, dir) {
+            const activeImages = productImages.filter(img => !img.deleted).sort((a, b) => a.position - b.position);
+            if (idx + dir >= 0 && idx + dir < activeImages.length) {
+                const temp = activeImages[idx].position;
+                activeImages[idx].position = activeImages[idx + dir].position;
+                activeImages[idx + dir].position = temp;
+                renderProductImages();
+            }
+        };
+
 
 
         function resetProductForm() {
             ['pName', 'pSlug', 'pPrice', 'pDescription'].forEach(id => document.getElementById(id).value = '');
-document.getElementById('pImageFile').value = '';
-document.getElementById('pImageUrl').value = '';
+            document.getElementById('pImageFile').value = '';
+            productImages = [];
+            renderProductImages();
             ['pSize', 'pGender', 'pEra', 'pCondition'].forEach(id => document.getElementById(id).selectedIndex = 0);
             document.getElementById('pCategory').innerHTML = '<option value="">Select gender first</option>';
             document.getElementById('pSubcategory').innerHTML = '<option value="">Select category first</option>';
             ['pDrop', 'pFeatured', 'pSoldOut'].forEach(id => document.getElementById(id).checked = false);
-            document.getElementById('pImagePreview').style.display = 'none';
             editingProductId = null;
         }
 
-        window.editProduct = function (id) {
+        window.editProduct = async function (id) {
             const p = products.find(x => x.id === id);
             if (!p) return;
             editingProductId = id;
@@ -1384,10 +1430,17 @@ document.getElementById('pImageUrl').value = '';
             if (p.subcategory) document.getElementById('pSubcategory').value = p.subcategory;
             document.getElementById('pEra').value = p.era || '';
             document.getElementById('pCondition').value = p.condition || '';
-            document.getElementById('pImageUrl').value = p.image || '';
-document.getElementById('pImageFile').value = '';
-document.getElementById('pImagePreview').style.display = p.image ? 'block' : 'none';
-if (p.image) document.getElementById('pImagePreview').src = p.image;
+            
+            productImages = [];
+            const { data: imgs } = await db.from('product_images').select('*').eq('product_id', id).order('position', { ascending: true });
+            if (imgs && imgs.length > 0) {
+                productImages = imgs.map(img => ({ id: img.id, image_url: img.image_url, position: img.position }));
+            } else if (p.image) {
+                productImages = [{ image_url: p.image, position: 1 }];
+            }
+            renderProductImages();
+            document.getElementById('pImageFile').value = '';
+            
             document.getElementById('pDescription').value = p.description || '';
             document.getElementById('pDrop').checked = p.drop;
             document.getElementById('pFeatured').checked = p.featured;
@@ -1401,12 +1454,21 @@ document.getElementById('productSaveBtn').onclick = async () => {
     const name = document.getElementById('pName').value.trim();
     if (!name) { alert('Product name is required'); return; }
     const slug = document.getElementById('pSlug').value.trim() || slugify(name);
-    let imageUrl = document.getElementById('pImageUrl').value;
-    const fileInput = document.getElementById('pImageFile');
-    if (fileInput.files && fileInput.files[0]) {
-        const uploadedUrl = await uploadProductImage(fileInput.files[0], slug);
-        if (uploadedUrl) imageUrl = uploadedUrl;
+    
+    document.getElementById('productSaveBtn').disabled = true;
+    document.getElementById('productSaveBtn').textContent = 'Saving...';
+    
+    // Process images
+    const activeImages = productImages.filter(img => !img.deleted).sort((a, b) => a.position - b.position);
+    for (const img of productImages) {
+        if (!img.deleted && img.file) {
+            const uploadedUrl = await uploadProductImage(img.file, slug);
+            if (uploadedUrl) {
+                img.image_url = uploadedUrl;
+            }
+        }
     }
+    
     const data = {
         slug, name,
         price: parseInt(document.getElementById('pPrice').value) || 0,
@@ -1417,24 +1479,45 @@ document.getElementById('productSaveBtn').onclick = async () => {
         era: document.getElementById('pEra').value,
         condition: document.getElementById('pCondition').value.toLowerCase(),
         description: document.getElementById('pDescription').value.trim(),
-        image_url: imageUrl,
+        image_url: activeImages.length ? activeImages[0].image_url : '',
         featured: document.getElementById('pFeatured').checked,
         sold_out: document.getElementById('pSoldOut').checked,
         drop_item: document.getElementById('pDrop').checked,
     };
+    
+    let pid = editingProductId;
     if (editingProductId) {
-        const { error } = await db.from('products').update(data).eq('id', editingProductId);
-        if (error) { alert('Save failed: ' + error.message); return; }
+        const { error } = await db.from('products').update(data).eq('id', pid);
+        if (error) { alert('Save failed: ' + error.message); document.getElementById('productSaveBtn').disabled = false; document.getElementById('productSaveBtn').textContent = 'Save Product'; return; }
     } else {
-        const { error } = await db.from('products').insert([data]);
-        if (error) { alert('Save failed: ' + error.message); return; }
+        const { data: newP, error } = await db.from('products').insert([data]).select();
+        if (error || !newP || !newP[0]) { alert('Save failed: ' + (error?.message || 'Unknown')); document.getElementById('productSaveBtn').disabled = false; document.getElementById('productSaveBtn').textContent = 'Save Product'; return; }
+        pid = newP[0].id;
     }
+    
+    // Sync product_images
+    for (const img of productImages) {
+        if (img.deleted && img.id) {
+            await db.from('product_images').delete().eq('id', img.id);
+        } else if (!img.deleted) {
+            if (img.id) {
+                await db.from('product_images').update({ position: img.position, image_url: img.image_url }).eq('id', img.id);
+            } else {
+                await db.from('product_images').insert([{ product_id: pid, image_url: img.image_url, position: img.position }]);
+            }
+        }
+    }
+    
+    document.getElementById('productSaveBtn').disabled = false;
+    document.getElementById('productSaveBtn').textContent = 'Save Product';
+    
     closeProductPanel();
     loadAdminData();
 };
 
         window.deleteProduct = function (id) {
             showConfirm('Delete Product', 'This product will be permanently removed.', async () => {
+                await db.from('product_images').delete().eq('product_id', id);
                 const { error } = await db.from('products').delete().eq('id', id);
                 if (error) { alert('Delete failed: ' + error.message); return; }
                 loadAdminData();
